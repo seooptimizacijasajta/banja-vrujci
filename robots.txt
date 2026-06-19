@@ -3,3 +3,4 @@ Allow: /
 Disallow: /admin.html
 
 Sitemap: https://banja-vrujci.vercel.app/sitemap.xml
+
