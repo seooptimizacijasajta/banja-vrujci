@@ -2,5 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 
-Sitemap: https://banja-vrujci.vercel.app/sitemap.xml
-
+Sitemap: https://www.vrujci.org/sitemap.xml
