@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Banja Vrujci</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f1ea;
+    color: #333;
+  }
+  header {
+    background: linear-gradient(to bottom, #3c4145, #24272a);
+    color: #fff;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header h1 { font-size: 18px; margin: 0; color: #f0901e; }
+  header .who { font-size: 12.5px; color: #ccc; }
+  header button {
+    background: #f0901e; border: none; color: #fff; padding: 8px 14px;
+    border-radius: 3px; cursor: pointer; font-size: 12.5px; font-weight: bold;
+  }
+  .wrap { max-width: 1200px; margin: 24px auto; padding: 0 20px; }
+
+  .login-box {
+    max-width: 420px; margin: 80px auto; background: #fff; padding: 30px;
+    border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.12); text-align: center;
+  }
+  .login-box h2 { color: #2c4951; margin-top: 0; }
+  .login-box p { font-size: 13px; color: #777; }
+  .login-box input {
+    width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc;
+    border-radius: 3px; font-size: 14px;
+  }
+  .login-box button {
+    width: 100%; padding: 10px; background: #2c4951; color: #fff; border: none;
+    border-radius: 3px; font-size: 14px; cursor: pointer; font-weight: bold;
+  }
+  .msg { margin-top: 12px; font-size: 12.5px; }
+  .msg.ok { color: #2a7a3b; } .msg.err { color: #b33; }
+
+  .card { background: #fff; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,.1); padding: 20px; margin-bottom: 20px; }
+  .card h2 { margin-top: 0; font-size: 16px; color: #2c4951; }
+  .field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 16px; }
+  .field-grid label { display: block; font-size: 11.5px; color: #888; margin-bottom: 3px; text-transform: uppercase; letter-spacing: .4px; }
+  .field-grid input, .field-grid textarea {
+    width: 100%; padding: 7px 8px; border: 1px solid #ddd; border-radius: 3px; font-size: 13px; font-family: inherit;
+  }
+  .field-grid textarea { resize: vertical; min-height: 50px; }
+  .full { grid-column: 1 / -1; }
+  .btn { padding: 8px 16px; border: none; border-radius: 3px; font-size: 13px; font-weight: bold; cursor: pointer; }
+  .btn-save { background: #6fa06a; color: #fff; }
+  .btn-add { background: #f0901e; color: #fff; }
+  .btn-del { background: #b33; color: #fff; }
+  .row-actions { display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end; }
+
+  table { width: 100%; border-collapse: collapse; }
+  .listing-card { border: 1px solid #eee; border-radius: 5px; padding: 14px; margin-bottom: 12px; }
+  .listing-card .top-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .listing-card .top-line strong { color: #2c4951; font-size: 14px; }
+  .pill { font-size: 10.5px; background: #eef3f1; color: #2c4951; padding: 2px 8px; border-radius: 10px; }
+  .hint { font-size: 11px; color: #999; margin-top: 2px; }
+  #status-banner { font-size: 12.5px; padding: 8px 14px; border-radius: 4px; margin-bottom: 16px; display: none; }
+  #status-banner.ok { background: #eaf6ec; color: #2a7a3b; display: block; }
+  #status-banner.err { background: #fbeaea; color: #b33; display: block; }
+</style>
+</head>
+<body>
+
+<div id="login-view" class="login-box">
+  <h2>Banja Vrujci — Admin</h2>
+  <p>Unesite email da dobijete link za prijavu (bez lozinke).</p>
+  <input type="email" id="login-email" placeholder="vas@email.com" value="banjavrujci@gmail.com">
+  <button id="send-link-btn">Pošalji link za prijavu</button>
+  <div class="msg" id="login-msg"></div>
+</div>
+
+<div id="admin-view" style="display:none;">
+  <header>
+    <h1>Banja Vrujci — Admin panel</h1>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span class="who" id="who-label"></span>
+      <button id="logout-btn">Odjava</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div id="status-banner"></div>
+
+    <div class="card">
+      <h2>Dodaj novi smeštaj</h2>
+      <div class="field-grid" id="new-fields">
+        <div><label>Naziv</label><input data-f="title" placeholder="npr. Vila Sofija"></div>
+        <div><label>Kategorija</label><input data-f="category" placeholder="npr. Vile" list="cat-list"></div>
+        <div class="full"><label>Link (href)</label><input data-f="href" placeholder="https://www.vrujci.org/..."></div>
+        <div class="full"><label>Slika (image_url)</label><input data-f="image_url" placeholder="https://..."></div>
+        <div class="full"><label>Kratak opis (excerpt)</label><textarea data-f="excerpt"></textarea></div>
+        <div><label>Slug (URL deo)</label><input data-f="slug" placeholder="vila-sofija"></div>
+        <div><label>Redosled (sort_order)</label><input data-f="sort_order" type="number" value="0"></div>
+        <div class="full"><label>SEO naslov (meta_title)</label><input data-f="meta_title"></div>
+        <div class="full"><label>SEO opis (meta_description)</label><textarea data-f="meta_description"></textarea></div>
+      </div>
+      <div class="row-actions">
+        <button class="btn btn-add" id="add-btn">Dodaj smeštaj</button>
+      </div>
+    </div>
+
+    <datalist id="cat-list"></datalist>
+
+    <div class="card">
+      <h2>Postojeći smeštaji (<span id="count-label">0</span>)</h2>
+      <div id="listings-list">Učitavanje…</div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const SUPABASE_URL = 'https://eckotcmqbpoftcseqzsa.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_0NrJlQyn97I7v6IKCLVUdw_uzvKVA4U';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const loginView = document.getElementById('login-view');
+  const adminView = document.getElementById('admin-view');
+  const loginMsg = document.getElementById('login-msg');
+  const statusBanner = document.getElementById('status-banner');
+
+  function esc(s){
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function showStatus(text, ok){
+    statusBanner.textContent = text;
+    statusBanner.className = ok ? 'ok' : 'err';
+    setTimeout(() => { statusBanner.style.display = 'none'; }, 4000);
+  }
+
+  document.getElementById('send-link-btn').addEventListener('click', async () => {
+    const email = document.getElementById('login-email').value.trim();
+    if (!email) return;
+    loginMsg.textContent = 'Slanje...';
+    loginMsg.className = 'msg';
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: window.location.href }
+    });
+    if (error) {
+      loginMsg.textContent = 'Greška: ' + error.message;
+      loginMsg.className = 'msg err';
+    } else {
+      loginMsg.textContent = 'Link za prijavu je poslat na ' + email + '. Provjerite email.';
+      loginMsg.className = 'msg ok';
+    }
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    location.reload();
+  });
+
+  const FIELDS = ['title','category','href','image_url','excerpt','slug','meta_title','meta_description','sort_order'];
+
+  async function loadListings(){
+    const { data, error } = await supabase.from('listings').select('*').order('sort_order', { ascending: true });
+    const wrap = document.getElementById('listings-list');
+    if (error) {
+      wrap.innerHTML = '<p style="color:#b33;">Greška pri učitavanju: ' + esc(error.message) + '</p>';
+      return;
+    }
+    document.getElementById('count-label').textContent = data.length;
+    const cats = [...new Set(data.map(r => r.category).filter(Boolean))];
+    document.getElementById('cat-list').innerHTML = cats.map(c => `<option value="${esc(c)}">`).join('');
+
+    wrap.innerHTML = '';
+    data.forEach(row => {
+      const card = document.createElement('div');
+      card.className = 'listing-card';
+      card.innerHTML = `
+        <div class="top-line">
+          <strong>${esc(row.title)}</strong>
+          <span class="pill">${esc(row.category)}</span>
+        </div>
+        <div class="field-grid">
+          <div><label>Naziv</label><input data-f="title" value="${esc(row.title)}"></div>
+          <div><label>Kategorija</label><input data-f="category" value="${esc(row.category)}" list="cat-list"></div>
+          <div class="full"><label>Link (href)</label><input data-f="href" value="${esc(row.href)}"></div>
+          <div class="full"><label>Slika (image_url)</label><input data-f="image_url" value="${esc(row.image_url)}"></div>
+          <div class="full"><label>Kratak opis (excerpt)</label><textarea data-f="excerpt">${esc(row.excerpt)}</textarea></div>
+          <div><label>Slug</label><input data-f="slug" value="${esc(row.slug)}"></div>
+          <div><label>Redosled</label><input data-f="sort_order" type="number" value="${esc(row.sort_order)}"></div>
+          <div class="full"><label>SEO naslov</label><input data-f="meta_title" value="${esc(row.meta_title)}"></div>
+          <div class="full"><label>SEO opis</label><textarea data-f="meta_description">${esc(row.meta_description)}</textarea></div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-del" data-id="${row.id}" data-action="delete">Obriši</button>
+          <button class="btn btn-save" data-id="${row.id}" data-action="save">Sačuvaj</button>
+        </div>
+      `;
+      wrap.appendChild(card);
+    });
+  }
+
+  function readFields(container){
+    const out = {};
+    container.querySelectorAll('[data-f]').forEach(el => {
+      const key = el.dataset.f;
+      out[key] = key === 'sort_order' ? (parseInt(el.value, 10) || 0) : el.value.trim();
+    });
+    return out;
+  }
+
+  document.getElementById('listings-list').addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const card = btn.closest('.listing-card');
+    if (btn.dataset.action === 'delete') {
+      if (!confirm('Obrisati ovaj smeštaj?')) return;
+      const { error } = await supabase.from('listings').delete().eq('id', id);
+      if (error) return showStatus('Greška pri brisanju: ' + error.message, false);
+      showStatus('Obrisano.', true);
+      loadListings();
+    } else if (btn.dataset.action === 'save') {
+      const fields = readFields(card);
+      const { error } = await supabase.from('listings').update(fields).eq('id', id);
+      if (error) return showStatus('Greška pri čuvanju: ' + error.message, false);
+      showStatus('Sačuvano.', true);
+      loadListings();
+    }
+  });
+
+  document.getElementById('add-btn').addEventListener('click', async () => {
+    const container = document.getElementById('new-fields');
+    const fields = readFields(container);
+    if (!fields.title || !fields.href) {
+      return showStatus('Naziv i link (href) su obavezni.', false);
+    }
+    const { error } = await supabase.from('listings').insert(fields);
+    if (error) return showStatus('Greška pri dodavanju: ' + error.message, false);
+    container.querySelectorAll('[data-f]').forEach(el => { el.value = el.dataset.f === 'sort_order' ? '0' : ''; });
+    showStatus('Dodato.', true);
+    loadListings();
+  });
+
+  async function refreshAuthUI(session){
+    if (session && session.user) {
+      loginView.style.display = 'none';
+      adminView.style.display = 'block';
+      document.getElementById('who-label').textContent = session.user.email;
+      loadListings();
+    } else {
+      loginView.style.display = 'block';
+      adminView.style.display = 'none';
+    }
+  }
+
+  const { data: { session } } = await supabase.auth.getSession();
+  refreshAuthUI(session);
+
+  supabase.auth.onAuthStateChange((_event, session) => {
+    refreshAuthUI(session);
+  });
+</script>
+</body>
+</html>

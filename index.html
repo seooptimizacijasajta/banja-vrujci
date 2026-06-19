@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banja Vrujci Smeštaj - Privatni Smeštaj Banja Vrujci</title>
+<meta name="description" content="Banja Vrujci smeštaj - turistički vodič za apartmane, vile, sobe, hotele, vikendice i privatni smeštaj u Banji Vrujci. Kompletna ponuda sa slikama, cenama i kontakt informacijama.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://banja-vrujci.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Banja Vrujci">
+<meta property="og:title" content="Banja Vrujci Smeštaj - Privatni Smeštaj Banja Vrujci">
+<meta property="og:description" content="Apartmani, vile, sobe, hoteli, vikendice i privatni smeštaj u Banji Vrujci - kompletna turistička ponuda na jednom mestu.">
+<meta property="og:image" content="https://www.vrujci.org/wp-content/rockettheme/rt_vermilion_wp/home/heder/Banja-Vrujci.jpg">
+<meta property="og:url" content="https://banja-vrujci.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Banja Vrujci Smeštaj">
+<meta name="twitter:description" content="Apartmani, vile, sobe, hoteli, vikendice i privatni smeštaj u Banji Vrujci.">
+<meta name="twitter:image" content="https://www.vrujci.org/wp-content/rockettheme/rt_vermilion_wp/home/heder/Banja-Vrujci.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23f0901e'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EV%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristInformationCenter",
+  "name": "Banja Vrujci",
+  "url": "https://banja-vrujci.vercel.app/",
+  "description": "Turistički informativni sajt za smeštaj u Banji Vrujci: apartmani, vile, sobe, hoteli, vikendice i privatni smeštaj.",
+  "image": "https://www.vrujci.org/wp-content/rockettheme/rt_vermilion_wp/home/heder/Banja-Vrujci.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Banja Vrujci",
+    "addressCountry": "RS"
+  }
+}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #4a4a4a;
+    background: linear-gradient(135deg, #9fcfe0 0%, #b7d7cf 28%, #d3d4b9 55%, #e8e0c8 78%, #f1ead8 100%);
+    background-attachment: fixed;
+  }
+  a { text-decoration: none; }
+  .wrap { max-width: 1200px; margin: 0 auto; }
+
+  header.top {
+    background: linear-gradient(to bottom, #3c4145, #24272a);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .logo { font-size: 24px; font-weight: bold; color: #f0901e; line-height: 1.1; }
+  .logo span { display: block; font-size: 14px; letter-spacing: 1px; }
+  nav.mainmenu ul { list-style: none; display: flex; margin: 0; padding: 0; flex-wrap: wrap; }
+  nav.mainmenu li { position: relative; }
+  nav.mainmenu > ul > li > a {
+    display: block; padding: 12px 14px; color: #d8d8d8; font-size: 12px;
+    letter-spacing: .5px; font-weight: bold; text-transform: uppercase;
+  }
+  nav.mainmenu > ul > li:hover > a { background: #f0901e; color: #fff; }
+  nav.mainmenu .sub {
+    display: none; position: absolute; left: 0; top: 100%; background: #2e3236;
+    min-width: 220px; z-index: 50; box-shadow: 0 4px 10px rgba(0,0,0,.3);
+  }
+  nav.mainmenu li:hover .sub { display: block; }
+  nav.mainmenu .sub li a {
+    display: block; padding: 9px 16px; color: #ccc; font-size: 12px; text-transform: none;
+    font-weight: normal; border-top: 1px solid #3a3e42;
+  }
+  nav.mainmenu .sub li a:hover { background: #f0901e; color: #fff; }
+
+  .card { background: #fff; margin-top: 0; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+  .hero { padding: 26px 28px 18px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
+  .hero h1 { color: #f0901e; font-size: 30px; margin: 0 0 8px; }
+  .hero p { margin: 0; color: #777; font-size: 14px; max-width: 600px; }
+  .social { display: flex; gap: 8px; }
+  .social a { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px; }
+  .social .fb { background: #5b7ea8; }
+  .social .tw { background: #57c1de; }
+  .social .gp { background: #d8493b; }
+
+  .carousel { position: relative; height: 330px; overflow: hidden; margin: 0 28px; }
+  .carousel img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s; }
+  .carousel img.active { opacity: 1; }
+  .carousel .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(30,30,30,.55); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; z-index: 5; }
+  .carousel .prev { left: 10px; } .carousel .next { right: 10px; }
+  .dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
+  .dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.6); cursor: pointer; }
+  .dots span.active { background: #f0901e; }
+
+  .ticker { margin: 0 28px; background: #f0901e; color: #fff; display: flex; align-items: center; padding: 10px 0; }
+  .ticker .circ { width: 30px; height: 30px; min-width: 30px; border-radius: 50%; background: rgba(0,0,0,.25); display: flex; align-items: center; justify-content: center; margin: 0 12px; cursor: pointer; }
+  .ticker .txt { font-size: 13px; }
+  .ticker .txt b { margin-right: 6px; }
+
+  .intro { padding: 18px 28px; font-size: 13px; line-height: 1.7; color: #666; }
+  .intro a { color: #f0901e; }
+
+  .cols4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; padding: 4px 28px 24px; }
+  .cols4 h3 { color: #2b2b2b; font-size: 16px; margin: 6px 0 10px; }
+  .cols4 ul { list-style: none; margin: 0; padding: 0; }
+  .cols4 li { padding: 3px 0 3px 14px; position: relative; font-size: 12.5px; }
+  .cols4 li::before { content: "\2022"; color: #f0901e; position: absolute; left: 0; }
+  .cols4 li a { color: #f0901e; }
+  .cols4 li a:hover { text-decoration: underline; }
+  .adbanner { border-radius: 3px; padding: 14px 10px; color: #fff; font-weight: bold; text-align: center; font-size: 13px; margin-top: 10px; }
+  .adbanner span { display: block; font-size: 16px; margin-top: 6px; }
+  .ad-green { background: #6fa06a; }
+  .ad-navy { background: #1c2440; }
+  .ad-brown { background: #8a5a32; }
+
+  .about { padding: 6px 28px 28px; font-size: 13px; line-height: 1.8; color: #5a5a5a; text-align: justify; }
+  .about h4 { color: #333; font-size: 16px; }
+
+  .main-wrap { display: grid; grid-template-columns: 2.3fr 1fr; gap: 24px; padding: 0 28px 30px; }
+  .live-tag { font-size: 11px; color: #9a9a9a; margin-bottom: 10px; }
+  .live-tag i { color: #3ecf8e; margin-right: 4px; }
+  .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .post img, .post .ph { width: 100%; height: 110px; object-fit: cover; border-radius: 2px; display: block; }
+  .post .ph { background: linear-gradient(135deg, #e8c389, #f0901e); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; text-align: center; padding: 8px; }
+  .post h4 { margin: 10px 0 6px; }
+  .post h4 a { color: #f0901e; font-size: 14.5px; }
+  .post p { font-size: 12px; color: #777; line-height: 1.6; margin: 0; }
+  .post .cat { font-size: 10.5px; color: #aaa; text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; display: block; }
+
+  aside { background: #2c4951; border-radius: 4px; padding: 18px 20px; color: #cfe3e6; font-size: 12.5px; align-self: start; }
+  aside h3 { color: #fff; font-size: 14px; margin: 14px 0 8px; border-bottom: 1px solid rgba(255,255,255,.15); padding-bottom: 6px; }
+  aside h3:first-child { margin-top: 0; }
+  aside ul { list-style: none; margin: 0 0 4px; padding: 0; }
+  aside ul ul { padding-left: 14px; }
+  aside li { padding: 2px 0; }
+  aside li > a { color: #8fd3df; }
+  aside li > a:hover { color: #fff; }
+  aside .cat-head { color: #fff; font-weight: bold; font-size: 12.5px; margin-top: 10px; display: block; }
+
+  .contact-box { margin-top: 22px; border-radius: 4px; overflow: hidden; }
+  .contact-box .ch { background: #7fa67e; color: #fff; text-align: center; font-weight: bold; padding: 14px; font-size: 15px; }
+  .contact-box .cb { background: #2c4951; color: #cfe3e6; text-align: center; padding: 18px 16px; font-size: 12.5px; }
+  .contact-box .cb b { color: #fff; display: block; margin-bottom: 4px; }
+  .contact-box .cb a { color: #8fd3df; display: block; margin: 2px 0; }
+  .contact-box .logo-banner { margin-top: 14px; background: #1e3a44; border: 1px solid #3c5b62; border-radius: 4px; padding: 14px; }
+  .contact-box .logo-banner .lb-title { color: #4fc3e0; font-weight: bold; font-size: 17px; font-style: italic; }
+  .contact-box .logo-banner .lb-title em { color: #fff; font-style: italic; }
+  .contact-box .logo-banner .lb-url { color: #cfe3e6; font-size: 11px; margin-top: 4px; }
+
+  footer { text-align: center; padding: 26px 20px 10px; }
+  footer img { max-width: 260px; border-radius: 3px; }
+  .copyright { background: #1f2225; color: #9a9a9a; font-size: 11.5px; text-align: center; padding: 14px; margin-top: 14px; }
+  .copyright a { color: #cfa15a; }
+
+  @media (max-width: 900px) {
+    .cols4 { grid-template-columns: repeat(2, 1fr); }
+    .main-wrap { grid-template-columns: 1fr; }
+    .posts { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="logo">VRUJCI<span>.ORG</span></div>
+    <nav class="mainmenu">
+      <ul>
+        <li><a href="https://www.vrujci.org/banja-vrujci-smestaj/">Banja Vrujci smeštaj</a></li>
+        <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/">Apartmani <i class="fa fa-caret-down"></i></a>
+          <ul class="sub">
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/">Apartmani Bella</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-alfa-banja-vrujci/">Apartmani Alfa</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-lux-banja-vrujci/">Apartman LUX</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-jasminka-banja-vrujci/">Apartmani Jasminka</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-tamara-banja-vrujci/">Apartman Tamara</a></li>
+          </ul>
+        </li>
+        <li><a href="https://www.vrujci.org/banja-vrujci-hoteli/">Hoteli <i class="fa fa-caret-down"></i></a>
+          <ul class="sub"><li><a href="https://www.vrujci.org/banja-vrujci-hoteli/hotel-vrujci/">Hotel Vrujci</a></li></ul>
+        </li>
+        <li><a href="https://www.vrujci.org/banja-vrujci-vile/">Vile <i class="fa fa-caret-down"></i></a>
+          <ul class="sub">
+            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija/">Vila Sofija</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-ema-banja-vrujci/">Vila Ema</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena/">Vila Jelena</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-iva/">Vila Iva</a></li>
+          </ul>
+        </li>
+        <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/">Privatni Smeštaj <i class="fa fa-caret-down"></i></a>
+          <ul class="sub">
+            <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/smestaj-nikita-banja-vrujci/">Smeštaj Nikita</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/filipovic/">Filipović</a></li>
+          </ul>
+        </li>
+        <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/">Vikendice</a></li>
+        <li><a href="https://www.vrujci.org/banja-vrujci-sobe/">Sobe <i class="fa fa-caret-down"></i></a>
+          <ul class="sub"><li><a href="https://www.vrujci.org/banja-vrujci-sobe/sobe-goca-banja-vrujci/">Sobe Goca</a></li></ul>
+        </li>
+        <li><a href="https://www.vrujci.org/info-servis/">Info Servis <i class="fa fa-caret-down"></i></a>
+          <ul class="sub">
+            <li><a href="https://www.vrujci.org/info-servis/kontakt-info/">Kontakt Info</a></li>
+            <li><a href="https://www.vrujci.org/info-servis/vreme/">Vreme</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="card">
+    <div class="hero">
+      <div>
+        <h1>Banja Vrujci</h1>
+        <p>Apartmani vile sobe bazeni hoteli cene vikendice izdavanje i privatni smeštaj u Banji Vrujci.</p>
+      </div>
+      <div class="social">
+        <a class="fb" href="https://www.facebook.com/Banja.Vrujci"><i class="fa fa-facebook"></i></a>
+        <a class="tw" href="http://bit.ly/15ZZrLq"><i class="fa fa-twitter"></i></a>
+        <a class="gp" href="https://goo.gl/maps/NTDojkJNjyKsDHjv7"><i class="fa fa-google-plus"></i></a>
+      </div>
+    </div>
+
+    <div class="carousel" id="carousel">
+      <img class="active" src="https://www.vrujci.org/wp-content/rockettheme/rt_vermilion_wp/home/heder/Banja-Vrujci.jpg">
+      <img src="https://www.vrujci.org/wp-content/rockettheme/rt_vermilion_wp/home/heder/Hotel-Vrujci.jpg">
+      <img src="https://www.vrujci.org/wp-content/rockettheme/rt_vermilion_wp/home/heder/Banja-Vrujci-smestaj.jpg">
+      <img src="https://www.vrujci.org/wp-content/rockettheme/rt_vermilion_wp/home/heder/Spa-Vrujci-Srbija.jpg">
+      <img src="https://www.vrujci.org/wp-content/rockettheme/rt_vermilion_wp/home/heder/Banja-Vrujci-Bazeni.jpg">
+      <button class="nav-btn prev" onclick="moveSlide(-1)"><i class="fa fa-chevron-left"></i></button>
+      <button class="nav-btn next" onclick="moveSlide(1)"><i class="fa fa-chevron-right"></i></button>
+      <div class="dots" id="dots"></div>
+    </div>
+
+    <div class="ticker">
+      <div class="circ" onclick="moveSlide(-1)"><i class="fa fa-chevron-left"></i></div>
+      <div class="txt"><b>Banja Vrujci smeštaj:</b>Banja Vrujci smeštaj apartmani izdavanje sobe za iznajmljivanje, vile i vikendice, hotelski i privatan smeštaj u Banji Vrujci</div>
+      <div class="circ" style="margin-left:auto" onclick="moveSlide(1)"><i class="fa fa-chevron-right"></i></div>
+    </div>
+
+    <div class="intro">
+      Banja Vrujci smeštaj, turistički informativni sajt - internet vodič za smeštaj u Banji Vrujci - hoteli apartmani sobe vile kuće za odmor vikendice odmarališta konaci restorani i
+      <a href="https://www.banjavrujci.info">privatni smeštaj u Banji Vrujci</a>. Predstavljena je kompletna turistička ponuda Banje Vrujci. Svi objekti za smeštaj na sajtu vrujci.org su predstavljeni sa detaljnim opisima, slikama, cenama i kontakt informacijama. Ukoliko planirate da posetite Banju Vrujci, nadamo se da će vam ovaj sajt biti od koristi.
+    </div>
+
+    <div class="cols4">
+      <div>
+        <h3>Apartmani</h3>
+        <ul>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/">Apartmani Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/">Apartmani Bella</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">Apartmani Pakić</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-alfa-banja-vrujci/">Apartmani Alfa</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-stefanovic-banja-vrujci/">Apartmani Stefanović</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-jasminka-banja-vrujci/">Apartmani Jasminka</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-tri-delfina-banja-vrujci/">Apartman Tri Delfina</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-mira-banja-vrujci/">Apartman Mira</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Sobe</h3>
+        <ul>
+          <li><a href="https://www.vrujci.org/banja-vrujci-sobe/">Sobe Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-sobe/sobe-goca-banja-vrujci/">Sobe Goca</a></li>
+        </ul>
+        <div class="adbanner ad-green">BANJA VRUJCI &mdash; VILA JELENA<span>064 42 42 202</span></div>
+      </div>
+      <div>
+        <h3>Vile</h3>
+        <ul>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/">Vile Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija/">Vila Sofija</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-ema-banja-vrujci/">Vila Ema</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-aqua-casa-banja-vrujci/">Vila &quot;Aqua Casa&quot;</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena/">Vila Jelena</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-vila/">Vila Vila</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-elipsa/">Vila Elipsa</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-petra/">Turistički kompleks Petra</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-iva/">Vila Iva</a></li>
+        </ul>
+        <div class="adbanner ad-navy">VILA SOFIJA<span>064 144 144 1</span></div>
+      </div>
+      <div>
+        <h3>Hoteli</h3>
+        <ul>
+          <li><a href="https://www.vrujci.org/banja-vrujci-hoteli/">Hoteli Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-hoteli/hotel-vrujci/">Hotel Vrujci</a></li>
+        </ul>
+        <div class="adbanner ad-brown">BRVNARA I VILA PETRA<span>064 444 333 9</span></div>
+      </div>
+    </div>
+
+    <div class="cols4">
+      <div>
+        <h3>Privatni smeštaj</h3>
+        <ul>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/">Smeštaj u Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/smestaj-nikita-banja-vrujci/">Privatan Smeštaj Nikita</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/kuca-davidovic-banja-vrujci/">Kuća Davidović</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/sobe-za-izdavanje-cica-vulovic/">Sobe Vulović</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/filipovic/">Filipović</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Vikendice</h3>
+        <ul>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/">Vikendice Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/brvnare-oaza-mira-banja-vrujci/">Brvnare Oaza Mira</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/vikendica-bane-banja-vrujci/">Vikendica Bane</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/vajati-ivica-i-marica-banja-vrujci/">Vajati Ivica i Marica</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Nekretnine</h3>
+        <ul>
+          <li><a href="https://www.vrujci.org/info-servis/nekretnine/">Banja Vrujci nekretnine</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/nekretnine/stanovi-prodaja-stan-na-prodaju/">Stanovi na prodaju</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/nekretnine/prodaja-stanova/">Prodaja stanova</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Informacije</h3>
+        <ul>
+          <li><a href="https://www.vrujci.org/info-servis/kontakt-info/">Kontakt</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/linkovi-partnera/">Linkovi</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/banja-vrujci-smestaj-mapa/">Mapa smeštaja</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/vreme/">Vremenska prognoza</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="about">
+      <h4>Vrujci Banja Srbija - odmor zabava bazeni lečenje priroda i zdravlje</h4>
+      <p>Nekada davno na ovom mestu bili su samo izvori vode... još tada je postalo poznato kao mesto na kome se voda nikad ne zaledi... po narodnom predanju u tim vodama su srpski vojnici lečili svoje rane... danas je ovo mesto poznata turistička destinacija kako u Srbiji, tako i šire... danas je ovo mesto poznato kao Banja Vrujci. Nekada narodno lečilište, a danas moderan centar za medicinski i rekreativni turizam, Banja Vrujci iz godine u godinu svojom gostoljubivošću privlači sve veći broj posetilaca i s pravom se može reći da postaje sve popularnije mesto za odmor na ovim prostorima. Najpoznatija je po brojnim izvorima termalnih voda, koje vam mogu pomoći da se izlečite, da se oporavite posle bolesti i da povratite snagu koja vam je potrebna.</p>
+      <p>Banja Vrujci danas je čitav kompleks turističkih ponuda, jer na jednom mestu ovde možete naći i zabavu za najmlađe, i sportske terene i bazene za malo starije, a predivni parkovi i šume su odlični za šetnju svih onih koji žele da ostanu u formi. Raznovrstan smeštaj, odlična domaća hrana pripremljena sa mnogo ljubavi, izleti u okolna mesta koja mogu da ponude mnogo toga, samo su delić atmosfere koja svakodnevno vlada u Banji Vrujci. Uputite se u pravcu Mionice, u pravcu Maljena i Toplice, krenite put Ljiga i Divčibara, a između svih tih destinacija posetite obavezno Banju Vrujci.</p>
+    </div>
+
+    <div class="main-wrap">
+      <div>
+        <div class="live-tag"><i class="fa fa-circle"></i>smeštaj — učitano uživo iz baze (Supabase)</div>
+        <div class="posts" id="posts-grid">
+          <p style="padding:20px;color:#888;grid-column:1/-1;">Učitavanje smeštaja…</p>
+        </div>
+      </div>
+
+      <aside>
+        <h3>Smeštaj Banja Vrujci</h3>
+        <div id="sitemap-list">
+          <p style="color:#9bbfc4;">Učitavanje…</p>
+        </div>
+
+        <div class="contact-box">
+          <div class="ch">Brzi kontakt</div>
+          <div class="cb">
+            <b>Email:</b>
+            banjavrujcismestaj(@)vrujci.org
+            <div style="margin-top:10px;"><b>Partneri:</b></div>
+            <a href="https://www.banjavrujci.info/smestaj/apartmani">BANJA VRUJCI APARTMANI</a>
+            <a href="https://www.prirodnikamen.org.rs">PRIRODNI KAMEN</a>
+            <div class="logo-banner">
+              <div class="lb-title">Banja<em>VRUJCI</em></div>
+              <div class="lb-url">www.banja-vrujci.net</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <a href="https://www.banja-vrujci.net"><img src="https://www.vrujci.org/wp-content/uploads/2015/07/Banja-Vrujci-Net-Baner.jpg" alt="Banja-Vrujci.net baner"></a>
+    </footer>
+    <div class="copyright">
+      Copyright &copy; 2022 Vrujci.org, <a href="https://www.vrujci.org/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
+    </div>
+  </div>
+</div>
+
+<script>
+  var slides = document.querySelectorAll('#carousel img');
+  var dotsWrap = document.getElementById('dots');
+  var cur = 0;
+  slides.forEach(function(_, i){
+    var d = document.createElement('span');
+    if (i === 0) d.className = 'active';
+    d.onclick = function(){ goTo(i); };
+    dotsWrap.appendChild(d);
+  });
+  function render(){
+    slides.forEach(function(s, i){ s.classList.toggle('active', i === cur); });
+    dotsWrap.querySelectorAll('span').forEach(function(d, i){ d.classList.toggle('active', i === cur); });
+  }
+  function goTo(i){ cur = i; render(); }
+  function moveSlide(dir){ cur = (cur + dir + slides.length) % slides.length; render(); }
+  setInterval(function(){ moveSlide(1); }, 5000);
+</script>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const SUPABASE_URL = 'https://eckotcmqbpoftcseqzsa.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_0NrJlQyn97I7v6IKCLVUdw_uzvKVA4U';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function renderGrid(rows){
+    const grid = document.getElementById('posts-grid');
+    grid.innerHTML = '';
+    rows.forEach(row => {
+      const card = document.createElement('div');
+      card.className = 'post';
+      const media = row.image_url
+        ? `<a href="${esc(row.href)}"><img src="${esc(row.image_url)}" loading="lazy"></a>`
+        : `<a href="${esc(row.href)}"><div class="ph">${esc(row.category)}</div></a>`;
+      const excerpt = row.excerpt
+        ? `<p>${esc(row.excerpt)}</p>`
+        : `<p>Smeštaj u kategoriji ${esc(row.category)}, Banja Vrujci.</p>`;
+      card.innerHTML = `
+        ${media}
+        <h4><a href="${esc(row.href)}">${esc(row.title)}</a></h4>
+        <span class="cat">${esc(row.category)}</span>
+        ${excerpt}
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderSitemap(rows){
+    const wrap = document.getElementById('sitemap-list');
+    wrap.innerHTML = '';
+    const byCat = new Map();
+    rows.forEach(row => {
+      if (!byCat.has(row.category)) byCat.set(row.category, []);
+      byCat.get(row.category).push(row);
+    });
+    const ul = document.createElement('ul');
+    byCat.forEach((items, cat) => {
+      const li = document.createElement('li');
+      const sub = items.map(i => `<li><a href="${esc(i.href)}">${esc(i.title)}</a></li>`).join('');
+      li.innerHTML = `<span class="cat-head">${esc(cat)}</span><ul>${sub}</ul>`;
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('listings')
+      .select('*')
+      .order('sort_order', { ascending: true });
+    if (error) throw error;
+    renderGrid(data);
+    renderSitemap(data);
+  } catch (err) {
+    document.getElementById('posts-grid').innerHTML =
+      '<p style="padding:20px;color:#b33;grid-column:1/-1;">Greška pri učitavanju smeštaja iz baze.</p>';
+    document.getElementById('sitemap-list').innerHTML =
+      '<p style="color:#e3a;">Greška pri učitavanju.</p>';
+    console.error(err);
+  }
+</script>
+</body>
+</html>
