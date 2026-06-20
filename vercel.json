@@ -1,0 +1,28 @@
+{
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/banja-vrujci-vile", "destination": "/kategorija.html?cat=banja-vrujci-vile" },
+    { "source": "/banja-vrujci-vile/:slug", "destination": "/smestaj.html?slug=:slug" },
+
+    { "source": "/apartmani-banja-vrujci", "destination": "/kategorija.html?cat=apartmani-banja-vrujci" },
+    { "source": "/apartmani-banja-vrujci/:slug", "destination": "/smestaj.html?slug=:slug" },
+
+    { "source": "/banja-vrujci-hoteli", "destination": "/kategorija.html?cat=banja-vrujci-hoteli" },
+    { "source": "/banja-vrujci-hoteli/:slug", "destination": "/smestaj.html?slug=:slug" },
+
+    { "source": "/banja-vrujci-privatni-smestaj", "destination": "/kategorija.html?cat=banja-vrujci-privatni-smestaj" },
+    { "source": "/banja-vrujci-privatni-smestaj/:slug", "destination": "/smestaj.html?slug=:slug" },
+
+    { "source": "/banja-vrujci-vikendice", "destination": "/kategorija.html?cat=banja-vrujci-vikendice" },
+    { "source": "/banja-vrujci-vikendice/:slug", "destination": "/smestaj.html?slug=:slug" },
+
+    { "source": "/banja-vrujci-sobe", "destination": "/kategorija.html?cat=banja-vrujci-sobe" },
+    { "source": "/banja-vrujci-sobe/:slug", "destination": "/smestaj.html?slug=:slug" },
+
+    { "source": "/banja-vrujci-smestaj", "destination": "/stranica.html?slug=banja-vrujci-smestaj" },
+    { "source": "/banja-vrujci-smestaj-mapa", "destination": "/stranica.html?slug=banja-vrujci-smestaj-mapa" },
+
+    { "source": "/info-servis", "destination": "/stranica.html?slug=info-servis" },
+    { "source": "/info-servis/:slug", "destination": "/stranica.html?slug=:slug" }
+  ]
+}

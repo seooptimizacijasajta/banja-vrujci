@@ -164,9 +164,9 @@
 <div class="wrap">
 
   <header class="top">
-    <div class="logo">VRUJCI<span>.ORG</span></div>
+    <a class="logo" href="/" style="color:#f0901e;">VRUJCI<span>.ORG</span></a>
     <nav class="mainmenu">
-      <ul>
+      <ul id="mainmenu-list">
         <li><a href="https://www.vrujci.org/banja-vrujci-smestaj/">Banja Vrujci smeštaj</a></li>
         <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/">Apartmani <i class="fa fa-caret-down"></i></a>
           <ul class="sub">
@@ -438,6 +438,27 @@
     });
   }
 
+  function renderMenu(rows){
+    if (!rows || !rows.length) return;
+    const tops = rows.filter(r => !r.parent_id).sort((a,b)=>a.sort_order-b.sort_order);
+    const byParent = new Map();
+    rows.forEach(r => {
+      if (r.parent_id) {
+        if (!byParent.has(r.parent_id)) byParent.set(r.parent_id, []);
+        byParent.get(r.parent_id).push(r);
+      }
+    });
+    const ul = document.getElementById('mainmenu-list');
+    ul.innerHTML = tops.map(t => {
+      const kids = (byParent.get(t.id) || []).sort((a,b)=>a.sort_order-b.sort_order);
+      const caret = kids.length ? ' <i class="fa fa-caret-down"></i>' : '';
+      const sub = kids.length
+        ? `<ul class="sub">${kids.map(k => `<li><a href="${esc(k.href)}">${esc(k.label)}</a></li>`).join('')}</ul>`
+        : '';
+      return `<li><a href="${esc(t.href)}">${esc(t.label)}${caret}</a>${sub}</li>`;
+    }).join('');
+  }
+
   function renderSitemap(rows){
     const wrap = document.getElementById('sitemap-list');
     wrap.innerHTML = '';
@@ -572,6 +593,14 @@
     applySiteImages(data);
   } catch (err) {
     console.error('site_images load failed', err);
+  }
+
+  try {
+    const { data, error } = await supabase.from('site_menu').select('*').order('sort_order', { ascending: true });
+    if (error) throw error;
+    renderMenu(data);
+  } catch (err) {
+    console.error('site_menu load failed', err);
   }
 </script>
 </body>

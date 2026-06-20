@@ -115,6 +115,9 @@
       <button class="tab-btn" data-tab="sadrzaj">Sadržaj stranice</button>
       <button class="tab-btn" data-tab="seo">SEO podešavanja</button>
       <button class="tab-btn" data-tab="slike">Slike / Galerija</button>
+      <button class="tab-btn" data-tab="meni">Meni</button>
+      <button class="tab-btn" data-tab="kategorije">Kategorije</button>
+      <button class="tab-btn" data-tab="stranice">Stranice</button>
     </div>
 
     <div class="tab-panel active" id="tab-smestaji">
@@ -126,6 +129,10 @@
           <div class="full"><label>Link (href)</label><input data-f="href" placeholder="https://www.vrujci.org/..."></div>
           <div class="full"><label>Slika (image_url)</label><input data-f="image_url" placeholder="https://..."></div>
           <div class="full"><label>Kratak opis (excerpt)</label><textarea data-f="excerpt"></textarea></div>
+          <div class="full"><label>Pun opis (description) — prikazuje se na stranici smeštaja</label><textarea data-f="description" style="min-height:90px;"></textarea></div>
+          <div><label>Cena (price_text)</label><input data-f="price_text" placeholder="npr. od 30€/noć"></div>
+          <div><label>Telefon</label><input data-f="phone" placeholder="npr. +381 64 1234567"></div>
+          <div class="full"><label>Adresa</label><input data-f="address" placeholder="npr. Banja Vrujci, Srbija"></div>
           <div><label>Slug (URL deo)</label><input data-f="slug" placeholder="vila-sofija"></div>
           <div><label>Redosled (sort_order)</label><input data-f="sort_order" type="number" value="0"></div>
           <div class="full"><label>SEO naslov (meta_title)</label><input data-f="meta_title"></div>
@@ -175,11 +182,75 @@
             <option value="carousel">Karusel (početna)</option>
             <option value="footer">Footer baner</option>
             <option value="gallery">Galerija</option>
+            <option value="listing">Galerija smeštaja (po slug-u)</option>
           </select>
+          <input type="text" id="upload-listing-slug" placeholder="slug smeštaja, npr. vila-sofija" style="display:none;">
           <input type="file" id="upload-file" accept="image/*">
           <button class="btn btn-add" id="upload-btn">Otpremi sliku</button>
         </div>
+        <p class="hint">Za galeriju smeštaja izaberite "Galerija smeštaja" i unesite slug smeštaja (isti kao polje Slug kod tog smeštaja).</p>
         <div id="images-list">Učitavanje…</div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-meni">
+      <div class="card">
+        <h2>Dodaj stavku menija</h2>
+        <div class="field-grid" id="new-menu-fields">
+          <div><label>Naziv (label)</label><input data-f="label" placeholder="npr. Apartmani"></div>
+          <div><label>Link (href)</label><input data-f="href" placeholder="/apartmani-banja-vrujci/"></div>
+          <div><label>Roditeljska stavka</label><select data-f="parent_id"><option value="">— Glavna stavka (top-level) —</option></select></div>
+          <div><label>Redosled (sort_order)</label><input data-f="sort_order" type="number" value="0"></div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-add" id="add-menu-btn">Dodaj stavku</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Postojeće stavke menija</h2>
+        <p class="hint">Glavne stavke se prikazuju u meniju; stavke sa izabranom "roditeljskom stavkom" se prikazuju kao padajuća lista ispod nje.</p>
+        <div id="menu-list">Učitavanje…</div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-kategorije">
+      <div class="card">
+        <h2>Dodaj novu kategoriju</h2>
+        <div class="field-grid" id="new-cat-fields">
+          <div><label>Slug (URL deo)</label><input data-f="slug" placeholder="npr. banja-vrujci-vile"></div>
+          <div><label>Naziv</label><input data-f="title" placeholder="npr. Vile"></div>
+          <div class="full"><label>Opis</label><textarea data-f="description"></textarea></div>
+          <div class="full"><label>Slika (image_url)</label><input data-f="image_url" placeholder="https://..."></div>
+          <div><label>Redosled (sort_order)</label><input data-f="sort_order" type="number" value="0"></div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-add" id="add-cat-btn">Dodaj kategoriju</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Postojeće kategorije</h2>
+        <div id="cats-list">Učitavanje…</div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-stranice">
+      <div class="card">
+        <h2>Dodaj novu stranicu</h2>
+        <div class="field-grid" id="new-page-fields">
+          <div><label>Slug (URL deo)</label><input data-f="slug" placeholder="npr. kontakt-info"></div>
+          <div><label>Naziv</label><input data-f="title" placeholder="npr. Kontakt"></div>
+          <div class="full"><label>Sadržaj</label><textarea data-f="content" style="min-height:140px;"></textarea></div>
+          <div class="full"><label>SEO naslov (meta_title)</label><input data-f="meta_title"></div>
+          <div class="full"><label>SEO opis (meta_description)</label><textarea data-f="meta_description"></textarea></div>
+          <div><label>Redosled (sort_order)</label><input data-f="sort_order" type="number" value="0"></div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-add" id="add-page-btn">Dodaj stranicu</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Postojeće stranice</h2>
+        <div id="pages-list">Učitavanje…</div>
       </div>
     </div>
   </div>
@@ -312,13 +383,7 @@
       card.innerHTML = `
         <img src="${esc(row.url)}" loading="lazy">
         <div class="img-fields">
-          <div><label>Slot</label>
-            <select data-f="slot">
-              <option value="carousel" ${row.slot === 'carousel' ? 'selected' : ''}>Karusel (početna)</option>
-              <option value="footer" ${row.slot === 'footer' ? 'selected' : ''}>Footer baner</option>
-              <option value="gallery" ${row.slot === 'gallery' ? 'selected' : ''}>Galerija</option>
-            </select>
-          </div>
+          <div><label>Slot</label><input data-f="slot" value="${esc(row.slot)}" placeholder="npr. listing:vila-sofija"></div>
           <div><label>Alt tekst</label><input data-f="alt_text" value="${esc(row.alt_text)}"></div>
           <div><label>Redosled</label><input data-f="sort_order" type="number" value="${esc(row.sort_order)}"></div>
         </div>
@@ -357,14 +422,26 @@
     }
   });
 
+  document.getElementById('upload-slot').addEventListener('change', () => {
+    const isListing = document.getElementById('upload-slot').value === 'listing';
+    document.getElementById('upload-listing-slug').style.display = isListing ? '' : 'none';
+  });
+
   document.getElementById('upload-btn').addEventListener('click', async () => {
     const fileInput = document.getElementById('upload-file');
-    const slot = document.getElementById('upload-slot').value;
+    const slotChoice = document.getElementById('upload-slot').value;
+    let slot = slotChoice;
+    if (slotChoice === 'listing') {
+      const slugVal = document.getElementById('upload-listing-slug').value.trim();
+      if (!slugVal) return showStatus('Unesite slug smeštaja.', false);
+      slot = 'listing:' + slugVal;
+    }
     const file = fileInput.files[0];
     if (!file) return showStatus('Izaberite fajl.', false);
     showStatus('Otpremanje…', true);
     const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
-    const path = `${slot}/${Date.now()}-${safeName}`;
+    const pathSlot = slot.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const path = `${pathSlot}/${Date.now()}-${safeName}`;
     const { error: upErr } = await supabase.storage.from(BUCKET).upload(path, file, { cacheControl: '3600', upsert: false });
     if (upErr) return showStatus('Greška pri otpremanju: ' + upErr.message, false);
     const { data: pub } = supabase.storage.from(BUCKET).getPublicUrl(path);
@@ -373,6 +450,7 @@
     });
     if (insErr) return showStatus('Greška pri upisu: ' + insErr.message, false);
     fileInput.value = '';
+    document.getElementById('upload-listing-slug').value = '';
     showStatus('Slika dodata.', true);
     loadSiteImages();
   });
@@ -405,6 +483,10 @@
           <div class="full"><label>Link (href)</label><input data-f="href" value="${esc(row.href)}"></div>
           <div class="full"><label>Slika (image_url)</label><input data-f="image_url" value="${esc(row.image_url)}"></div>
           <div class="full"><label>Kratak opis (excerpt)</label><textarea data-f="excerpt">${esc(row.excerpt)}</textarea></div>
+          <div class="full"><label>Pun opis (description)</label><textarea data-f="description" style="min-height:90px;">${esc(row.description)}</textarea></div>
+          <div><label>Cena (price_text)</label><input data-f="price_text" value="${esc(row.price_text)}"></div>
+          <div><label>Telefon</label><input data-f="phone" value="${esc(row.phone)}"></div>
+          <div class="full"><label>Adresa</label><input data-f="address" value="${esc(row.address)}"></div>
           <div><label>Slug</label><input data-f="slug" value="${esc(row.slug)}"></div>
           <div><label>Redosled</label><input data-f="sort_order" type="number" value="${esc(row.sort_order)}"></div>
           <div class="full"><label>SEO naslov</label><input data-f="meta_title" value="${esc(row.meta_title)}"></div>
@@ -461,6 +543,214 @@
     loadListings();
   });
 
+  // ---------- Meni (site_menu) ----------
+  function menuParentOptionsHTML(tops, selectedId, excludeId){
+    return '<option value="">— Glavna stavka (top-level) —</option>' +
+      tops.filter(t => t.id !== excludeId).map(t =>
+        `<option value="${t.id}" ${String(t.id) === String(selectedId) ? 'selected' : ''}>${esc(t.label)}</option>`
+      ).join('');
+  }
+
+  function menuRowCard(row, tops, indented){
+    const card = document.createElement('div');
+    card.className = 'listing-card';
+    if (indented) card.style.marginLeft = '28px';
+    card.innerHTML = `
+      <div class="field-grid">
+        <div><label>Naziv (label)</label><input data-f="label" value="${esc(row.label)}"></div>
+        <div><label>Link (href)</label><input data-f="href" value="${esc(row.href)}"></div>
+        <div><label>Roditeljska stavka</label><select data-f="parent_id">${menuParentOptionsHTML(tops, row.parent_id, row.id)}</select></div>
+        <div><label>Redosled</label><input data-f="sort_order" type="number" value="${esc(row.sort_order)}"></div>
+      </div>
+      <div class="row-actions">
+        <button class="btn btn-del" data-id="${row.id}" data-action="delete">Obriši</button>
+        <button class="btn btn-save" data-id="${row.id}" data-action="save">Sačuvaj</button>
+      </div>
+    `;
+    return card;
+  }
+
+  async function loadMenu(){
+    const { data, error } = await supabase.from('site_menu').select('*').order('sort_order', { ascending: true });
+    const wrap = document.getElementById('menu-list');
+    if (error) { wrap.innerHTML = '<p style="color:#b33;">Greška: ' + esc(error.message) + '</p>'; return; }
+    const tops = data.filter(r => !r.parent_id).sort((a,b)=>a.sort_order-b.sort_order);
+    document.querySelector('#new-menu-fields [data-f="parent_id"]').innerHTML = menuParentOptionsHTML(tops, '', -1);
+
+    const byParent = new Map();
+    data.forEach(r => { if (r.parent_id) { if (!byParent.has(r.parent_id)) byParent.set(r.parent_id, []); byParent.get(r.parent_id).push(r); } });
+
+    wrap.innerHTML = '';
+    tops.forEach(top => {
+      wrap.appendChild(menuRowCard(top, tops, false));
+      (byParent.get(top.id) || []).sort((a,b)=>a.sort_order-b.sort_order).forEach(child => {
+        wrap.appendChild(menuRowCard(child, tops, true));
+      });
+    });
+    if (!data.length) wrap.innerHTML = '<p style="color:#999;">Nema stavki menija još.</p>';
+  }
+
+  function readMenuFields(container){
+    const out = {};
+    container.querySelectorAll('[data-f]').forEach(el => {
+      const key = el.dataset.f;
+      if (key === 'sort_order') out[key] = parseInt(el.value, 10) || 0;
+      else if (key === 'parent_id') out[key] = el.value ? parseInt(el.value, 10) : null;
+      else out[key] = el.value.trim();
+    });
+    return out;
+  }
+
+  document.getElementById('menu-list').addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const card = btn.closest('.listing-card');
+    if (btn.dataset.action === 'delete') {
+      if (!confirm('Obrisati ovu stavku menija? (Briše i pod-stavke.)')) return;
+      const { error } = await supabase.from('site_menu').delete().eq('id', id);
+      if (error) return showStatus('Greška pri brisanju: ' + error.message, false);
+      showStatus('Obrisano.', true);
+      loadMenu();
+    } else if (btn.dataset.action === 'save') {
+      const fields = readMenuFields(card);
+      const { error } = await supabase.from('site_menu').update(fields).eq('id', id);
+      if (error) return showStatus('Greška pri čuvanju: ' + error.message, false);
+      showStatus('Sačuvano.', true);
+      loadMenu();
+    }
+  });
+
+  document.getElementById('add-menu-btn').addEventListener('click', async () => {
+    const container = document.getElementById('new-menu-fields');
+    const fields = readMenuFields(container);
+    if (!fields.label || !fields.href) return showStatus('Naziv i link su obavezni.', false);
+    const { error } = await supabase.from('site_menu').insert(fields);
+    if (error) return showStatus('Greška pri dodavanju: ' + error.message, false);
+    container.querySelectorAll('input[data-f]').forEach(el => { el.value = el.dataset.f === 'sort_order' ? '0' : ''; });
+    showStatus('Dodato.', true);
+    loadMenu();
+  });
+
+  // ---------- Kategorije ----------
+  async function loadCategories(){
+    const { data, error } = await supabase.from('categories').select('*').order('sort_order', { ascending: true });
+    const wrap = document.getElementById('cats-list');
+    if (error) { wrap.innerHTML = '<p style="color:#b33;">Greška: ' + esc(error.message) + '</p>'; return; }
+    wrap.innerHTML = '';
+    data.forEach(row => {
+      const card = document.createElement('div');
+      card.className = 'listing-card';
+      card.innerHTML = `
+        <div class="top-line"><strong>${esc(row.title)}</strong><span class="pill">/${esc(row.slug)}/</span></div>
+        <div class="field-grid">
+          <div><label>Slug</label><input data-f="slug" value="${esc(row.slug)}"></div>
+          <div><label>Naziv</label><input data-f="title" value="${esc(row.title)}"></div>
+          <div class="full"><label>Opis</label><textarea data-f="description">${esc(row.description)}</textarea></div>
+          <div class="full"><label>Slika (image_url)</label><input data-f="image_url" value="${esc(row.image_url)}"></div>
+          <div><label>Redosled</label><input data-f="sort_order" type="number" value="${esc(row.sort_order)}"></div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-del" data-id="${row.id}" data-action="delete">Obriši</button>
+          <button class="btn btn-save" data-id="${row.id}" data-action="save">Sačuvaj</button>
+        </div>
+      `;
+      wrap.appendChild(card);
+    });
+    if (!data.length) wrap.innerHTML = '<p style="color:#999;">Nema kategorija još.</p>';
+  }
+
+  document.getElementById('cats-list').addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const card = btn.closest('.listing-card');
+    if (btn.dataset.action === 'delete') {
+      if (!confirm('Obrisati ovu kategoriju?')) return;
+      const { error } = await supabase.from('categories').delete().eq('id', id);
+      if (error) return showStatus('Greška pri brisanju: ' + error.message, false);
+      showStatus('Obrisano.', true);
+      loadCategories();
+    } else if (btn.dataset.action === 'save') {
+      const fields = readFields(card);
+      const { error } = await supabase.from('categories').update(fields).eq('id', id);
+      if (error) return showStatus('Greška pri čuvanju: ' + error.message, false);
+      showStatus('Sačuvano.', true);
+      loadCategories();
+    }
+  });
+
+  document.getElementById('add-cat-btn').addEventListener('click', async () => {
+    const container = document.getElementById('new-cat-fields');
+    const fields = readFields(container);
+    if (!fields.slug || !fields.title) return showStatus('Slug i naziv su obavezni.', false);
+    const { error } = await supabase.from('categories').insert(fields);
+    if (error) return showStatus('Greška pri dodavanju: ' + error.message, false);
+    container.querySelectorAll('[data-f]').forEach(el => { el.value = el.dataset.f === 'sort_order' ? '0' : ''; });
+    showStatus('Dodato.', true);
+    loadCategories();
+  });
+
+  // ---------- Stranice ----------
+  async function loadPages(){
+    const { data, error } = await supabase.from('pages').select('*').order('sort_order', { ascending: true });
+    const wrap = document.getElementById('pages-list');
+    if (error) { wrap.innerHTML = '<p style="color:#b33;">Greška: ' + esc(error.message) + '</p>'; return; }
+    wrap.innerHTML = '';
+    data.forEach(row => {
+      const card = document.createElement('div');
+      card.className = 'listing-card';
+      card.innerHTML = `
+        <div class="top-line"><strong>${esc(row.title)}</strong><span class="pill">/${esc(row.slug)}/</span></div>
+        <div class="field-grid">
+          <div><label>Slug</label><input data-f="slug" value="${esc(row.slug)}"></div>
+          <div><label>Naziv</label><input data-f="title" value="${esc(row.title)}"></div>
+          <div class="full"><label>Sadržaj</label><textarea data-f="content" style="min-height:140px;">${esc(row.content)}</textarea></div>
+          <div class="full"><label>SEO naslov (meta_title)</label><input data-f="meta_title" value="${esc(row.meta_title)}"></div>
+          <div class="full"><label>SEO opis (meta_description)</label><textarea data-f="meta_description">${esc(row.meta_description)}</textarea></div>
+          <div><label>Redosled</label><input data-f="sort_order" type="number" value="${esc(row.sort_order)}"></div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-del" data-id="${row.id}" data-action="delete">Obriši</button>
+          <button class="btn btn-save" data-id="${row.id}" data-action="save">Sačuvaj</button>
+        </div>
+      `;
+      wrap.appendChild(card);
+    });
+    if (!data.length) wrap.innerHTML = '<p style="color:#999;">Nema stranica još.</p>';
+  }
+
+  document.getElementById('pages-list').addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const card = btn.closest('.listing-card');
+    if (btn.dataset.action === 'delete') {
+      if (!confirm('Obrisati ovu stranicu?')) return;
+      const { error } = await supabase.from('pages').delete().eq('id', id);
+      if (error) return showStatus('Greška pri brisanju: ' + error.message, false);
+      showStatus('Obrisano.', true);
+      loadPages();
+    } else if (btn.dataset.action === 'save') {
+      const fields = readFields(card);
+      const { error } = await supabase.from('pages').update(fields).eq('id', id);
+      if (error) return showStatus('Greška pri čuvanju: ' + error.message, false);
+      showStatus('Sačuvano.', true);
+      loadPages();
+    }
+  });
+
+  document.getElementById('add-page-btn').addEventListener('click', async () => {
+    const container = document.getElementById('new-page-fields');
+    const fields = readFields(container);
+    if (!fields.slug || !fields.title) return showStatus('Slug i naziv su obavezni.', false);
+    const { error } = await supabase.from('pages').insert(fields);
+    if (error) return showStatus('Greška pri dodavanju: ' + error.message, false);
+    container.querySelectorAll('[data-f]').forEach(el => { el.value = el.dataset.f === 'sort_order' ? '0' : ''; });
+    showStatus('Dodato.', true);
+    loadPages();
+  });
+
   async function refreshAuthUI(session){
     if (session && session.user) {
       loginView.style.display = 'none';
@@ -469,6 +759,9 @@
       loadListings();
       loadSiteContent();
       loadSiteImages();
+      loadMenu();
+      loadCategories();
+      loadPages();
     } else {
       loginView.style.display = 'block';
       adminView.style.display = 'none';
