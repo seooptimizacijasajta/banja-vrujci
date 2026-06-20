@@ -121,9 +121,6 @@
       <p style="padding:20px;color:#888;grid-column:1/-1;">Učitavanje smeštaja…</p>
     </div>
 
-    <footer>
-      <a id="footer-link" href="https://www.banja-vrujci.net"><img id="footer-img" src="https://www.vrujci.org/wp-content/uploads/2015/07/Banja-Vrujci-Net-Baner.jpg" alt="Banja-Vrujci.net baner"></a>
-    </footer>
     <div class="copyright">
       <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
     </div>
@@ -249,17 +246,7 @@
     if (error) throw error;
     const map = new Map(data.map(r => [r.key, r.value]));
     if (map.get('copyright_text')) document.getElementById('copyright-text').textContent = map.get('copyright_text');
-    if (map.get('footer_link')) document.getElementById('footer-link').href = map.get('footer_link');
   } catch (err) { console.error('site_content load failed', err); }
-
-  try {
-    const { data, error } = await supabase.from('site_images').select('*').eq('slot', 'footer').order('sort_order');
-    if (error) throw error;
-    if (data && data.length) {
-      document.getElementById('footer-img').src = data[0].url;
-      document.getElementById('footer-img').alt = data[0].alt_text || '';
-    }
-  } catch (err) { console.error('site_images load failed', err); }
 </script>
 </body>
 </html>
