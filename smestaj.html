@@ -170,8 +170,8 @@
     }).join('');
   }
 
-  const params = new URLSearchParams(location.search);
-  const slug = params.get('slug') || '';
+  const pathSegs = location.pathname.split('/').filter(Boolean);
+  const slug = pathSegs[pathSegs.length - 1] || '';
 
   try {
     const { data: item, error } = await supabase.from('listings').select('*').eq('slug', slug).maybeSingle();

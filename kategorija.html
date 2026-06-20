@@ -180,8 +180,8 @@
     });
   }
 
-  const params = new URLSearchParams(location.search);
-  const catSlug = params.get('cat') || '';
+  const pathSegs = location.pathname.split('/').filter(Boolean);
+  const catSlug = pathSegs[0] || '';
 
   try {
     const { data: cat, error: catErr } = await supabase.from('categories').select('*').eq('slug', catSlug).maybeSingle();

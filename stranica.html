@@ -137,8 +137,8 @@
     }).join('');
   }
 
-  const params = new URLSearchParams(location.search);
-  const slug = params.get('slug') || '';
+  const pathSegs = location.pathname.split('/').filter(Boolean);
+  const slug = pathSegs[pathSegs.length - 1] || '';
 
   try {
     const { data: page, error } = await supabase.from('pages').select('*').eq('slug', slug).maybeSingle();
@@ -148,7 +148,7 @@
       document.getElementById('breadcrumb-current').textContent = page.title;
       document.getElementById('page-content').textContent = page.content || '';
       document.title = (page.meta_title || page.title) + ' - Banja Vrujci';
-      document.getElementById('canonical-link').href = 'https://www.vrujci.org/' + slug + '/';
+      document.getElementById('canonical-link').href = 'https://www.vrujci.org' + location.pathname + '/';
       setMeta('#meta-description', page.meta_description);
       setMeta('#og-title', page.meta_title || page.title);
       setMeta('#og-description', page.meta_description);
