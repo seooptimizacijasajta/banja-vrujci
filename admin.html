@@ -70,6 +70,22 @@
   #status-banner { font-size: 12.5px; padding: 8px 14px; border-radius: 4px; margin-bottom: 16px; display: none; }
   #status-banner.ok { background: #eaf6ec; color: #2a7a3b; display: block; }
   #status-banner.err { background: #fbeaea; color: #b33; display: block; }
+
+  .tabs { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+  .tab-btn { background: #fff; border: 1px solid #ddd; color: #555; padding: 9px 16px; border-radius: 4px; font-size: 12.5px; font-weight: bold; cursor: pointer; }
+  .tab-btn.active { background: #2c4951; color: #fff; border-color: #2c4951; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .upload-row { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  .upload-row select, .upload-row input[type=file] { padding: 7px; border: 1px solid #ddd; border-radius: 3px; font-size: 13px; }
+  .img-card { border: 1px solid #eee; border-radius: 5px; padding: 12px; margin-bottom: 10px; display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+  .img-card img { width: 130px; height: 86px; object-fit: cover; border-radius: 3px; background: #eee; flex-shrink: 0; }
+  .img-card .img-fields { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; min-width: 260px; }
+  .img-card .img-fields label { display: block; font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 2px; }
+  .img-card .img-fields input, .img-card .img-fields select { width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 3px; font-size: 12.5px; }
+  .img-actions { display: flex; flex-direction: column; gap: 6px; }
+  .btn-small { padding: 5px 10px; font-size: 11px; }
 </style>
 </head>
 <body>
@@ -94,29 +110,77 @@
   <div class="wrap">
     <div id="status-banner"></div>
 
-    <div class="card">
-      <h2>Dodaj novi smeštaj</h2>
-      <div class="field-grid" id="new-fields">
-        <div><label>Naziv</label><input data-f="title" placeholder="npr. Vila Sofija"></div>
-        <div><label>Kategorija</label><input data-f="category" placeholder="npr. Vile" list="cat-list"></div>
-        <div class="full"><label>Link (href)</label><input data-f="href" placeholder="https://www.vrujci.org/..."></div>
-        <div class="full"><label>Slika (image_url)</label><input data-f="image_url" placeholder="https://..."></div>
-        <div class="full"><label>Kratak opis (excerpt)</label><textarea data-f="excerpt"></textarea></div>
-        <div><label>Slug (URL deo)</label><input data-f="slug" placeholder="vila-sofija"></div>
-        <div><label>Redosled (sort_order)</label><input data-f="sort_order" type="number" value="0"></div>
-        <div class="full"><label>SEO naslov (meta_title)</label><input data-f="meta_title"></div>
-        <div class="full"><label>SEO opis (meta_description)</label><textarea data-f="meta_description"></textarea></div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="smestaji">Smeštaji</button>
+      <button class="tab-btn" data-tab="sadrzaj">Sadržaj stranice</button>
+      <button class="tab-btn" data-tab="seo">SEO podešavanja</button>
+      <button class="tab-btn" data-tab="slike">Slike / Galerija</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-smestaji">
+      <div class="card">
+        <h2>Dodaj novi smeštaj</h2>
+        <div class="field-grid" id="new-fields">
+          <div><label>Naziv</label><input data-f="title" placeholder="npr. Vila Sofija"></div>
+          <div><label>Kategorija</label><input data-f="category" placeholder="npr. Vile" list="cat-list"></div>
+          <div class="full"><label>Link (href)</label><input data-f="href" placeholder="https://www.vrujci.org/..."></div>
+          <div class="full"><label>Slika (image_url)</label><input data-f="image_url" placeholder="https://..."></div>
+          <div class="full"><label>Kratak opis (excerpt)</label><textarea data-f="excerpt"></textarea></div>
+          <div><label>Slug (URL deo)</label><input data-f="slug" placeholder="vila-sofija"></div>
+          <div><label>Redosled (sort_order)</label><input data-f="sort_order" type="number" value="0"></div>
+          <div class="full"><label>SEO naslov (meta_title)</label><input data-f="meta_title"></div>
+          <div class="full"><label>SEO opis (meta_description)</label><textarea data-f="meta_description"></textarea></div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-add" id="add-btn">Dodaj smeštaj</button>
+        </div>
       </div>
-      <div class="row-actions">
-        <button class="btn btn-add" id="add-btn">Dodaj smeštaj</button>
+
+      <datalist id="cat-list"></datalist>
+
+      <div class="card">
+        <h2>Postojeći smeštaji (<span id="count-label">0</span>)</h2>
+        <div id="listings-list">Učitavanje…</div>
       </div>
     </div>
 
-    <datalist id="cat-list"></datalist>
+    <div class="tab-panel" id="tab-sadrzaj">
+      <div class="card">
+        <h2>Sadržaj stranice</h2>
+        <p class="hint">Ovo su tekstovi koji se prikazuju na početnoj stranici (naslov, traka, uvod, o Banji Vrujci, kontakt, footer, copyright).</p>
+        <div class="field-grid" id="content-fields">Učitavanje…</div>
+        <div class="row-actions">
+          <button class="btn btn-save" id="save-content-btn">Sačuvaj sadržaj</button>
+        </div>
+      </div>
+    </div>
 
-    <div class="card">
-      <h2>Postojeći smeštaji (<span id="count-label">0</span>)</h2>
-      <div id="listings-list">Učitavanje…</div>
+    <div class="tab-panel" id="tab-seo">
+      <div class="card">
+        <h2>SEO podešavanja</h2>
+        <p class="hint">Naslov, opis i slika koje Google i društvene mreže prikazuju za sajt.</p>
+        <div class="field-grid" id="seo-fields">Učitavanje…</div>
+        <div class="row-actions">
+          <button class="btn btn-save" id="save-seo-btn">Sačuvaj SEO</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-slike">
+      <div class="card">
+        <h2>Slike / Galerija</h2>
+        <p class="hint">Otpremite sliku sa svog računara — automatski se čuva i prikazuje na sajtu.</p>
+        <div class="upload-row">
+          <select id="upload-slot">
+            <option value="carousel">Karusel (početna)</option>
+            <option value="footer">Footer baner</option>
+            <option value="gallery">Galerija</option>
+          </select>
+          <input type="file" id="upload-file" accept="image/*">
+          <button class="btn btn-add" id="upload-btn">Otpremi sliku</button>
+        </div>
+        <div id="images-list">Učitavanje…</div>
+      </div>
     </div>
   </div>
 </div>
@@ -163,6 +227,154 @@
   document.getElementById('logout-btn').addEventListener('click', async () => {
     await supabase.auth.signOut();
     location.reload();
+  });
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + btn.dataset.tab));
+    });
+  });
+
+  const SEO_FIELDS = [
+    { key: 'seo_title', label: 'SEO naslov (title)', type: 'text' },
+    { key: 'seo_description', label: 'SEO opis (meta description)', type: 'textarea' },
+    { key: 'seo_og_image', label: 'Slika za društvene mreže (og:image)', type: 'text' },
+  ];
+
+  const CONTENT_FIELDS = [
+    { key: 'hero_title', label: 'Naslov (hero)', type: 'text' },
+    { key: 'hero_subtitle', label: 'Podnaslov (hero)', type: 'textarea' },
+    { key: 'ticker_label', label: 'Traka — podebljani deo', type: 'text' },
+    { key: 'ticker_text', label: 'Traka — tekst', type: 'textarea' },
+    { key: 'intro_text_1', label: 'Uvodni tekst — pre linka', type: 'textarea' },
+    { key: 'intro_text_2', label: 'Uvodni tekst — posle linka', type: 'textarea' },
+    { key: 'about_title', label: 'Naslov sekcije "O Banji Vrujci"', type: 'text' },
+    { key: 'about_text_1', label: 'O Banji Vrujci — pasus 1', type: 'textarea' },
+    { key: 'about_text_2', label: 'O Banji Vrujci — pasus 2', type: 'textarea' },
+    { key: 'contact_email', label: 'Kontakt email', type: 'text' },
+    { key: 'footer_link', label: 'Link na footer baner', type: 'text' },
+    { key: 'copyright_text', label: 'Copyright tekst', type: 'text' },
+  ];
+
+  function renderKVForm(containerId, fields, values){
+    const el = document.getElementById(containerId);
+    el.innerHTML = fields.map(f => `
+      <div class="${f.type === 'textarea' ? 'full' : ''}">
+        <label>${esc(f.label)}</label>
+        ${f.type === 'textarea'
+          ? `<textarea data-key="${f.key}">${esc(values.get(f.key) || '')}</textarea>`
+          : `<input data-key="${f.key}" value="${esc(values.get(f.key) || '')}">`}
+      </div>
+    `).join('');
+  }
+
+  async function loadSiteContent(){
+    const { data, error } = await supabase.from('site_content').select('key,value');
+    if (error) return showStatus('Greška pri učitavanju sadržaja: ' + error.message, false);
+    const map = new Map(data.map(r => [r.key, r.value]));
+    renderKVForm('seo-fields', SEO_FIELDS, map);
+    renderKVForm('content-fields', CONTENT_FIELDS, map);
+  }
+
+  async function saveKVForm(containerId){
+    const el = document.getElementById(containerId);
+    const rows = [...el.querySelectorAll('[data-key]')].map(input => ({
+      key: input.dataset.key,
+      value: input.value,
+    }));
+    const { error } = await supabase.from('site_content').upsert(rows, { onConflict: 'key' });
+    if (error) return showStatus('Greška pri čuvanju: ' + error.message, false);
+    showStatus('Sačuvano.', true);
+    loadSiteContent();
+  }
+
+  document.getElementById('save-seo-btn').addEventListener('click', () => saveKVForm('seo-fields'));
+  document.getElementById('save-content-btn').addEventListener('click', () => saveKVForm('content-fields'));
+
+  const BUCKET = 'site-images';
+
+  function publicUrlToPath(url){
+    const marker = `/object/public/${BUCKET}/`;
+    const idx = url.indexOf(marker);
+    return idx === -1 ? null : url.slice(idx + marker.length);
+  }
+
+  async function loadSiteImages(){
+    const { data, error } = await supabase.from('site_images').select('*').order('slot', { ascending: true }).order('sort_order', { ascending: true });
+    const wrap = document.getElementById('images-list');
+    if (error) { wrap.innerHTML = '<p style="color:#b33;">Greška: ' + esc(error.message) + '</p>'; return; }
+    const slotLabel = { carousel: 'Karusel (početna)', footer: 'Footer baner', gallery: 'Galerija' };
+    wrap.innerHTML = '';
+    data.forEach(row => {
+      const card = document.createElement('div');
+      card.className = 'img-card';
+      card.innerHTML = `
+        <img src="${esc(row.url)}" loading="lazy">
+        <div class="img-fields">
+          <div><label>Slot</label>
+            <select data-f="slot">
+              <option value="carousel" ${row.slot === 'carousel' ? 'selected' : ''}>Karusel (početna)</option>
+              <option value="footer" ${row.slot === 'footer' ? 'selected' : ''}>Footer baner</option>
+              <option value="gallery" ${row.slot === 'gallery' ? 'selected' : ''}>Galerija</option>
+            </select>
+          </div>
+          <div><label>Alt tekst</label><input data-f="alt_text" value="${esc(row.alt_text)}"></div>
+          <div><label>Redosled</label><input data-f="sort_order" type="number" value="${esc(row.sort_order)}"></div>
+        </div>
+        <div class="img-actions">
+          <button class="btn btn-save btn-small" data-action="save" data-id="${row.id}">Sačuvaj</button>
+          <button class="btn btn-del btn-small" data-action="delete" data-id="${row.id}" data-url="${esc(row.url)}">Obriši</button>
+        </div>
+      `;
+      wrap.appendChild(card);
+    });
+    if (!data.length) wrap.innerHTML = '<p style="color:#999;">Nema slika još.</p>';
+  }
+
+  document.getElementById('images-list').addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const card = btn.closest('.img-card');
+    if (btn.dataset.action === 'delete') {
+      if (!confirm('Obrisati ovu sliku?')) return;
+      const path = publicUrlToPath(btn.dataset.url);
+      if (path) await supabase.storage.from(BUCKET).remove([path]);
+      const { error } = await supabase.from('site_images').delete().eq('id', id);
+      if (error) return showStatus('Greška pri brisanju: ' + error.message, false);
+      showStatus('Obrisano.', true);
+      loadSiteImages();
+    } else if (btn.dataset.action === 'save') {
+      const fields = {};
+      card.querySelectorAll('[data-f]').forEach(el => {
+        fields[el.dataset.f] = el.dataset.f === 'sort_order' ? (parseInt(el.value, 10) || 0) : el.value;
+      });
+      const { error } = await supabase.from('site_images').update(fields).eq('id', id);
+      if (error) return showStatus('Greška pri čuvanju: ' + error.message, false);
+      showStatus('Sačuvano.', true);
+      loadSiteImages();
+    }
+  });
+
+  document.getElementById('upload-btn').addEventListener('click', async () => {
+    const fileInput = document.getElementById('upload-file');
+    const slot = document.getElementById('upload-slot').value;
+    const file = fileInput.files[0];
+    if (!file) return showStatus('Izaberite fajl.', false);
+    showStatus('Otpremanje…', true);
+    const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+    const path = `${slot}/${Date.now()}-${safeName}`;
+    const { error: upErr } = await supabase.storage.from(BUCKET).upload(path, file, { cacheControl: '3600', upsert: false });
+    if (upErr) return showStatus('Greška pri otpremanju: ' + upErr.message, false);
+    const { data: pub } = supabase.storage.from(BUCKET).getPublicUrl(path);
+    const { error: insErr } = await supabase.from('site_images').insert({
+      slot, url: pub.publicUrl, alt_text: file.name, sort_order: 999
+    });
+    if (insErr) return showStatus('Greška pri upisu: ' + insErr.message, false);
+    fileInput.value = '';
+    showStatus('Slika dodata.', true);
+    loadSiteImages();
   });
 
   const FIELDS = ['title','category','href','image_url','excerpt','slug','meta_title','meta_description','sort_order'];
@@ -255,6 +467,8 @@
       adminView.style.display = 'block';
       document.getElementById('who-label').textContent = session.user.email;
       loadListings();
+      loadSiteContent();
+      loadSiteImages();
     } else {
       loginView.style.display = 'block';
       adminView.style.display = 'none';
