@@ -116,14 +116,14 @@
     <a class="logo" href="/" style="color:#f0901e;">VRUJCI<span>.ORG</span></a>
     <nav class="mainmenu">
       <ul id="mainmenu-list">
-        <li><a href="/banja-vrujci-smestaj/">Banja Vrujci smeštaj</a></li>
-        <li><a href="/apartmani-banja-vrujci/">Apartmani <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-hoteli/">Hoteli <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-vile/">Vile <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-vikendice/">Vikendice</a></li>
-        <li><a href="/banja-vrujci-sobe/">Sobe <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/info-servis/">Info Servis <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-smestaj">Banja Vrujci smeštaj</a></li>
+        <li><a href="/apartmani-banja-vrujci">Apartmani <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-hoteli">Hoteli <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vile">Vile <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-privatni-smestaj">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vikendice">Vikendice</a></li>
+        <li><a href="/banja-vrujci-sobe">Sobe <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/info-servis">Info Servis <i class="fa fa-caret-down"></i></a></li>
       </ul>
     </nav>
   </header>
@@ -145,6 +145,7 @@
         <div class="row" id="row-address" style="display:none;"><b>Lokacija</b><span id="item-address"></span></div>
         <div class="row" id="row-phone" style="display:none;"><b>Telefon</b><a id="item-phone" href="#"></a></div>
         <div class="row"><b>Kontakt email</b><a href="mailto:banjavrujcismestaj@vrujci.org">banjavrujcismestaj(@)vrujci.org</a></div>
+        <div class="row" id="row-bv" style="display:none;"><b>Više ponude</b><a id="item-bv-link" href="#" target="_blank" rel="noopener">na banjavrujci.info &#8599;</a></div>
         <a class="back-link" id="back-link" href="/">&laquo; Nazad na kategoriju</a>
       </div>
     </div>
@@ -153,7 +154,7 @@
       <a id="footer-link" href="https://www.banja-vrujci.net"><img id="footer-img" src="https://www.vrujci.org/wp-content/uploads/2015/07/Banja-Vrujci-Net-Baner.jpg" alt="Banja-Vrujci.net baner"></a>
     </footer>
     <div class="copyright">
-      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
+      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
     </div>
   </div>
 </div>
@@ -272,13 +273,24 @@
         'Vile': 'banja-vrujci-vile', 'Apartmani': 'apartmani-banja-vrujci', 'Hoteli': 'banja-vrujci-hoteli',
         'Privatni smeštaj': 'banja-vrujci-privatni-smestaj', 'Vikendice': 'banja-vrujci-vikendice', 'Sobe': 'banja-vrujci-sobe'
       };
+      // same categories, mapped to the matching category listing on banjavrujci.info
+      const bvInfoMap = {
+        'Vile': 'https://www.banjavrujci.info/smestaj/vile', 'Apartmani': 'https://www.banjavrujci.info/smestaj/apartmani',
+        'Hoteli': 'https://www.banjavrujci.info/smestaj/hoteli', 'Privatni smeštaj': 'https://www.banjavrujci.info/smestaj/privatni-smestaj',
+        'Vikendice': 'https://www.banjavrujci.info/smestaj/vikendice', 'Sobe': 'https://www.banjavrujci.info/smestaj/sobe'
+      };
       const catSlug = catSlugMap[item.category];
       if (catSlug) {
         document.getElementById('breadcrumb-cat').textContent = item.category;
-        document.getElementById('breadcrumb-cat').href = '/' + catSlug + '/';
-        document.getElementById('back-link').href = '/' + catSlug + '/';
+        document.getElementById('breadcrumb-cat').href = '/' + catSlug;
+        document.getElementById('back-link').href = '/' + catSlug;
       } else {
         document.getElementById('breadcrumb-cat').style.display = 'none';
+      }
+      const bvUrl = bvInfoMap[item.category];
+      if (bvUrl) {
+        document.getElementById('item-bv-link').href = bvUrl;
+        document.getElementById('row-bv').style.display = '';
       }
 
       // gallery: per-listing images first, fallback to single image_url

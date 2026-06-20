@@ -108,14 +108,14 @@
   .cols4 li::before { content: "\2022"; color: #f0901e; position: absolute; left: 0; }
   .cols4 li a { color: #f0901e; }
   .cols4 li a:hover { text-decoration: underline; }
-  .adbanner { border-radius: 3px; padding: 14px 10px; color: #fff; font-weight: bold; text-align: center; font-size: 13px; margin-top: 10px; }
+  .adbanner { position: relative; border-radius: 4px; overflow: hidden; margin-top: 10px; background-size: cover; background-position: center; min-height: 92px; }
+  .adbanner::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,20,20,.82), rgba(20,20,20,.2)); }
+  .adbanner .adbanner-inner { position: relative; z-index: 1; padding: 14px 10px; color: #fff; font-weight: bold; text-align: center; font-size: 13px; }
   .adbanner span { display: block; font-size: 16px; margin-top: 6px; }
   .adbanner a { color: inherit; }
   .adbanner a:hover { text-decoration: underline; }
-  .ad-green { background: #6fa06a; }
-  .ad-navy { background: #1c2440; }
-  .ad-brown { background: #8a5a32; }
-  .ad-orange { background: #f0901e; }
+  .cols4 .bv-mini { display: block; margin-top: 8px; font-size: 11px; color: #2c8aa6; }
+  .cols4 .bv-mini:hover { text-decoration: underline; }
 
   .about { padding: 6px 28px 28px; font-size: 13px; line-height: 1.8; color: #5a5a5a; text-align: justify; }
   .about h4 { color: #333; font-size: 16px; }
@@ -125,7 +125,7 @@
   .live-tag i { color: #3ecf8e; margin-right: 4px; }
   .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .post img, .post .ph { width: 100%; height: 110px; object-fit: cover; border-radius: 2px; display: block; }
-  .post .ph { background: linear-gradient(135deg, #e8c389, #f0901e); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; text-align: center; padding: 8px; }
+  .post .ph { background: linear-gradient(135deg, #6b7d85, #2c4951); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; text-align: center; padding: 8px; }
   .post h4 { margin: 10px 0 6px; }
   .post h4 a { color: #f0901e; font-size: 14.5px; }
   .post p { font-size: 12px; color: #777; line-height: 1.6; margin: 0; }
@@ -170,41 +170,41 @@
     <a class="logo" href="/" style="color:#f0901e;">VRUJCI<span>.ORG</span></a>
     <nav class="mainmenu">
       <ul id="mainmenu-list">
-        <li><a href="https://www.vrujci.org/banja-vrujci-smestaj/">Banja Vrujci smeštaj</a></li>
-        <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/">Apartmani <i class="fa fa-caret-down"></i></a>
+        <li><a href="https://www.vrujci.org/banja-vrujci-smestaj">Banja Vrujci smeštaj</a></li>
+        <li><a href="https://www.vrujci.org/apartmani-banja-vrujci">Apartmani <i class="fa fa-caret-down"></i></a>
           <ul class="sub">
-            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/">Apartmani Bella</a></li>
-            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-alfa-banja-vrujci/">Apartmani Alfa</a></li>
-            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-lux-banja-vrujci/">Apartman LUX</a></li>
-            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-jasminka-banja-vrujci/">Apartmani Jasminka</a></li>
-            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-tamara-banja-vrujci/">Apartman Tamara</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci">Apartmani Bella</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-alfa-banja-vrujci">Apartmani Alfa</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-lux-banja-vrujci">Apartman LUX</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-jasminka-banja-vrujci">Apartmani Jasminka</a></li>
+            <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-tamara-banja-vrujci">Apartman Tamara</a></li>
           </ul>
         </li>
-        <li><a href="https://www.vrujci.org/banja-vrujci-hoteli/">Hoteli <i class="fa fa-caret-down"></i></a>
-          <ul class="sub"><li><a href="https://www.vrujci.org/banja-vrujci-hoteli/hotel-vrujci/">Hotel Vrujci</a></li></ul>
+        <li><a href="https://www.vrujci.org/banja-vrujci-hoteli">Hoteli <i class="fa fa-caret-down"></i></a>
+          <ul class="sub"><li><a href="https://www.vrujci.org/banja-vrujci-hoteli/hotel-vrujci">Hotel Vrujci</a></li></ul>
         </li>
-        <li><a href="https://www.vrujci.org/banja-vrujci-vile/">Vile <i class="fa fa-caret-down"></i></a>
+        <li><a href="https://www.vrujci.org/banja-vrujci-vile">Vile <i class="fa fa-caret-down"></i></a>
           <ul class="sub">
-            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija/">Vila Sofija</a></li>
-            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-ema-banja-vrujci/">Vila Ema</a></li>
-            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena/">Vila Jelena</a></li>
-            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-iva/">Vila Iva</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija">Vila Sofija</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-ema-banja-vrujci">Vila Ema</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena">Vila Jelena</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-iva">Vila Iva</a></li>
           </ul>
         </li>
-        <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/">Privatni Smeštaj <i class="fa fa-caret-down"></i></a>
+        <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj">Privatni Smeštaj <i class="fa fa-caret-down"></i></a>
           <ul class="sub">
-            <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/smestaj-nikita-banja-vrujci/">Smeštaj Nikita</a></li>
-            <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/filipovic/">Filipović</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/smestaj-nikita-banja-vrujci">Smeštaj Nikita</a></li>
+            <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/filipovic">Filipović</a></li>
           </ul>
         </li>
-        <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/">Vikendice</a></li>
-        <li><a href="https://www.vrujci.org/banja-vrujci-sobe/">Sobe <i class="fa fa-caret-down"></i></a>
-          <ul class="sub"><li><a href="https://www.vrujci.org/banja-vrujci-sobe/sobe-goca-banja-vrujci/">Sobe Goca</a></li></ul>
+        <li><a href="https://www.vrujci.org/banja-vrujci-vikendice">Vikendice</a></li>
+        <li><a href="https://www.vrujci.org/banja-vrujci-sobe">Sobe <i class="fa fa-caret-down"></i></a>
+          <ul class="sub"><li><a href="https://www.vrujci.org/banja-vrujci-sobe/sobe-goca-banja-vrujci">Sobe Goca</a></li></ul>
         </li>
-        <li><a href="https://www.vrujci.org/info-servis/">Info Servis <i class="fa fa-caret-down"></i></a>
+        <li><a href="https://www.vrujci.org/info-servis">Info Servis <i class="fa fa-caret-down"></i></a>
           <ul class="sub">
-            <li><a href="https://www.vrujci.org/info-servis/kontakt-info/">Kontakt Info</a></li>
-            <li><a href="https://www.vrujci.org/info-servis/vreme/">Vreme</a></li>
+            <li><a href="https://www.vrujci.org/info-servis/kontakt-info">Kontakt Info</a></li>
+            <li><a href="https://www.vrujci.org/info-servis/vreme">Vreme</a></li>
           </ul>
         </li>
       </ul>
@@ -250,47 +250,59 @@
       <div>
         <h3>Apartmani</h3>
         <ul>
-          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/">Apartmani Banja Vrujci</a></li>
-          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/">Apartmani Bella</a></li>
-          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">Apartmani Pakić</a></li>
-          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-alfa-banja-vrujci/">Apartmani Alfa</a></li>
-          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-stefanovic-banja-vrujci/">Apartmani Stefanović</a></li>
-          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-jasminka-banja-vrujci/">Apartmani Jasminka</a></li>
-          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-tri-delfina-banja-vrujci/">Apartman Tri Delfina</a></li>
-          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-mira-banja-vrujci/">Apartman Mira</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci">Apartmani Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci">Apartmani Bella</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci">Apartmani Pakić</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-alfa-banja-vrujci">Apartmani Alfa</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-stefanovic-banja-vrujci">Apartmani Stefanović</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-jasminka-banja-vrujci">Apartmani Jasminka</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-tri-delfina-banja-vrujci">Apartman Tri Delfina</a></li>
+          <li><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-mira-banja-vrujci">Apartman Mira</a></li>
         </ul>
-        <div class="adbanner ad-orange">APARTMANI PAKIĆ<span><a href="tel:+38162428859">062/428-859</a></span></div>
+        <a class="bv-mini" href="https://www.banjavrujci.info/smestaj/apartmani" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a>
+        <div class="adbanner" style="background-image:url('https://www.vrujci.org/wp-content/uploads/2021/07/apartmani-pakic-nove2.1-640x297.jpg');">
+          <div class="adbanner-inner"><a href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci">APARTMANI PAKIĆ</a><span><a href="tel:+38162428859">062/428-859</a></span></div>
+        </div>
       </div>
       <div>
         <h3>Sobe</h3>
         <ul>
-          <li><a href="https://www.vrujci.org/banja-vrujci-sobe/">Sobe Banja Vrujci</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-sobe/sobe-goca-banja-vrujci/">Sobe Goca</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-sobe">Sobe Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-sobe/sobe-goca-banja-vrujci">Sobe Goca</a></li>
         </ul>
-        <div class="adbanner ad-green">BANJA VRUJCI &mdash; VILA JELENA<span><a href="tel:+381644242202">064 42 42 202</a></span></div>
+        <a class="bv-mini" href="https://www.banjavrujci.info/smestaj/sobe" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a>
+        <div class="adbanner" style="background-image:url('https://www.banjavrujci.info/wp-content/uploads/2020/08/vila-jelena-11-640x297.jpg');">
+          <div class="adbanner-inner"><a href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena">BANJA VRUJCI &mdash; VILA JELENA</a><span><a href="tel:+381644242202">064 42 42 202</a></span></div>
+        </div>
       </div>
       <div>
         <h3>Vile</h3>
         <ul>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/">Vile Banja Vrujci</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija/">Vila Sofija</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-ema-banja-vrujci/">Vila Ema</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-aqua-casa-banja-vrujci/">Vila &quot;Aqua Casa&quot;</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena/">Vila Jelena</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-vila/">Vila Vila</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-elipsa/">Vila Elipsa</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-petra/">Turistički kompleks Petra</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-iva/">Vila Iva</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile">Vile Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija">Vila Sofija</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-ema-banja-vrujci">Vila Ema</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-aqua-casa-banja-vrujci">Vila &quot;Aqua Casa&quot;</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena">Vila Jelena</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-vila">Vila Vila</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-elipsa">Vila Elipsa</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-petra">Turistički kompleks Petra</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vile/vila-iva">Vila Iva</a></li>
         </ul>
-        <div class="adbanner ad-navy">VILA SOFIJA<span><a href="tel:+381641441441">064 144 144 1</a></span></div>
+        <a class="bv-mini" href="https://www.banjavrujci.info/smestaj/vile" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a>
+        <div class="adbanner" style="background-image:url('https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija1.2-750x297.jpg');">
+          <div class="adbanner-inner"><a href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija">VILA SOFIJA</a><span><a href="tel:+381641441441">064 144 144 1</a></span></div>
+        </div>
       </div>
       <div>
         <h3>Hoteli</h3>
         <ul>
-          <li><a href="https://www.vrujci.org/banja-vrujci-hoteli/">Hoteli Banja Vrujci</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-hoteli/hotel-vrujci/">Hotel Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-hoteli">Hoteli Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-hoteli/hotel-vrujci">Hotel Vrujci</a></li>
         </ul>
-        <div class="adbanner ad-brown">BRVNARA I VILA PETRA<span><a href="tel:+381644443339">064 444 333 9</a></span></div>
+        <a class="bv-mini" href="https://www.banjavrujci.info/smestaj/hoteli" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a>
+        <div class="adbanner" style="background-image:url('https://www.banjavrujci.info/wp-content/rockettheme/rt_panacea_wp/smestaj/vilapetra/petra/vila-petra-nove1.jpg');">
+          <div class="adbanner-inner"><a href="https://www.vrujci.org/banja-vrujci-vile/vila-petra">BRVNARA I VILA PETRA</a><span><a href="tel:+381644443339">064 444 333 9</a></span></div>
+        </div>
       </div>
     </div>
 
@@ -298,36 +310,39 @@
       <div>
         <h3>Privatni smeštaj</h3>
         <ul>
-          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/">Smeštaj u Banja Vrujci</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/smestaj-nikita-banja-vrujci/">Privatan Smeštaj Nikita</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/sobe-za-izdavanje-cica-vulovic/">Sobe Vulović</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/filipovic/">Filipović</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj">Smeštaj u Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/smestaj-nikita-banja-vrujci">Privatan Smeštaj Nikita</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/sobe-za-izdavanje-cica-vulovic">Sobe Vulović</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-privatni-smestaj/filipovic">Filipović</a></li>
         </ul>
+        <a class="bv-mini" href="https://www.banjavrujci.info/smestaj/privatni-smestaj" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a>
       </div>
       <div>
         <h3>Vikendice</h3>
         <ul>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/">Vikendice Banja Vrujci</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/brvnare-oaza-mira-banja-vrujci/">Brvnare Oaza Mira</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/vikendica-bane-banja-vrujci/">Vikendica Bane</a></li>
-          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/vajati-ivica-i-marica-banja-vrujci/">Vajati Ivica i Marica</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice">Vikendice Banja Vrujci</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/brvnare-oaza-mira-banja-vrujci">Brvnare Oaza Mira</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/vikendica-bane-banja-vrujci">Vikendica Bane</a></li>
+          <li><a href="https://www.vrujci.org/banja-vrujci-vikendice/vajati-ivica-i-marica-banja-vrujci">Vajati Ivica i Marica</a></li>
         </ul>
+        <a class="bv-mini" href="https://www.banjavrujci.info/smestaj/vikendice" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a>
       </div>
       <div>
         <h3>Nekretnine</h3>
         <ul>
-          <li><a href="https://www.vrujci.org/info-servis/nekretnine/">Banja Vrujci nekretnine</a></li>
-          <li><a href="https://www.vrujci.org/info-servis/nekretnine/stanovi-prodaja-stan-na-prodaju/">Stanovi na prodaju</a></li>
-          <li><a href="https://www.vrujci.org/info-servis/nekretnine/prodaja-stanova/">Prodaja stanova</a></li>
+          <li><a href="https://www.banjavrujci.info/nekretnine" target="_blank" rel="noopener">Banja Vrujci nekretnine</a></li>
+          <li><a href="https://www.banjavrujci.info/nekretnine" target="_blank" rel="noopener">Stanovi na prodaju</a></li>
+          <li><a href="https://www.banjavrujci.info/nekretnine" target="_blank" rel="noopener">Prodaja stanova</a></li>
         </ul>
+        <a class="bv-mini" href="https://www.banjavrujci.info/nekretnine" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a>
       </div>
       <div>
         <h3>Informacije</h3>
         <ul>
-          <li><a href="https://www.vrujci.org/info-servis/kontakt-info/">Kontakt</a></li>
-          <li><a href="https://www.vrujci.org/info-servis/linkovi-partnera/">Linkovi</a></li>
-          <li><a href="https://www.vrujci.org/info-servis/banja-vrujci-smestaj-mapa/">Mapa smeštaja</a></li>
-          <li><a href="https://www.vrujci.org/info-servis/vreme/">Vremenska prognoza</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/kontakt-info">Kontakt</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/linkovi-partnera">Linkovi</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/banja-vrujci-smestaj-mapa">Mapa smeštaja</a></li>
+          <li><a href="https://www.vrujci.org/info-servis/vreme">Vremenska prognoza</a></li>
         </ul>
       </div>
     </div>
@@ -373,7 +388,7 @@
       <a id="footer-link" href="https://www.banja-vrujci.net"><img id="footer-img" src="https://www.vrujci.org/wp-content/uploads/2015/07/Banja-Vrujci-Net-Baner.jpg" alt="Banja-Vrujci.net baner"></a>
     </footer>
     <div class="copyright">
-      <span id="copyright-text">Copyright &copy; 2022 Vrujci.org</span>, <a href="https://www.vrujci.org/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
+      <span id="copyright-text">Copyright &copy; 2022 Vrujci.org</span>, <a href="https://www.vrujci.org/banja-vrujci-smestaj">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
     </div>
   </div>
 </div>

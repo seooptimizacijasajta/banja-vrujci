@@ -65,10 +65,14 @@
 
   .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding: 18px 28px 30px; }
   .post img, .post .ph { width: 100%; height: 130px; object-fit: cover; border-radius: 2px; display: block; }
-  .post .ph { background: linear-gradient(135deg, #e8c389, #f0901e); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; text-align: center; padding: 8px; }
+  .post .ph { background: linear-gradient(135deg, #6b7d85, #2c4951); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; text-align: center; padding: 8px; }
   .post h4 { margin: 10px 0 6px; }
   .post h4 a { color: #f0901e; font-size: 14.5px; }
   .post p { font-size: 12px; color: #777; line-height: 1.6; margin: 0; }
+  .post .bv-tag { display: block; margin-top: 4px; font-size: 11px; }
+  .post .bv-tag a { color: #2c8aa6; }
+  .bv-link { display: inline-block; margin-top: 10px; font-size: 12.5px; color: #2c8aa6; border: 1px solid #bfe0ea; border-radius: 3px; padding: 6px 12px; }
+  .bv-link:hover { background: #eef8fb; }
 
   footer { text-align: center; padding: 26px 20px 10px; }
   footer img { max-width: 260px; border-radius: 3px; }
@@ -90,14 +94,14 @@
     <a class="logo" href="/" style="color:#f0901e;">VRUJCI<span>.ORG</span></a>
     <nav class="mainmenu">
       <ul id="mainmenu-list">
-        <li><a href="/banja-vrujci-smestaj/">Banja Vrujci smeštaj</a></li>
-        <li><a href="/apartmani-banja-vrujci/">Apartmani <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-hoteli/">Hoteli <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-vile/">Vile <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-vikendice/">Vikendice</a></li>
-        <li><a href="/banja-vrujci-sobe/">Sobe <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/info-servis/">Info Servis <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-smestaj">Banja Vrujci smeštaj</a></li>
+        <li><a href="/apartmani-banja-vrujci">Apartmani <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-hoteli">Hoteli <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vile">Vile <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-privatni-smestaj">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vikendice">Vikendice</a></li>
+        <li><a href="/banja-vrujci-sobe">Sobe <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/info-servis">Info Servis <i class="fa fa-caret-down"></i></a></li>
       </ul>
     </nav>
   </header>
@@ -107,6 +111,7 @@
     <div class="hero">
       <h1 id="cat-title">Učitavanje…</h1>
       <p id="cat-description"></p>
+      <a class="bv-link" id="bv-info-link" href="#" target="_blank" rel="noopener" style="display:none;">Pogledaj i na banjavrujci.info &#8599;</a>
     </div>
     <div class="cat-image" id="cat-image-wrap" style="display:none;">
       <img id="cat-image" src="" alt="">
@@ -120,7 +125,7 @@
       <a id="footer-link" href="https://www.banja-vrujci.net"><img id="footer-img" src="https://www.vrujci.org/wp-content/uploads/2015/07/Banja-Vrujci-Net-Baner.jpg" alt="Banja-Vrujci.net baner"></a>
     </footer>
     <div class="copyright">
-      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
+      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
     </div>
   </div>
 </div>
@@ -161,7 +166,7 @@
     }).join('');
   }
 
-  function renderGrid(rows){
+  function renderGrid(rows, bvUrl){
     const grid = document.getElementById('posts-grid');
     if (!rows.length) {
       grid.innerHTML = '<p style="padding:20px;color:#888;grid-column:1/-1;">Trenutno nema smeštaja u ovoj kategoriji.</p>';
@@ -175,10 +180,21 @@
         ? `<a href="${esc(row.href)}"><img src="${esc(row.image_url)}" loading="lazy"></a>`
         : `<a href="${esc(row.href)}"><div class="ph">${esc(row.category)}</div></a>`;
       const excerpt = row.excerpt ? `<p>${esc(row.excerpt)}</p>` : '';
-      card.innerHTML = `${media}<h4><a href="${esc(row.href)}">${esc(row.title)}</a></h4>${excerpt}`;
+      const bvTag = bvUrl ? `<span class="bv-tag"><a href="${esc(bvUrl)}" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a></span>` : '';
+      card.innerHTML = `${media}<h4><a href="${esc(row.href)}">${esc(row.title)}</a></h4>${excerpt}${bvTag}`;
       grid.appendChild(card);
     });
   }
+
+  // category-level cross-links to the user's banjavrujci.info portal
+  const BV_INFO_MAP = {
+    'banja-vrujci-vile': 'https://www.banjavrujci.info/smestaj/vile',
+    'apartmani-banja-vrujci': 'https://www.banjavrujci.info/smestaj/apartmani',
+    'banja-vrujci-hoteli': 'https://www.banjavrujci.info/smestaj/hoteli',
+    'banja-vrujci-privatni-smestaj': 'https://www.banjavrujci.info/smestaj/privatni-smestaj',
+    'banja-vrujci-vikendice': 'https://www.banjavrujci.info/smestaj/vikendice',
+    'banja-vrujci-sobe': 'https://www.banjavrujci.info/smestaj/sobe'
+  };
 
   const pathSegs = location.pathname.split('/').filter(Boolean);
   const catSlug = pathSegs[0] || '';
@@ -191,7 +207,7 @@
       document.getElementById('breadcrumb-current').textContent = cat.title;
       document.getElementById('cat-description').textContent = cat.description || '';
       document.title = (cat.title) + ' - Banja Vrujci';
-      document.getElementById('canonical-link').href = 'https://www.vrujci.org/' + catSlug + '/';
+      document.getElementById('canonical-link').href = 'https://www.vrujci.org/' + catSlug;
       setMeta('#meta-description', cat.description);
       setMeta('#og-title', cat.title + ' - Banja Vrujci');
       setMeta('#og-description', cat.description);
@@ -202,10 +218,17 @@
         document.getElementById('cat-image-wrap').style.display = '';
       }
 
+      const bvUrl = BV_INFO_MAP[catSlug];
+      if (bvUrl) {
+        const bvLink = document.getElementById('bv-info-link');
+        bvLink.href = bvUrl;
+        bvLink.style.display = '';
+      }
+
       const { data: items, error: itemsErr } = await supabase
         .from('listings').select('*').eq('category', cat.title).order('sort_order', { ascending: true });
       if (itemsErr) throw itemsErr;
-      renderGrid(items || []);
+      renderGrid(items || [], bvUrl);
     } else {
       document.getElementById('cat-title').textContent = 'Kategorija nije pronađena';
       document.getElementById('posts-grid').innerHTML = '';
