@@ -147,7 +147,7 @@
       document.getElementById('page-h1').textContent = page.title;
       document.getElementById('breadcrumb-current').textContent = page.title;
       document.getElementById('page-content').textContent = page.content || '';
-      document.title = (page.meta_title || page.title) + ' - Banja Vrujci';
+      document.title = page.meta_title || (page.title + ' - Banja Vrujci');
       document.getElementById('canonical-link').href = 'https://www.vrujci.org' + location.pathname + '/';
       setMeta('#meta-description', page.meta_description);
       setMeta('#og-title', page.meta_title || page.title);

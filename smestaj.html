@@ -180,7 +180,7 @@
       document.getElementById('item-title').textContent = item.title;
       document.getElementById('item-cat').textContent = item.category || '';
       document.getElementById('breadcrumb-current').textContent = item.title;
-      document.title = (item.meta_title || item.title) + ' - Banja Vrujci';
+      document.title = item.meta_title || (item.title + ' - Banja Vrujci');
       document.getElementById('canonical-link').href = item.href || location.href;
       setMeta('#meta-description', item.meta_description || item.excerpt);
       setMeta('#og-title', item.meta_title || item.title);
