@@ -1,5 +1,9 @@
 {
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/banja-vrujci-privatni-smestaj/kuca-davidovic-banja-vrujci", "destination": "/", "permanent": true },
+    { "source": "/banja-vrujci-privatni-smestaj/sobe-za-izdavanje-cica-vulovic", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/banja-vrujci-vile", "destination": "/kategorija.html?cat=banja-vrujci-vile" },
     { "source": "/banja-vrujci-vile/:slug", "destination": "/smestaj.html?slug=:slug" },
