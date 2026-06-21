@@ -123,14 +123,14 @@
     <a class="logo" href="/" style="color:#f0901e;">VRUJCI<span>.ORG</span></a>
     <nav class="mainmenu">
       <ul id="mainmenu-list">
-        <li><a href="/banja-vrujci-smestaj">Banja Vrujci smeštaj</a></li>
-        <li><a href="/apartmani-banja-vrujci">Apartmani <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-hoteli">Hoteli <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-vile">Vile <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-privatni-smestaj">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-vikendice">Vikendice</a></li>
-        <li><a href="/banja-vrujci-sobe">Sobe <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/info-servis">Info Servis <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-smestaj/">Banja Vrujci smeštaj</a></li>
+        <li><a href="/apartmani-banja-vrujci/">Apartmani <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-hoteli/">Hoteli <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vile/">Vile <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vikendice/">Vikendice</a></li>
+        <li><a href="/banja-vrujci-sobe/">Sobe <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/info-servis/">Info Servis <i class="fa fa-caret-down"></i></a></li>
       </ul>
     </nav>
   </header>
@@ -164,7 +164,7 @@
     </div>
 
     <div class="copyright">
-      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
+      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
     </div>
   </div>
 </div>
@@ -292,8 +292,8 @@
       const catSlug = catSlugMap[item.category];
       if (catSlug) {
         document.getElementById('breadcrumb-cat').textContent = item.category;
-        document.getElementById('breadcrumb-cat').href = '/' + catSlug;
-        document.getElementById('back-link').href = '/' + catSlug;
+        document.getElementById('breadcrumb-cat').href = '/' + catSlug + '/';
+        document.getElementById('back-link').href = '/' + catSlug + '/';
       } else {
         document.getElementById('breadcrumb-cat').style.display = 'none';
       }
@@ -321,36 +321,4 @@
       });
 
       // map: show marker if coordinates exist
-      if (item.latitude && item.longitude && window.L) {
-        document.getElementById('map-section').style.display = '';
-        const map = L.map('map', { scrollWheelZoom: false }).setView([item.latitude, item.longitude], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          maxZoom: 19
-        }).addTo(map);
-        L.marker([item.latitude, item.longitude]).addTo(map)
-          .bindPopup(esc(item.title)).openPopup();
-      }
-    } else {
-      document.getElementById('item-title').textContent = 'Smeštaj nije pronađen';
-    }
-  } catch (err) {
-    console.error('listing load failed', err);
-    document.getElementById('item-title').textContent = 'Greška pri učitavanju';
-  }
-
-  try {
-    const { data, error } = await supabase.from('site_menu').select('*').order('sort_order', { ascending: true });
-    if (error) throw error;
-    renderMenu(data);
-  } catch (err) { console.error('site_menu load failed', err); }
-
-  try {
-    const { data, error } = await supabase.from('site_content').select('key,value');
-    if (error) throw error;
-    const map = new Map(data.map(r => [r.key, r.value]));
-    if (map.get('copyright_text')) document.getElementById('copyright-text').textContent = map.get('copyright_text');
-  } catch (err) { console.error('site_content load failed', err); }
-</script>
-</body>
-</html>
+      if (ite

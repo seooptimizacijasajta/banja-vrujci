@@ -94,14 +94,14 @@
     <a class="logo" href="/" style="color:#f0901e;">VRUJCI<span>.ORG</span></a>
     <nav class="mainmenu">
       <ul id="mainmenu-list">
-        <li><a href="/banja-vrujci-smestaj">Banja Vrujci smeštaj</a></li>
-        <li><a href="/apartmani-banja-vrujci">Apartmani <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-hoteli">Hoteli <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-vile">Vile <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-privatni-smestaj">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/banja-vrujci-vikendice">Vikendice</a></li>
-        <li><a href="/banja-vrujci-sobe">Sobe <i class="fa fa-caret-down"></i></a></li>
-        <li><a href="/info-servis">Info Servis <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-smestaj/">Banja Vrujci smeštaj</a></li>
+        <li><a href="/apartmani-banja-vrujci/">Apartmani <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-hoteli/">Hoteli <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vile/">Vile <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vikendice/">Vikendice</a></li>
+        <li><a href="/banja-vrujci-sobe/">Sobe <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/info-servis/">Info Servis <i class="fa fa-caret-down"></i></a></li>
       </ul>
     </nav>
   </header>
@@ -122,7 +122,7 @@
     </div>
 
     <div class="copyright">
-      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
+      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
     </div>
   </div>
 </div>
@@ -204,7 +204,7 @@
       document.getElementById('breadcrumb-current').textContent = cat.title;
       document.getElementById('cat-description').textContent = cat.description || '';
       document.title = (cat.title) + ' - Banja Vrujci';
-      document.getElementById('canonical-link').href = 'https://www.vrujci.org/' + catSlug;
+      document.getElementById('canonical-link').href = 'https://www.vrujci.org/' + catSlug + '/';
       setMeta('#meta-description', cat.description);
       setMeta('#og-title', cat.title + ' - Banja Vrujci');
       setMeta('#og-description', cat.description);
@@ -232,21 +232,4 @@
     }
   } catch (err) {
     console.error('category load failed', err);
-    document.getElementById('cat-title').textContent = 'Greška pri učitavanju';
-  }
-
-  try {
-    const { data, error } = await supabase.from('site_menu').select('*').order('sort_order', { ascending: true });
-    if (error) throw error;
-    renderMenu(data);
-  } catch (err) { console.error('site_menu load failed', err); }
-
-  try {
-    const { data, error } = await supabase.from('site_content').select('key,value');
-    if (error) throw error;
-    const map = new Map(data.map(r => [r.key, r.value]));
-    if (map.get('copyright_text')) document.getElementById('copyright-text').textContent = map.get('copyright_text');
-  } catch (err) { console.error('site_content load failed', err); }
-</script>
-</body>
-</html>
+    document.getElementById('cat-title').textContent = 'G
