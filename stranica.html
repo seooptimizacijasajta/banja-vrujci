@@ -84,6 +84,27 @@
   .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
   .video-title { margin: 8px 0 0; font-size: 12.5px; color: #2b2b2b; line-height: 1.35; }
 
+  .weather-section { padding: 6px 28px 30px; }
+  .weather-section .cat-group-head { color: #f0901e; font-size: 17px; margin: 22px 0 4px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+  .weather-section .cat-group-head:first-child { margin-top: 4px; }
+  .weather-current { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; background: linear-gradient(135deg, #2c8aa6, #1f6c84); color: #fff; border-radius: 8px; padding: 22px 28px; margin: 14px 0 22px; }
+  .weather-now-icon { font-size: 56px; line-height: 1; }
+  .weather-now-temp { font-size: 42px; font-weight: bold; line-height: 1; }
+  .weather-now-desc { font-size: 15px; opacity: .95; margin-top: 4px; }
+  .weather-now-feel { font-size: 12.5px; opacity: .85; margin-top: 2px; }
+  .weather-updated { font-size: 11px; opacity: .8; margin-top: 6px; }
+  .weather-now-details { display: flex; flex-direction: column; gap: 7px; font-size: 12.5px; margin-left: auto; opacity: .95; }
+  .weather-now-details span i { width: 16px; text-align: center; margin-right: 5px; }
+  .weather-forecast { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .weather-day { background: #f7fbfc; border: 1px solid #e3eef1; border-radius: 6px; padding: 12px 8px; text-align: center; }
+  .weather-day .wd-name { font-size: 12px; font-weight: bold; color: #2c8aa6; text-transform: uppercase; margin-bottom: 4px; }
+  .weather-day .wd-icon { font-size: 30px; margin: 4px 0; }
+  .weather-day .wd-desc { font-size: 11px; color: #777; min-height: 28px; }
+  .weather-day .wd-temps { font-size: 14px; margin: 6px 0 4px; }
+  .weather-day .wd-temps .max { color: #d6602a; font-weight: bold; }
+  .weather-day .wd-temps .min { color: #2c8aa6; }
+  .weather-day .wd-wind, .weather-day .wd-sun, .weather-day .wd-uv { font-size: 10.5px; color: #888; margin-top: 2px; }
+
   footer { text-align: center; padding: 26px 20px 10px; }
   footer img { max-width: 260px; border-radius: 3px; }
   .copyright { background: #1f2225; color: #9a9a9a; font-size: 11.5px; text-align: center; padding: 14px; margin-top: 14px; }
@@ -93,6 +114,11 @@
     .posts { grid-template-columns: repeat(2, 1fr); }
     .video-grid { grid-template-columns: repeat(2, 1fr); }
     .video-grid.shorts-grid { grid-template-columns: repeat(3, 1fr); }
+    .weather-forecast { grid-template-columns: repeat(4, 1fr); }
+    .weather-now-details { margin-left: 0; }
+  }
+  @media (max-width: 600px) {
+    .weather-forecast { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -127,6 +153,8 @@
     <div class="directory" id="directory-wrap" style="display:none;"></div>
 
     <div class="video-section" id="video-wrap" style="display:none;"></div>
+
+    <div class="weather-section" id="weather-wrap" style="display:none;"></div>
 
     <div class="copyright">
       <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
@@ -230,6 +258,87 @@
     wrap.style.display = '';
   }
 
+  // WMO weather code -> [opis na srpskom, emoji ikona]
+  const WMO_MAP = {
+    0:['Vedro nebo','☀️'], 1:['Uglavnom vedro','🌤️'], 2:['Delimično oblačno','⛅'], 3:['Oblačno','☁️'],
+    45:['Magla','🌫️'], 48:['Magla sa ledom','🌫️'],
+    51:['Slaba rosulja','🌦️'], 53:['Umerena rosulja','🌦️'], 55:['Jaka rosulja','🌧️'],
+    56:['Slaba ledena rosulja','🌧️'], 57:['Jaka ledena rosulja','🌧️'],
+    61:['Slaba kiša','🌧️'], 63:['Umerena kiša','🌧️'], 65:['Jaka kiša','🌧️'],
+    66:['Slaba ledena kiša','🌧️'], 67:['Jaka ledena kiša','🌧️'],
+    71:['Slab sneg','🌨️'], 73:['Umeren sneg','🌨️'], 75:['Jak sneg','❄️'], 77:['Snežna zrna','❄️'],
+    80:['Slabi pljuskovi kiše','🌦️'], 81:['Umereni pljuskovi kiše','🌧️'], 82:['Jaki pljuskovi kiše','⛈️'],
+    85:['Slabi pljuskovi snega','🌨️'], 86:['Jaki pljuskovi snega','❄️'],
+    95:['Grmljavina','🌩️'], 96:['Grmljavina sa gradom','⛈️'], 99:['Grmljavina sa jakim gradom','⛈️']
+  };
+  function wmoInfo(code){ return WMO_MAP[code] || ['Promenljivo','🌡️']; }
+  function windDir(deg){
+    const dirs = ['Sever','Severoistok','Istok','Jugoistok','Jug','Jugozapad','Zapad','Severozapad'];
+    return dirs[Math.round(deg / 45) % 8];
+  }
+  const DAY_NAMES = ['Nedelja','Ponedeljak','Utorak','Sreda','Četvrtak','Petak','Subota'];
+
+  async function renderWeather(){
+    const wrap = document.getElementById('weather-wrap');
+    try {
+      const url = 'https://api.open-meteo.com/v1/forecast?latitude=44.18&longitude=19.98'
+        + '&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_direction_10m,weather_code'
+        + '&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_direction_10m_dominant,sunrise,sunset,uv_index_max'
+        + '&timezone=Europe%2FBelgrade&forecast_days=7';
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('weather fetch failed: ' + res.status);
+      const data = await res.json();
+      const cur = data.current;
+      const d = data.daily;
+      const curInfo = wmoInfo(cur.weather_code);
+      const curDesc = curInfo[0], curIcon = curInfo[1];
+      const updated = new Date(cur.time);
+      const updatedStr = updated.toLocaleString('sr-Latn-RS', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' });
+
+      let html = '<h3 class="cat-group-head">Trenutno vreme &mdash; Banja Vrujci</h3>';
+      html += '<div class="weather-current">'
+        + '<div class="weather-now-icon">' + curIcon + '</div>'
+        + '<div>'
+        + '<div class="weather-now-temp">' + Math.round(cur.temperature_2m) + '&deg;C</div>'
+        + '<div class="weather-now-desc">' + esc(curDesc) + '</div>'
+        + '<div class="weather-now-feel">Oseća se kao ' + Math.round(cur.apparent_temperature) + '&deg;C</div>'
+        + '<div class="weather-updated">Ažurirano: ' + updatedStr + '</div>'
+        + '</div>'
+        + '<div class="weather-now-details">'
+        + '<span><i class="fa fa-tint"></i> Vlažnost: ' + Math.round(cur.relative_humidity_2m) + '%</span>'
+        + '<span><i class="fa fa-flag"></i> Vetar: ' + Math.round(cur.wind_speed_10m) + ' km/h, ' + windDir(cur.wind_direction_10m) + '</span>'
+        + '<span><i class="fa fa-sun-o"></i> UV indeks danas: ' + Math.round(d.uv_index_max[0]) + '</span>'
+        + '</div>'
+        + '</div>';
+
+      html += '<h3 class="cat-group-head">Prognoza za 7 dana</h3><div class="weather-forecast">';
+      for (let i = 0; i < d.time.length; i++) {
+        const dateObj = new Date(d.time[i] + 'T00:00:00');
+        const dayName = i === 0 ? 'Danas' : DAY_NAMES[dateObj.getDay()];
+        const info = wmoInfo(d.weather_code[i]);
+        const desc = info[0], icon = info[1];
+        const sunrise = (d.sunrise[i].split('T')[1] || '').slice(0,5);
+        const sunset = (d.sunset[i].split('T')[1] || '').slice(0,5);
+        html += '<div class="weather-day">'
+          + '<div class="wd-name">' + esc(dayName) + '</div>'
+          + '<div class="wd-icon">' + icon + '</div>'
+          + '<div class="wd-desc">' + esc(desc) + '</div>'
+          + '<div class="wd-temps"><span class="max">' + Math.round(d.temperature_2m_max[i]) + '&deg;</span> / <span class="min">' + Math.round(d.temperature_2m_min[i]) + '&deg;</span></div>'
+          + '<div class="wd-wind">' + windDir(d.wind_direction_10m_dominant[i]) + ', ' + Math.round(d.wind_speed_10m_max[i]) + ' km/h</div>'
+          + '<div class="wd-sun"><i class="fa fa-arrow-up"></i> ' + sunrise + ' <i class="fa fa-arrow-down"></i> ' + sunset + '</div>'
+          + '<div class="wd-uv">UV indeks: ' + Math.round(d.uv_index_max[i]) + '</div>'
+          + '</div>';
+      }
+      html += '</div><div class="weather-updated" style="margin-top:14px;color:#999;">Izvor podataka: Open-Meteo</div>';
+      wrap.innerHTML = html;
+      wrap.style.display = '';
+    } catch (err) {
+      console.error('weather load failed', err);
+      wrap.innerHTML = '<p style="color:#999;font-size:13px;">Trenutno nije moguće učitati vremensku prognozu. Pokušajte kasnije.</p>';
+      wrap.style.display = '';
+    }
+  }
+
   const pathSegs = location.pathname.split('/').filter(Boolean);
   const slug = pathSegs[pathSegs.length - 1] || '';
 
@@ -263,6 +372,9 @@
       }
       if (slug === 'video') {
         renderVideos();
+      }
+      if (slug === 'vreme') {
+        renderWeather();
       }
     } else {
       document.getElementById('page-h1').textContent = 'Stranica nije pronađena';
