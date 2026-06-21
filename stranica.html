@@ -73,12 +73,27 @@
   .post h4 { margin: 8px 0 0; font-size: 13px; }
   .post h4 a { color: #2b2b2b; }
 
+  .video-section { padding: 6px 28px 30px; }
+  .video-section .yt-channel-link { display: block; margin: 0 0 14px; font-size: 12.5px; color: #2c8aa6; }
+  .video-section .cat-group-head { color: #f0901e; font-size: 17px; margin: 22px 0 4px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+  .video-section .cat-group-head:first-child { margin-top: 4px; }
+  .video-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 14px; }
+  .video-grid.shorts-grid { grid-template-columns: repeat(6, 1fr); }
+  .video-frame { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 2px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+  .shorts-grid .video-frame { padding-top: 177.78%; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-title { margin: 8px 0 0; font-size: 12.5px; color: #2b2b2b; line-height: 1.35; }
+
   footer { text-align: center; padding: 26px 20px 10px; }
   footer img { max-width: 260px; border-radius: 3px; }
   .copyright { background: #1f2225; color: #9a9a9a; font-size: 11.5px; text-align: center; padding: 14px; margin-top: 14px; }
   .copyright a { color: #cfa15a; }
 
-  @media (max-width: 900px) { .posts { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) {
+    .posts { grid-template-columns: repeat(2, 1fr); }
+    .video-grid { grid-template-columns: repeat(2, 1fr); }
+    .video-grid.shorts-grid { grid-template-columns: repeat(3, 1fr); }
+  }
 </style>
 </head>
 <body>
@@ -110,6 +125,8 @@
     </div>
 
     <div class="directory" id="directory-wrap" style="display:none;"></div>
+
+    <div class="video-section" id="video-wrap" style="display:none;"></div>
 
     <div class="copyright">
       <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
@@ -195,6 +212,24 @@
     wrap.style.display = '';
   }
 
+  async function renderVideos(){
+    const { data: items, error } = await supabase.from('videos').select('*').order('sort_order', { ascending: true });
+    if (error) { console.error('videos load failed', error); return; }
+    const wrap = document.getElementById('video-wrap');
+    const vids = (items || []).filter(v => v.type === 'video');
+    const shorts = (items || []).filter(v => v.type === 'short');
+    const card = v => `<div class="video-card"><div class="video-frame"><iframe src="https://www.youtube.com/embed/${esc(v.youtube_id)}" title="${esc(v.title || '')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-title">${esc(v.title || '')}</div></div>`;
+    let html = `<a class="yt-channel-link" href="https://www.youtube.com/@banjavrujci" target="_blank" rel="noopener">Posetite ceo YouTube kanal Banja Vrujci &#8599;</a>`;
+    if (vids.length) {
+      html += `<h3 class="cat-group-head">Video snimci</h3><div class="video-grid">${vids.map(card).join('')}</div>`;
+    }
+    if (shorts.length) {
+      html += `<h3 class="cat-group-head">Shorts</h3><div class="video-grid shorts-grid">${shorts.map(card).join('')}</div>`;
+    }
+    wrap.innerHTML = html;
+    wrap.style.display = '';
+  }
+
   const pathSegs = location.pathname.split('/').filter(Boolean);
   const slug = pathSegs[pathSegs.length - 1] || '';
 
@@ -225,6 +260,9 @@
       }
       if (slug === 'banja-vrujci-smestaj') {
         renderDirectory();
+      }
+      if (slug === 'video') {
+        renderVideos();
       }
     } else {
       document.getElementById('page-h1').textContent = 'Stranica nije pronađena';
