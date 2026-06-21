@@ -14,6 +14,8 @@
 <meta id="og-image" property="og:image" content="https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija-velika.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23f0901e'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EV%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   * { box-sizing: border-box; }
   body {
@@ -98,6 +100,11 @@
   .info-box a { color: #8fd3df; }
   .back-link { display: inline-block; margin-top: 14px; font-size: 12.5px; color: #f0901e; }
 
+  .map-section { padding: 0 28px 28px; }
+  .map-section h3 { color: #f0901e; font-size: 16px; margin: 0 0 10px; }
+  .map-section .map-note { font-size: 11.5px; color: #999; margin-top: 6px; }
+  #map { height: 320px; border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+
   footer { text-align: center; padding: 26px 20px 10px; }
   footer img { max-width: 260px; border-radius: 3px; }
   .copyright { background: #1f2225; color: #9a9a9a; font-size: 11.5px; text-align: center; padding: 14px; margin-top: 14px; }
@@ -148,6 +155,12 @@
         <div class="row" id="row-bv" style="display:none;"><b>Više ponude</b><a id="item-bv-link" href="#" target="_blank" rel="noopener">na banjavrujci.info &#8599;</a></div>
         <a class="back-link" id="back-link" href="/">&laquo; Nazad na kategoriju</a>
       </div>
+    </div>
+
+    <div class="map-section" id="map-section" style="display:none;">
+      <h3>Lokacija na mapi</h3>
+      <div id="map"></div>
+      <div class="map-note">Pozicija markera je okvirna procena lokacije na osnovu opisa smeštaja.</div>
     </div>
 
     <div class="copyright">
@@ -306,6 +319,18 @@
       galleryEl.querySelectorAll('img').forEach(img => {
         img.addEventListener('click', () => openLightbox(parseInt(img.dataset.idx, 10)));
       });
+
+      // map: show marker if coordinates exist
+      if (item.latitude && item.longitude && window.L) {
+        document.getElementById('map-section').style.display = '';
+        const map = L.map('map', { scrollWheelZoom: false }).setView([item.latitude, item.longitude], 16);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 19
+        }).addTo(map);
+        L.marker([item.latitude, item.longitude]).addTo(map)
+          .bindPopup(esc(item.title)).openPopup();
+      }
     } else {
       document.getElementById('item-title').textContent = 'Smeštaj nije pronađen';
     }
