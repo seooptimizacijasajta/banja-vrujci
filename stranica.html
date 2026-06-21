@@ -105,6 +105,13 @@
   .weather-day .wd-temps .min { color: #2c8aa6; }
   .weather-day .wd-wind, .weather-day .wd-sun, .weather-day .wd-uv { font-size: 10.5px; color: #888; margin-top: 2px; }
 
+  .links-section { padding: 6px 28px 30px; }
+  .links-section .cat-group-head { color: #f0901e; font-size: 17px; margin: 22px 0 4px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+  .links-section .cat-group-head:first-child { margin-top: 4px; }
+  .links-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .link-item { display: inline-block; padding: 9px 16px; background: #f7fbfc; border: 1px solid #e3eef1; border-radius: 20px; color: #2c8aa6; font-size: 12.5px; font-weight: bold; }
+  .link-item:hover { background: #2c8aa6; color: #fff; border-color: #2c8aa6; }
+
   footer { text-align: center; padding: 26px 20px 10px; }
   footer img { max-width: 260px; border-radius: 3px; }
   .copyright { background: #1f2225; color: #9a9a9a; font-size: 11.5px; text-align: center; padding: 14px; margin-top: 14px; }
@@ -155,6 +162,8 @@
     <div class="video-section" id="video-wrap" style="display:none;"></div>
 
     <div class="weather-section" id="weather-wrap" style="display:none;"></div>
+
+    <div class="links-section" id="links-wrap" style="display:none;"></div>
 
     <div class="copyright">
       <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
@@ -339,6 +348,33 @@
     }
   }
 
+  const PARTNER_SITES = [
+    ['https://www.banjavrujci.info', 'www.banjavrujci.info'],
+    ['https://www.vrujci.org', 'www.vrujci.org'],
+    ['https://www.banja-vrujci.co.rs', 'www.banja-vrujci.co.rs'],
+    ['https://www.banja-vrujci.net', 'www.banja-vrujci.net'],
+    ['https://www.banja-vrujci.org', 'www.banja-vrujci.org'],
+    ['https://www.banjavrujci.biz', 'www.banjavrujci.biz']
+  ];
+  const SOCIAL_LINKS = [
+    ['https://www.facebook.com/Banja.Vrujci/', 'Facebook'],
+    ['https://www.facebook.com/groups/banjavrujcismestaj', 'Facebook grupa'],
+    ['https://www.tiktok.com/@banjavrujci', 'TikTok'],
+    ['https://www.instagram.com/Banja.Vrujci', 'Instagram'],
+    ['https://twitter.com/banjavrujci', 'Twitter / X'],
+    ['https://www.linkedin.com/company/banja-vrujci', 'LinkedIn'],
+    ['https://www.pinterest.com/banjavrujci/banja-vrujci/', 'Pinterest'],
+    ['https://youtube.com/c/BanjavrujciInfoSmestajApartmani', 'YouTube']
+  ];
+  function renderPartnerLinks(){
+    const wrap = document.getElementById('links-wrap');
+    const item = ([href, label]) => `<a class="link-item" href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;
+    let html = '<h3 class="cat-group-head">Partnerski sajtovi</h3><div class="links-list">' + PARTNER_SITES.map(item).join('') + '</div>';
+    html += '<h3 class="cat-group-head">Društvene mreže</h3><div class="links-list">' + SOCIAL_LINKS.map(item).join('') + '</div>';
+    wrap.innerHTML = html;
+    wrap.style.display = '';
+  }
+
   const pathSegs = location.pathname.split('/').filter(Boolean);
   const slug = pathSegs[pathSegs.length - 1] || '';
 
@@ -375,6 +411,9 @@
       }
       if (slug === 'vreme') {
         renderWeather();
+      }
+      if (slug === 'linkovi-partnera') {
+        renderPartnerLinks();
       }
     } else {
       document.getElementById('page-h1').textContent = 'Stranica nije pronađena';
