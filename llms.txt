@@ -1,0 +1,85 @@
+# Banja Vrujci (Vrujci.org)
+
+> Vrujci.org je turistički informativni vodič za smeštaj u Banji Vrujci, Srbija. Sajt predstavlja kompletnu ponudu smeštaja — apartmane, vile, hotele, sobe, vikendice i privatni smeštaj — sa detaljnim opisima, slikama, cenama, mapom lokacija i kontakt informacijama za svaki objekat, kao i korisne info-servise (vremenska prognoza, video galerija, partnerski linkovi).
+
+Banja Vrujci je banja u Srbiji poznata po izvorima termalnih voda i ponudi za odmor, rekreaciju i lečenje. Vrujci.org okuplja ponudu privatnih iznajmljivača i objekata u mestu na jednom mestu.
+
+## Kategorije smeštaja
+
+- [Banja Vrujci smeštaj](https://www.vrujci.org/banja-vrujci-smestaj/): Pregled svih objekata za smeštaj u Banji Vrujci sa interaktivnom mapom lokacija.
+- [Apartmani](https://www.vrujci.org/apartmani-banja-vrujci/): Samostalne jedinice sa kuhinjom i kupatilom, pogodne za parove, porodice i kraće/duže boravke.
+- [Vile](https://www.vrujci.org/banja-vrujci-vile/): Kuće za odmor sa dvorištem, terasom i (kod većine) bazenom; pogodne za porodice i veće grupe.
+- [Hoteli](https://www.vrujci.org/banja-vrujci-hoteli/): Organizovan smeštaj sa recepcijom, restoranom i wellness/spa programima.
+- [Privatni smeštaj](https://www.vrujci.org/banja-vrujci-privatni-smestaj/): Sobe i kuće u vlasništvu domaćina, pristupačnije cene i domaćinska atmosfera.
+- [Vikendice](https://www.vrujci.org/banja-vrujci-vikendice/): Vikendice i brvnare za odmor u prirodi, pogodne za vikend izlete i grupe prijatelja.
+- [Sobe](https://www.vrujci.org/banja-vrujci-sobe/): Jednostavniji i ekonomičniji vid smeštaja za kraći odmor ili banjske tretmane.
+
+## Apartmani — pojedinačni objekti
+
+- [Apartmani Bella](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/)
+- [Apartmani Alfa](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-alfa-banja-vrujci/)
+- [Apartman LUX](https://www.vrujci.org/apartmani-banja-vrujci/apartman-lux-banja-vrujci/)
+- [Apartmani Jasminka](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-jasminka-banja-vrujci/)
+- [Apartman Tamara](https://www.vrujci.org/apartmani-banja-vrujci/apartman-tamara-banja-vrujci/)
+- [Apartman Comfort](https://www.vrujci.org/apartmani-banja-vrujci/apartman-comfort-banja-vrujci/)
+- [Apartman Mira](https://www.vrujci.org/apartmani-banja-vrujci/apartman-mira-banja-vrujci/)
+- [Apartman Tri Delfina](https://www.vrujci.org/apartmani-banja-vrujci/apartman-tri-delfina-banja-vrujci/)
+- [Apartman Vorteks](https://www.vrujci.org/apartmani-banja-vrujci/apartman-vorteks-banja-vrujci/)
+- [Apartmani Ana](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-ana-banja-vrujci/)
+- [Apartmani Blanuša](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-blanusa-banja-vrujci/)
+- [Apartmani Komazec](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-komazec-banja-vrujci/)
+- [Apartmani Nikola](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-nikola-banja-vrujci/)
+- [Apartmani Pakić](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/)
+- [Apartmani Pink](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pink-banja-vrujci/)
+- [Apartmani Sinđelić](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-sindjelic-banja-vrujci/)
+- [Apartmani Vesna](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-vesna-banja-vrujci/)
+- [Apartmani Višnja](https://www.vrujci.org/apartmani-banja-vrujci/apartmani-visnja-banja-vrujci/)
+- [Maja Apartmani](https://www.vrujci.org/apartmani-banja-vrujci/maja-apartmani/)
+- [Nikolić Apartmani](https://www.vrujci.org/apartmani-banja-vrujci/nikolic-apartmani/)
+- [Sunčani Breg Apartmani](https://www.vrujci.org/apartmani-banja-vrujci/suncani-breg-apartmani/)
+- [Vila Ana](https://www.vrujci.org/apartmani-banja-vrujci/vila-ana-banja-vrujci/)
+
+## Vile — pojedinačni objekti
+
+- [Vila Sofija](https://www.vrujci.org/banja-vrujci-vile/vila-sofija/)
+- [Vila Ema](https://www.vrujci.org/banja-vrujci-vile/vila-ema-banja-vrujci/)
+- [Vila Jelena](https://www.vrujci.org/banja-vrujci-vile/vila-jelena/)
+- [Vila Iva](https://www.vrujci.org/banja-vrujci-vile/vila-iva/)
+- [Turistički kompleks Petra](https://www.vrujci.org/banja-vrujci-vile/vila-petra/)
+- [Vila "Aqua Casa"](https://www.vrujci.org/banja-vrujci-vile/vila-aqua-casa-banja-vrujci/)
+- [Vila Elipsa](https://www.vrujci.org/banja-vrujci-vile/vila-elipsa/)
+- [Vila Vila](https://www.vrujci.org/banja-vrujci-vile/vila-vila/)
+- [Apartmani Vila Amante](https://www.vrujci.org/banja-vrujci-vile/vila-amante-apartmani-banja-vrujci/)
+
+## Hoteli — pojedinačni objekti
+
+- [Hotel Vrujci](https://www.vrujci.org/banja-vrujci-hoteli/hotel-vrujci/)
+
+## Privatni smeštaj — pojedinačni objekti
+
+- [Smeštaj Nikita](https://www.vrujci.org/banja-vrujci-privatni-smestaj/smestaj-nikita-banja-vrujci/)
+- [Filipović](https://www.vrujci.org/banja-vrujci-privatni-smestaj/filipovic/)
+- [Sobe Cica (Vulović)](https://www.vrujci.org/banja-vrujci-privatni-smestaj/sobe-za-izdavanje-cica-vulovic/)
+
+## Vikendice — pojedinačni objekti
+
+- [Brvnare Oaza Mira](https://www.vrujci.org/banja-vrujci-vikendice/brvnare-oaza-mira-banja-vrujci/)
+- [Vikendica Bane](https://www.vrujci.org/banja-vrujci-vikendice/vikendica-bane-banja-vrujci/)
+- [Vajati Ivica i Marica](https://www.vrujci.org/banja-vrujci-vikendice/vajati-ivica-i-marica-banja-vrujci/)
+
+## Sobe — pojedinačni objekti
+
+- [Sobe Goca](https://www.vrujci.org/banja-vrujci-sobe/sobe-goca-banja-vrujci/)
+
+## Info servis
+
+- [Vremenska prognoza](https://www.vrujci.org/info-servis/vreme/): Trenutni vremenski uslovi i 7-dnevna prognoza za Banju Vrujci.
+- [Video](https://www.vrujci.org/info-servis/video/): Video snimci i Shorts klipovi sa zvaničnog YouTube kanala Banja Vrujci.
+- [Linkovi partnera](https://www.vrujci.org/info-servis/linkovi-partnera/): Partnerski sajtovi i zvanični profili na društvenim mrežama.
+- [Mapa smeštaja](https://www.vrujci.org/banja-vrujci-smestaj-mapa/): Interaktivna mapa lokacija svih objekata za smeštaj u Banji Vrujci.
+- [Kontakt info](https://www.vrujci.org/info-servis/kontakt-info/): Kontakt informacije za rezervaciju smeštaja u Banji Vrujci.
+
+## Optional
+
+- [Sitemap](https://www.vrujci.org/sitemap.xml)
+- [Robots.txt](https://www.vrujci.org/robots.txt)
