@@ -232,4 +232,21 @@
     }
   } catch (err) {
     console.error('category load failed', err);
-    document.getElementById('cat-title').textContent = 'G
+    document.getElementById('cat-title').textContent = 'Greška pri učitavanju';
+  }
+
+  try {
+    const { data, error } = await supabase.from('site_menu').select('*').order('sort_order', { ascending: true });
+    if (error) throw error;
+    renderMenu(data);
+  } catch (err) { console.error('site_menu load failed', err); }
+
+  try {
+    const { data, error } = await supabase.from('site_content').select('key,value');
+    if (error) throw error;
+    const map = new Map(data.map(r => [r.key, r.value]));
+    if (map.get('copyright_text')) document.getElementById('copyright-text').textContent = map.get('copyright_text');
+  } catch (err) { console.error('site_content load failed', err); }
+</script>
+</body>
+</html>

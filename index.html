@@ -554,4 +554,54 @@
         const img = document.createElement('img');
         img.src = r.url;
         img.alt = r.alt_text || '';
- 
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        if (i === 0) img.className = 'active';
+        frag.appendChild(img);
+      });
+      carousel.insertBefore(frag, navBtn);
+      if (window.initCarousel) window.initCarousel();
+    }
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('listings')
+      .select('*')
+      .order('sort_order', { ascending: true });
+    if (error) throw error;
+    renderGrid(data);
+    renderSitemap(data);
+  } catch (err) {
+    document.getElementById('posts-grid').innerHTML =
+      '<p style="padding:20px;color:#b33;grid-column:1/-1;">Greška pri učitavanju smeštaja iz baze.</p>';
+    document.getElementById('sitemap-list').innerHTML =
+      '<p style="color:#e3a;">Greška pri učitavanju.</p>';
+    console.error(err);
+  }
+
+  try {
+    const { data, error } = await supabase.from('site_content').select('key,value');
+    if (error) throw error;
+    applySiteContent(data);
+  } catch (err) {
+    console.error('site_content load failed', err);
+  }
+
+  try {
+    const { data, error } = await supabase.from('site_images').select('*');
+    if (error) throw error;
+    applySiteImages(data);
+  } catch (err) {
+    console.error('site_images load failed', err);
+  }
+
+  try {
+    const { data, error } = await supabase.from('site_menu').select('*').order('sort_order', { ascending: true });
+    if (error) throw error;
+    renderMenu(data);
+  } catch (err) {
+    console.error('site_menu load failed', err);
+  }
+</script>
+</body>
+</html>

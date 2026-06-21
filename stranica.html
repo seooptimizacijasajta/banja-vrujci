@@ -162,4 +162,128 @@
     const ul = document.getElementById('mainmenu-list');
     ul.innerHTML = tops.map(t => {
       const kids = (byParent.get(t.id) || []).sort((a,b)=>a.sort_order-b.sort_order);
-      const caret = kids.length ? ' <i class="fa fa-caret-down"></i
+      const caret = kids.length ? ' <i class="fa fa-caret-down"></i>' : '';
+      const sub = kids.length
+        ? `<ul class="sub">${kids.map(k => `<li><a href="${esc(k.href)}">${esc(k.label)}</a></li>`).join('')}</ul>`
+        : '';
+      return `<li><a href="${esc(t.href)}">${esc(t.label)}${caret}</a>${sub}</li>`;
+    }).join('');
+  }
+
+  // cross-links from our pages to the matching page on the user's banjavrujci.info portal
+  const PAGE_BV_MAP = {
+    'banja-vrujci-smestaj': 'https://www.banjavrujci.info/smestaj/banja-vrujci-smestaj-sobe-apartmani-vile-hoteli',
+    'kontakt-info': 'https://www.banjavrujci.info/kontakt',
+    'vreme': 'https://www.banjavrujci.info/banja-vrujci/vremenska-prognoza',
+    'linkovi-partnera': 'https://www.banjavrujci.info/info/prijatelji-portala',
+    'banja-vrujci-smestaj-mapa': 'https://www.banjavrujci.info/plan-banje-vrujci-mapa-smestaja',
+    'info-servis': 'https://www.banjavrujci.info/info/mapa-sajta'
+  };
+  // category -> banjavrujci.info listing category, used to build the cross-link on each directory card
+  const CAT_BV_MAP = {
+    'Vile': 'https://www.banjavrujci.info/smestaj/vile', 'Apartmani': 'https://www.banjavrujci.info/smestaj/apartmani',
+    'Hoteli': 'https://www.banjavrujci.info/smestaj/hoteli', 'Privatni smeštaj': 'https://www.banjavrujci.info/smestaj/privatni-smestaj',
+    'Vikendice': 'https://www.banjavrujci.info/smestaj/vikendice', 'Sobe': 'https://www.banjavrujci.info/smestaj/sobe'
+  };
+
+  async function renderDirectory(){
+    const { data: items, error } = await supabase.from('listings').select('*').order('category', { ascending: true }).order('sort_order', { ascending: true });
+    if (error) { console.error('directory load failed', error); return; }
+    const wrap = document.getElementById('directory-wrap');
+    const byCat = new Map();
+    (items || []).forEach(row => {
+      if (!byCat.has(row.category)) byCat.set(row.category, []);
+      byCat.get(row.category).push(row);
+    });
+    let html = '';
+    byCat.forEach((rows, cat) => {
+      const bvUrl = CAT_BV_MAP[cat];
+      const bvTag = bvUrl ? ` &mdash; <a href="${esc(bvUrl)}" target="_blank" rel="noopener" style="color:#2c8aa6;font-size:12px;font-weight:normal;">i na banjavrujci.info &#8599;</a>` : '';
+      html += `<h3 class="cat-group-head">${esc(cat)}${bvTag}</h3><div class="posts">`;
+      rows.forEach(row => {
+        const media = row.image_url
+          ? `<a href="${esc(row.href)}"><img src="${esc(row.image_url)}" loading="lazy"></a>`
+          : `<a href="${esc(row.href)}"><div class="ph">${esc(row.category)}</div></a>`;
+        html += `<div class="post">${media}<h4><a href="${esc(row.href)}">${esc(row.title)}</a></h4></div>`;
+      });
+      html += `</div>`;
+    });
+    wrap.innerHTML = html;
+    wrap.style.display = '';
+  }
+
+  async function renderVideos(){
+    const { data: items, error } = await supabase.from('videos').select('*').order('sort_order', { ascending: true });
+    if (error) { console.error('videos load failed', error); return; }
+    const wrap = document.getElementById('video-wrap');
+    const vids = (items || []).filter(v => v.type === 'video');
+    const shorts = (items || []).filter(v => v.type === 'short');
+    const card = v => `<div class="video-card"><div class="video-frame"><iframe src="https://www.youtube.com/embed/${esc(v.youtube_id)}" title="${esc(v.title || '')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-title">${esc(v.title || '')}</div></div>`;
+    let html = `<a class="yt-channel-link" href="https://www.youtube.com/@banjavrujci" target="_blank" rel="noopener">Posetite ceo YouTube kanal Banja Vrujci &#8599;</a>`;
+    if (vids.length) {
+      html += `<h3 class="cat-group-head">Video snimci</h3><div class="video-grid">${vids.map(card).join('')}</div>`;
+    }
+    if (shorts.length) {
+      html += `<h3 class="cat-group-head">Shorts</h3><div class="video-grid shorts-grid">${shorts.map(card).join('')}</div>`;
+    }
+    wrap.innerHTML = html;
+    wrap.style.display = '';
+  }
+
+  const pathSegs = location.pathname.split('/').filter(Boolean);
+  const slug = pathSegs[pathSegs.length - 1] || '';
+
+  try {
+    const { data: page, error } = await supabase.from('pages').select('*').eq('slug', slug).maybeSingle();
+    if (error) throw error;
+    if (page) {
+      document.getElementById('page-h1').textContent = page.title;
+      document.getElementById('breadcrumb-current').textContent = page.title;
+      document.getElementById('page-content').textContent = page.content || '';
+      document.title = page.meta_title || (page.title + ' - Banja Vrujci');
+      document.getElementById('canonical-link').href = 'https://www.vrujci.org' + location.pathname;
+      setMeta('#meta-description', page.meta_description);
+      setMeta('#og-title', page.meta_title || page.title);
+      setMeta('#og-description', page.meta_description);
+      if (page.image_url) {
+        const img = document.getElementById('page-image');
+        img.src = page.image_url;
+        img.alt = page.title;
+        img.style.display = '';
+        setMeta('#og-image', page.image_url);
+      }
+      const bvUrl = PAGE_BV_MAP[slug];
+      if (bvUrl) {
+        const bvLink = document.getElementById('bv-info-link');
+        bvLink.href = bvUrl;
+        bvLink.style.display = '';
+      }
+      if (slug === 'banja-vrujci-smestaj') {
+        renderDirectory();
+      }
+      if (slug === 'video') {
+        renderVideos();
+      }
+    } else {
+      document.getElementById('page-h1').textContent = 'Stranica nije pronađena';
+    }
+  } catch (err) {
+    console.error('page load failed', err);
+    document.getElementById('page-h1').textContent = 'Greška pri učitavanju';
+  }
+
+  try {
+    const { data, error } = await supabase.from('site_menu').select('*').order('sort_order', { ascending: true });
+    if (error) throw error;
+    renderMenu(data);
+  } catch (err) { console.error('site_menu load failed', err); }
+
+  try {
+    const { data, error } = await supabase.from('site_content').select('key,value');
+    if (error) throw error;
+    const map = new Map(data.map(r => [r.key, r.value]));
+    if (map.get('copyright_text')) document.getElementById('copyright-text').textContent = map.get('copyright_text');
+  } catch (err) { console.error('site_content load failed', err); }
+</script>
+</body>
+</html>
