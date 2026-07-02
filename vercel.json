@@ -26,6 +26,8 @@
     { "source": "/banja-vrujci-smestaj-mapa/", "destination": "/stranica.html?slug=banja-vrujci-smestaj-mapa" },
 
     { "source": "/info-servis/", "destination": "/stranica.html?slug=info-servis" },
-    { "source": "/info-servis/:slug/", "destination": "/stranica.html?slug=:slug" }
+    { "source": "/info-servis/:slug/", "destination": "/stranica.html?slug=:slug" },
+
+    { "source": "/api/contact/", "destination": "/api/contact" }
   ]
 }
