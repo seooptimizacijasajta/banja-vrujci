@@ -119,13 +119,8 @@
   .cols4 .bv-mini:hover { text-decoration: underline; }
 
   .ad-banners { display: flex; gap: 10px; padding: 16px 28px 6px; flex-wrap: wrap; justify-content: center; }
-  .ad-banner { flex: 1 1 150px; min-width: 130px; max-width: 210px; height: 260px; position: relative; border-radius: 4px; overflow: hidden; background-size: cover; background-position: center; display: block; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
-  .ad-banner::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.08) 100%); }
-  .ad-banner-inner { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 12px 10px; color: #fff; }
-  .ab-name { font-weight: bold; font-size: 12.5px; text-transform: uppercase; letter-spacing: .4px; line-height: 1.3; }
-  .ab-stars { font-size: 11px; color: #ffe9a0; margin-top: 3px; letter-spacing: 1px; }
-  .ab-sub { font-size: 10.5px; color: #e0d8c8; margin-top: 3px; line-height: 1.3; }
-  .ab-phone { font-size: 13px; font-weight: bold; color: #ffe9a0; margin-top: 5px; white-space: nowrap; }
+  .ad-banner { flex: 1 1 150px; min-width: 130px; max-width: 210px; height: 260px; border-radius: 4px; overflow: hidden; display: block; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+  .ad-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   .about { padding: 6px 28px 28px; font-size: 13px; line-height: 1.8; color: #5a5a5a; text-align: justify; }
   .about h4 { color: #333; font-size: 16px; }
@@ -252,45 +247,20 @@
     </div>
 
     <div class="ad-banners">
-      <a class="ad-banner" href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/" style="background-image:url('https://www.banjavrujci.info/wp-content/uploads/2026/05/apartman-pakic-velika.jpg')">
-        <div class="ad-banner-inner">
-          <span class="ab-name">Apartmani Pakić</span>
-          <span class="ab-stars">★★★</span>
-          <span class="ab-sub">Apartmani, lep pogled, parking</span>
-          <span class="ab-phone">062 42 88 59</span>
-        </div>
+      <a class="ad-banner" href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">
+        <img src="/Apartmani_Pakic_Baner.jpg" alt="Apartmani Pakić Banja Vrujci" loading="lazy">
       </a>
-      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija/" style="background-image:url('https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija-velika.jpg')">
-        <div class="ad-banner-inner">
-          <span class="ab-name">Vila Sofija</span>
-          <span class="ab-stars">★★★</span>
-          <span class="ab-sub">Spa, jacuzzi, lep pogled</span>
-          <span class="ab-phone">064 144 144 1</span>
-        </div>
+      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija/">
+        <img src="/Vila_Sofija_Baner.jpg" alt="Vila Sofija Banja Vrujci" loading="lazy">
       </a>
-      <a class="ad-banner" href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-lux-banja-vrujci/" style="background-image:url('https://www.banjavrujci.info/wp-content/uploads/2025/07/apartmani-stefan-lux-spa-centar.jpg')">
-        <div class="ad-banner-inner">
-          <span class="ab-name">Stefan Panorama</span>
-          <span class="ab-stars">★★★★</span>
-          <span class="ab-sub">Apartmani, spa, bazen, jacuzzi</span>
-          <span class="ab-phone">061 309 6448</span>
-        </div>
+      <a class="ad-banner" href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-lux-banja-vrujci/">
+        <img src="/Stefan_Panorama_Baner.jpg" alt="Stefan Panorama Apartmani Spa Banja Vrujci" loading="lazy">
       </a>
-      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena/" style="background-image:url('https://www.banjavrujci.info/wp-content/uploads/2022/05/vila-jelena-velika.jpg')">
-        <div class="ad-banner-inner">
-          <span class="ab-name">Vila Jelena</span>
-          <span class="ab-stars">★★★</span>
-          <span class="ab-sub">Apartmani, sobe, bazeni, mir</span>
-          <span class="ab-phone">064 42 42 202</span>
-        </div>
+      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena/">
+        <img src="/Vila_Jelena_Baner.jpg" alt="Vila Jelena Banja Vrujci" loading="lazy">
       </a>
-      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-petra/" style="background-image:url('https://www.banjavrujci.info/wp-content/rockettheme/rt_panacea_wp/smestaj/vilapetra/petra/vila-petra-nove10.jpg')">
-        <div class="ad-banner-inner">
-          <span class="ab-name">Vila i Brvnara Petra</span>
-          <span class="ab-stars">★★★</span>
-          <span class="ab-sub">Brvnara, odmor u prirodi, mir</span>
-          <span class="ab-phone">064 444 333 9</span>
-        </div>
+      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-petra/">
+        <img src="/Vila_Petra_Baner.jpg" alt="Vila i Brvnara Petra Banja Vrujci" loading="lazy">
       </a>
     </div>
 
