@@ -119,14 +119,14 @@
   .cols4 .bv-mini:hover { text-decoration: underline; }
 
   .ad-banners { display: flex; gap: 10px; padding: 16px 28px 6px; flex-wrap: wrap; justify-content: center; }
-  .ad-banner { flex: 1 1 150px; min-width: 130px; max-width: 210px; height: 260px; border-radius: 4px; overflow: hidden; display: block; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+  .ad-banner-wrap { flex: 1 1 150px; min-width: 130px; max-width: 210px; text-align: center; }
+  .ad-banner { height: 260px; border-radius: 4px; overflow: hidden; display: block; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
   .ad-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .ad-banners-mid { display: flex; gap: 12px; padding: 18px 28px 8px; flex-wrap: wrap; justify-content: center; }
-  .ad-banner-mid { flex: 1 1 150px; min-width: 130px; max-width: 220px; text-align: center; }
-  .ad-banner-mid .img-link { display: block; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,.25); text-decoration: none; }
-  .ad-banner-mid img { width: 100%; height: 190px; object-fit: cover; display: block; }
-  .ad-mid-phone { display: block; margin-top: 6px; font-size: 13px; font-weight: 700; color: #1a6e8a; text-decoration: none; letter-spacing: .3px; }
+  .ad-banners-mid { display: flex; gap: 10px; padding: 14px 28px 8px; flex-wrap: wrap; justify-content: center; }
+  .ad-banner-mid { flex: 1 1 150px; min-width: 130px; max-width: 220px; text-align: center; border: 1px solid #c8dfe4; border-radius: 4px; padding: 10px 6px; background: #f4fafc; }
+  .ad-mid-phone { display: block; font-size: 13px; font-weight: 700; color: #1a6e8a; text-decoration: none; letter-spacing: .3px; }
   .ad-mid-phone:hover { color: #e07000; }
+  .ad-mid-name { display: block; font-size: 11px; color: #666; margin-bottom: 4px; }
 
   .about { padding: 6px 28px 28px; font-size: 13px; line-height: 1.8; color: #5a5a5a; text-align: justify; }
   .about h4 { color: #333; font-size: 16px; }
@@ -253,21 +253,36 @@
     </div>
 
     <div class="ad-banners">
-      <a class="ad-banner" href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">
-        <img src="/Apartmani_Pakic_Baner.jpg" alt="Apartmani Pakić Banja Vrujci" loading="lazy">
-      </a>
-      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija/">
-        <img src="/Vila_Sofija_Baner.jpg" alt="Vila Sofija Banja Vrujci" loading="lazy">
-      </a>
-      <a class="ad-banner" href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-lux-banja-vrujci/">
-        <img src="/Stefan_Panorama_Baner.jpg" alt="Stefan Panorama Apartmani Spa Banja Vrujci" loading="lazy">
-      </a>
-      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena/">
-        <img src="/Vila_Jelena_Baner.jpg" alt="Vila Jelena Banja Vrujci" loading="lazy">
-      </a>
-      <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-petra/">
-        <img src="/Vila_Petra_Baner.jpg" alt="Vila i Brvnara Petra Banja Vrujci" loading="lazy">
-      </a>
+      <div class="ad-banner-wrap">
+        <a class="ad-banner" href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">
+          <img src="/Apartmani_Pakic_Baner.jpg" alt="Apartmani Pakić Banja Vrujci" loading="lazy">
+        </a>
+        <a class="ad-mid-phone" href="tel:+38162428859">062 42 88 59</a>
+      </div>
+      <div class="ad-banner-wrap">
+        <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-sofija/">
+          <img src="/Vila_Sofija_Baner.jpg" alt="Vila Sofija Banja Vrujci" loading="lazy">
+        </a>
+        <a class="ad-mid-phone" href="tel:+381641441441">064 144 1441</a>
+      </div>
+      <div class="ad-banner-wrap">
+        <a class="ad-banner" href="https://www.vrujci.org/apartmani-banja-vrujci/apartman-lux-banja-vrujci/">
+          <img src="/Stefan_Panorama_Baner.jpg" alt="Stefan Panorama Apartmani Spa Banja Vrujci" loading="lazy">
+        </a>
+        <a class="ad-mid-phone" href="tel:+381613096448">061 30 96 448</a>
+      </div>
+      <div class="ad-banner-wrap">
+        <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-jelena/">
+          <img src="/Vila_Jelena_Baner.jpg" alt="Vila Jelena Banja Vrujci" loading="lazy">
+        </a>
+        <a class="ad-mid-phone" href="tel:+381644242202">064 42 42 202</a>
+      </div>
+      <div class="ad-banner-wrap">
+        <a class="ad-banner" href="https://www.vrujci.org/banja-vrujci-vile/vila-petra/">
+          <img src="/Vila_Petra_Baner.jpg" alt="Vila i Brvnara Petra Banja Vrujci" loading="lazy">
+        </a>
+        <a class="ad-mid-phone" href="tel:+381643315996">064 33 15 996</a>
+      </div>
     </div>
 
     <div class="intro">
@@ -378,28 +393,20 @@
 
     <div class="ad-banners-mid">
       <div class="ad-banner-mid">
-        <a class="img-link" href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/">
-          <img src="/Banja_Vrujci_Apartmani_Bella.jpg" alt="Apartmani Bella Banja Vrujci" loading="lazy">
-        </a>
-        <a class="ad-mid-phone" href="tel:+381631236062">063 12 36 062</a>
+        <span class="ad-mid-name">Apartmani Bella</span>
+        <a class="ad-mid-phone" href="https://www.vrujci.org/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/">063 12 36 062</a>
       </div>
       <div class="ad-banner-mid">
-        <a class="img-link" href="https://www.vrujci.org/apartmani-banja-vrujci/vila-ana-banja-vrujci/">
-          <img src="/Vila_Ana_Banja_Vrujci.jpg" alt="Vila Ana Banja Vrujci" loading="lazy">
-        </a>
-        <a class="ad-mid-phone" href="tel:+381643501331">064 35 01 331</a>
+        <span class="ad-mid-name">Vila Ana</span>
+        <a class="ad-mid-phone" href="https://www.vrujci.org/apartmani-banja-vrujci/vila-ana-banja-vrujci/">064 35 01 331</a>
       </div>
       <div class="ad-banner-mid">
-        <a class="img-link" href="https://www.vrujci.org/banja-vrujci-vile/vila-iva/">
-          <img src="/Vila_Iva_Banja_Vrujci.jpg" alt="Vila Iva Banja Vrujci" loading="lazy">
-        </a>
-        <a class="ad-mid-phone" href="tel:+381646466852">064 64 66 852</a>
+        <span class="ad-mid-name">Vila Iva</span>
+        <a class="ad-mid-phone" href="https://www.vrujci.org/banja-vrujci-vile/vila-iva/">064 64 66 852</a>
       </div>
       <div class="ad-banner-mid">
-        <a class="img-link" href="https://www.vrujci.org/banja-vrujci-vile/vila-mir-banja-vrujci/">
-          <img src="/Vila_Mir_Banja_Vrujci.jpg" alt="Vila Mir Banja Vrujci" loading="lazy">
-        </a>
-        <a class="ad-mid-phone" href="tel:+381643572583">064 357 25 83</a>
+        <span class="ad-mid-name">Vila Mir</span>
+        <a class="ad-mid-phone" href="https://www.vrujci.org/banja-vrujci-vile/vila-mir-banja-vrujci/">064 357 25 83</a>
       </div>
     </div>
 
