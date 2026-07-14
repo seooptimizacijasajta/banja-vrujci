@@ -99,6 +99,12 @@
   .info-box .row { margin: 8px 0; }
   .info-box .row b { color: #fff; display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; }
   .info-box a { color: #8fd3df; }
+  .contact-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .contact-btns a { display: inline-block; padding: 5px 11px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; }
+  .btn-phone { background: #1a6e8a; color: #fff !important; }
+  .btn-viber { background: #7360f2; color: #fff !important; }
+  .btn-whatsapp { background: #25d366; color: #fff !important; }
+  .contact-btns a:hover { opacity: .85; }
   .back-link { display: inline-block; margin-top: 14px; font-size: 12.5px; color: #f0901e; }
 
   .map-section { padding: 0 28px 28px; }
@@ -151,7 +157,13 @@
         <h3>Informacije</h3>
         <div class="row" id="row-price" style="display:none;"><b>Cena</b><span id="item-price"></span></div>
         <div class="row" id="row-address" style="display:none;"><b>Lokacija</b><span id="item-address"></span></div>
-        <div class="row" id="row-phone" style="display:none;"><b>Telefon</b><a id="item-phone" href="#"></a></div>
+        <div class="row" id="row-phone" style="display:none;"><b>Telefon</b>
+          <span class="contact-btns">
+            <a id="item-phone" href="#" class="btn-phone">📞 Pozovi</a>
+            <a id="item-viber" href="#" class="btn-viber">Viber</a>
+            <a id="item-whatsapp" href="#" class="btn-whatsapp">WhatsApp</a>
+          </span>
+        </div>
         <div class="row"><b>Kontakt email</b><a href="mailto:banjavrujcismestaj@vrujci.org">banjavrujcismestaj(@)vrujci.org</a></div>
         <div class="row" id="row-bv" style="display:none;"><b>Više ponude</b><a id="item-bv-link" href="#" target="_blank" rel="noopener">na banjavrujci.info &#8599;</a></div>
         <a class="back-link" id="back-link" href="/">&laquo; Nazad na kategoriju</a>
@@ -274,8 +286,11 @@
       if (item.price_text) { document.getElementById('item-price').textContent = item.price_text; document.getElementById('row-price').style.display = ''; }
       if (item.address) { document.getElementById('item-address').textContent = item.address; document.getElementById('row-address').style.display = ''; }
       if (item.phone) {
-        document.getElementById('item-phone').textContent = item.phone;
-        document.getElementById('item-phone').href = 'tel:' + item.phone.replace(/\s+/g, '');
+        const digits = item.phone.replace(/\D/g, '');
+        document.getElementById('item-phone').textContent = '📞 ' + item.phone;
+        document.getElementById('item-phone').href = 'tel:+' + digits;
+        document.getElementById('item-viber').href = 'viber://chat?number=%2B' + digits;
+        document.getElementById('item-whatsapp').href = 'https://wa.me/' + digits;
         document.getElementById('row-phone').style.display = '';
       }
 
