@@ -1,0 +1,2 @@
+# Ignore numbered photos - only stefan-panorama files are used in gallery
+[0-9]*.jpg
