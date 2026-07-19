@@ -284,7 +284,10 @@
     loginMsg.className = 'msg';
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { shouldCreateUser: false }
+      options: {
+        emailRedirectTo: 'https://www.vrujci.org/admin-16b01987.html',
+        shouldCreateUser: false
+      }
     });
     if (error) {
       loginMsg.textContent = 'Greška: ' + error.message;
