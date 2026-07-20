@@ -36,6 +36,9 @@
 
     { "source": "/politika-privatnosti/", "destination": "/stranica.html?slug=politika-privatnosti" },
 
+    { "source": "/blog/", "destination": "/blog.html" },
+    { "source": "/blog/:slug/", "destination": "/post.html?slug=:slug" },
+
     { "source": "/api/contact/", "destination": "/api/contact" },
     { "source": "/api/sitemap/", "destination": "/api/sitemap" }
   ]

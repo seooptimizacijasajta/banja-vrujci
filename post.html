@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title id="page-title">Blog - Banja Vrujci</title>
+<meta id="meta-description" name="description" content="Blog post o Banji Vrujci.">
+<meta name="robots" content="index, follow">
+<link id="canonical-link" rel="canonical" href="https://www.vrujci.org/blog/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Banja Vrujci">
+<meta id="og-title" property="og:title" content="Blog - Banja Vrujci">
+<meta id="og-description" property="og:description" content="Blog post o Banji Vrujci.">
+<meta id="og-image" property="og:image" content="https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija-velika.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta id="twitter-title" name="twitter:title" content="Blog - Banja Vrujci">
+<meta id="twitter-description" name="twitter:description" content="Blog post o Banji Vrujci.">
+<meta id="twitter-image" name="twitter:image" content="https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija-velika.jpg">
+<script type="application/ld+json" id="schema-ld">{"@context":"https://schema.org","@type":"BlogPosting","name":"Blog","url":"https://www.vrujci.org/blog/"}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23f0901e'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #4a4a4a;
+    background: linear-gradient(135deg, #9fcfe0 0%, #b7d7cf 28%, #d3d4b9 55%, #e8e0c8 78%, #f1ead8 100%);
+    background-attachment: fixed;
+  }
+  a { text-decoration: none; }
+  .wrap { max-width: 1200px; margin: 0 auto; }
+
+  header.top {
+    background: linear-gradient(to bottom, #3c4145, #24272a);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .logo { font-size: 24px; font-weight: bold; color: #f0901e; line-height: 1.1; }
+  .logo span { display: block; font-size: 14px; letter-spacing: 1px; }
+  nav.mainmenu ul { list-style: none; display: flex; margin: 0; padding: 0; flex-wrap: wrap; }
+  nav.mainmenu li { position: relative; }
+  nav.mainmenu > ul > li > a {
+    display: block; padding: 12px 14px; color: #d8d8d8; font-size: 12px;
+    letter-spacing: .5px; font-weight: bold; text-transform: uppercase;
+  }
+  nav.mainmenu > ul > li:hover > a { background: #f0901e; color: #fff; }
+  nav.mainmenu .sub {
+    display: none; position: absolute; left: 0; top: 100%; background: #2e3236;
+    min-width: 220px; z-index: 50; box-shadow: 0 4px 10px rgba(0,0,0,.3);
+  }
+  nav.mainmenu li:hover .sub { display: block; }
+  nav.mainmenu .sub li a {
+    display: block; padding: 9px 16px; color: #ccc; font-size: 12px; text-transform: none;
+    font-weight: normal; border-top: 1px solid #3a3e42;
+  }
+  nav.mainmenu .sub li a:hover { background: #f0901e; color: #fff; }
+
+  .card { background: #fff; margin-top: 0; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+  .breadcrumb { padding: 14px 28px 0; font-size: 12px; color: #999; }
+  .breadcrumb a { color: #f0901e; }
+
+  /* Post styles */
+  .post-featured-img { width: 100%; max-height: 360px; object-fit: cover; display: block; }
+  .post-header { padding: 18px 28px 14px; border-bottom: 1px solid #f0f0f0; }
+  .post-header h1 { color: #f0901e; font-size: 26px; margin: 0 0 10px; line-height: 1.3; }
+  .post-meta { font-size: 12px; color: #999; }
+  .post-meta span { color: #2c8aa6; font-weight: bold; }
+  .post-content { padding: 20px 28px 28px; font-size: 14px; line-height: 1.85; color: #4a4a4a; }
+  .post-content h2 { color: #f0901e; font-size: 20px; margin: 22px 0 12px; }
+  .post-content h3 { color: #333; font-size: 15px; margin: 18px 0 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+  .post-content p { margin: 0 0 14px; }
+  .post-content ul, .post-content ol { margin: 0 0 14px 22px; }
+  .post-content li { margin-bottom: 6px; }
+  .post-content strong { color: #333; }
+  .back-to-blog { display: inline-block; margin: 0 28px 20px; padding: 8px 16px; background: #f5f7f9; border: 1px solid #e0e0e0; border-radius: 3px; color: #2c8aa6; font-size: 12.5px; }
+  .back-to-blog:hover { background: #f0901e; color: #fff; border-color: #f0901e; }
+
+  /* Weather Widget */
+  .weather-widget{background:#fff7ee;border:1px solid #f0901e;border-radius:6px;padding:14px 18px;margin:18px 0 12px}
+  .weather-title{color:#f0901e;font-size:.95rem;font-weight:700;margin:0 0 10px}
+  .w-current{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .w-icon{font-size:2rem;line-height:1}
+  .w-temp{font-size:1.8rem;font-weight:bold;color:#333}
+  .w-desc{color:#666;font-size:.85rem}
+  .w-days{display:flex;gap:6px;flex-wrap:wrap}
+  .w-day{flex:1;min-width:52px;text-align:center;background:#fff;border:1px solid #f0e0c0;border-radius:4px;padding:6px 4px}
+  .w-dayname{font-size:.7rem;color:#888;font-weight:700;text-transform:uppercase}
+  .w-dayicon{font-size:1.3rem;margin:3px 0}
+  .w-max{color:#d04000;font-weight:700;font-size:.8rem}
+  .w-min{color:#888;font-size:.8rem;margin-left:3px}
+
+  /* Sidebar */
+  .page-layout { display: grid; grid-template-columns: 1fr 220px; gap: 0 16px; align-items: start; }
+  .sidebar { background: #2c4951; border-radius: 4px; position: sticky; top: 14px; align-self: start; overflow: hidden; }
+  .sb-section { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .sb-title { color: #f0901e; font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+  .sb-links { list-style: none; margin: 0; padding: 0; }
+  .sb-links li { padding: 2px 0; }
+  .sb-links a { color: #8fd3df; font-size: 12px; }
+  .sb-links a:hover { color: #fff; text-decoration: underline; }
+  .sb-banner { padding: 10px 10px 6px; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .sb-banner a img { width: 100%; border-radius: 3px; display: block; }
+  .sb-phone { display: block; text-align: center; color: #f0901e; font-weight: bold; font-size: 12px; margin-top: 4px; }
+  .sb-phone:hover { color: #fff; }
+
+  footer { text-align: center; padding: 26px 20px 10px; }
+  footer img { max-width: 260px; border-radius: 3px; }
+  .related-sites { background: #1f2225; text-align: center; padding: 10px 14px 0; font-size: 11.5px; }
+  .related-sites a { color: #cfa15a; text-decoration: none; margin: 0 8px; }
+  .related-sites a:hover { text-decoration: underline; }
+  .copyright { background: #1f2225; color: #9a9a9a; font-size: 11.5px; text-align: center; padding: 14px; margin-top: 14px; }
+  .copyright a { color: #cfa15a; }
+
+  @media (max-width: 900px) {
+    .page-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="logo" href="/" style="color:#f0901e;">VRUJCI<span>.ORG</span></a>
+    <nav class="mainmenu">
+      <ul id="mainmenu-list">
+        <li><a href="/banja-vrujci-smestaj/">Banja Vrujci smeštaj</a></li>
+        <li><a href="/apartmani-banja-vrujci/">Apartmani <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-hoteli/">Hoteli <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vile/">Vile <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/banja-vrujci-vikendice/">Vikendice</a></li>
+        <li><a href="/banja-vrujci-sobe/">Sobe <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/info-servis/">Info Servis <i class="fa fa-caret-down"></i></a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-layout">
+  <div class="card">
+    <div class="breadcrumb"><a href="/">Početna</a> &raquo; <a href="/blog/">Blog</a> &raquo; <span id="breadcrumb-current">Post</span></div>
+
+    <div id="post-wrap">
+      <p style="padding:20px 28px;color:#888;">Učitavanje posta…</p>
+    </div>
+
+    <a class="back-to-blog" href="/blog/">← Nazad na blog</a>
+
+    <div class="weather-widget">
+      <div class="weather-title">☀ Vremenska prognoza – Banja Vrujci</div>
+      <div id="weather-current" class="w-current"></div>
+      <div id="weather-forecast" class="w-days"></div>
+    </div>
+    <script>
+    (function(){
+      var DAYS=['Ned','Pon','Uto','Sre','Čet','Pet','Sub'];
+      var ICO={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',80:'🌦️',81:'🌦️',82:'⛈️',85:'❄️',86:'❄️',95:'⛈️',96:'⛈️',99:'⛈️'};
+      var TXT={0:'Vedro',1:'Pretežno vedro',2:'Delimično oblačno',3:'Oblačno',45:'Magla',48:'Magla',51:'Rosulja',53:'Rosulja',55:'Rosulja',61:'Kiša',63:'Kiša',65:'Obilna kiša',71:'Sneg',73:'Sneg',75:'Obilna sneg',80:'Pljusak',81:'Pljusak',82:'Jak pljusak',95:'Oluja',96:'Oluja',99:'Oluja'};
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=44.12&longitude=20.16&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FBelgrade&forecast_days=5')
+        .then(function(r){return r.json();})
+        .then(function(d){
+          var c=d.current_weather,ic=ICO[c.weathercode]||'🌡️',tx=TXT[c.weathercode]||'';
+          var el=document.getElementById('weather-current');
+          if(el)el.innerHTML='<span class="w-icon">'+ic+'</span><span class="w-temp">'+Math.round(c.temperature)+'°C</span><span class="w-desc">'+tx+'</span>';
+          var fd=d.daily,html='';
+          for(var i=0;i<fd.time.length;i++){
+            var dt=new Date(fd.time[i]+'T12:00:00');
+            html+='<div class="w-day"><div class="w-dayname">'+DAYS[dt.getDay()]+'</div><div class="w-dayicon">'+(ICO[fd.weathercode[i]]||'🌡️')+'</div><div><span class="w-max">'+Math.round(fd.temperature_2m_max[i])+'°</span><span class="w-min">'+Math.round(fd.temperature_2m_min[i])+'°</span></div></div>';
+          }
+          var fw=document.getElementById('weather-forecast');
+          if(fw)fw.innerHTML=html;
+        }).catch(function(){});
+    })();
+    </script>
+
+    <div class="related-sites">
+      <a href="https://www.banjavrujci.info" target="_blank" rel="noopener">www.banjavrujci.info</a>
+      <a href="https://www.vrujci.org" target="_blank" rel="noopener">www.vrujci.org</a>
+      <a href="https://www.banja-vrujci.co.rs" target="_blank" rel="noopener">www.banja-vrujci.co.rs</a>
+      <a href="https://www.banja-vrujci.net" target="_blank" rel="noopener">www.banja-vrujci.net</a>
+      <a href="https://www.banja-vrujci.org" target="_blank" rel="noopener">www.banja-vrujci.org</a>
+      <a href="https://www.banjavrujci.biz" target="_blank" rel="noopener">www.banjavrujci.biz</a>
+    </div>
+    <div class="copyright">
+      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija. &nbsp;|&nbsp; <a href="/politika-privatnosti/">Politika privatnosti</a>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sb-section">
+      <div class="sb-title">Smeštaj Banja Vrujci</div>
+      <ul class="sb-links">
+        <li><a href="/banja-vrujci-smestaj/">&#9776; Sav smeštaj</a></li>
+        <li><a href="/apartmani-banja-vrujci/">Apartmani</a></li>
+        <li><a href="/banja-vrujci-vile/">Vile</a></li>
+        <li><a href="/banja-vrujci-hoteli/">Hoteli</a></li>
+        <li><a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj</a></li>
+        <li><a href="/banja-vrujci-vikendice/">Vikendice</a></li>
+        <li><a href="/banja-vrujci-sobe/">Sobe</a></li>
+      </ul>
+    </div>
+    <div class="sb-section">
+      <div class="sb-title">Info Servis</div>
+      <ul class="sb-links">
+        <li><a href="/info-servis/vreme/">Vreme</a></li>
+        <li><a href="/info-servis/video/">Video</a></li>
+        <li><a href="/info-servis/kontakt-info/">Kontakt</a></li>
+        <li><a href="/info-servis/linkovi-partnera/">Linkovi</a></li>
+        <li><a href="/banja-vrujci-smestaj-mapa/">Mapa smeštaja</a></li>
+      </ul>
+    </div>
+    <div class="sb-section">
+      <div class="sb-title">Blog</div>
+      <ul class="sb-links">
+        <li><a href="/blog/">Svi postovi</a></li>
+      </ul>
+    </div>
+    <div class="sb-banner">
+      <a href="/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">
+        <img src="/Apartmani_Pakic_Baner.jpg" alt="Apartmani Pakić Banja Vrujci" loading="lazy">
+      </a>
+      <a class="sb-phone" href="tel:+38162428859">062 42 88 59</a>
+    </div>
+    <div class="sb-banner">
+      <a href="/banja-vrujci-vile/vila-sofija/">
+        <img src="/Vila_Sofija_Baner.jpg" alt="Vila Sofija Banja Vrujci" loading="lazy">
+      </a>
+      <a class="sb-phone" href="tel:+381641441441">064 144 1441</a>
+    </div>
+    <div class="sb-banner">
+      <a href="/banja-vrujci-vile/vila-jelena/">
+        <img src="/Vila_Jelena_Baner.jpg" alt="Vila Jelena Banja Vrujci" loading="lazy">
+      </a>
+      <a class="sb-phone" href="tel:+381644242202">064 42 42 202</a>
+    </div>
+    <div class="sb-banner">
+      <a href="/apartmani-banja-vrujci/apartman-lux-banja-vrujci/">
+        <img src="/Stefan_Panorama_Baner.jpg" alt="Stefan Panorama Apartmani Spa Banja Vrujci" loading="lazy">
+      </a>
+      <a class="sb-phone" href="tel:+381613096448">061 30 96 448</a>
+    </div>
+    <div class="sb-banner">
+      <a href="/banja-vrujci-vile/vila-petra/">
+        <img src="/Vila_Petra_Baner.jpg" alt="Vila i Brvnara Petra Banja Vrujci" loading="lazy">
+      </a>
+      <a class="sb-phone" href="tel:+381643315996">064 33 15 996</a>
+    </div>
+  </aside>
+  </div><!-- /.page-layout -->
+</div>
+
+<script>
+(function(){
+  var s=document.querySelector('aside.sidebar');
+  if(!s)return;
+  var b=Array.from(s.querySelectorAll('.sb-banner'));
+  for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}
+  var first=s.querySelector('.sb-section');
+  b.forEach(function(el){s.insertBefore(el,first);});
+})();
+</script>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+  const SUPABASE_URL = 'https://eckotcmqbpoftcseqzsa.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_0NrJlQyn97I7v6IKCLVUdw_uzvKVA4U';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function setMeta(selector, val){
+    if (!val) return;
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute('content', val);
+  }
+
+  function formatDate(dt){
+    const d = new Date(dt);
+    const months = ['januara','februara','marta','aprila','maja','juna','jula','avgusta','septembra','oktobra','novembra','decembra'];
+    return `${d.getDate()}. ${months[d.getMonth()]} ${d.getFullYear()}.`;
+  }
+
+  function renderMenu(rows){
+    if (!rows || !rows.length) return;
+    const tops = rows.filter(r => !r.parent_id).sort((a,b)=>a.sort_order-b.sort_order);
+    const byParent = new Map();
+    rows.forEach(r => {
+      if (r.parent_id) {
+        if (!byParent.has(r.parent_id)) byParent.set(r.parent_id, []);
+        byParent.get(r.parent_id).push(r);
+      }
+    });
+    const ul = document.getElementById('mainmenu-list');
+    ul.innerHTML = tops.map(t => {
+      const kids = (byParent.get(t.id) || []).sort((a,b)=>a.sort_order-b.sort_order);
+      const caret = kids.length ? ' <i class="fa fa-caret-down"></i>' : '';
+      const sub = kids.length
+        ? `<ul class="sub">${kids.map(k => `<li><a href="${esc(k.href)}">${esc(k.label)}</a></li>`).join('')}</ul>`
+        : '';
+      return `<li><a href="${esc(t.href)}">${esc(t.label)}${caret}</a>${sub}</li>`;
+    }).join('');
+  }
+
+  try {
+    const { data: menuRows } = await supabase.from('site_menu').select('*');
+    renderMenu(menuRows);
+  } catch(e) {}
+
+  // Get slug from URL
+  const pathSegs = location.pathname.split('/').filter(Boolean);
+  const postSlug = pathSegs[1] || '';
+
+  if (!postSlug) {
+    document.getElementById('post-wrap').innerHTML = '<p style="padding:20px 28px;color:#c00;">Post nije pronađen.</p>';
+  } else {
+    try {
+      const { data: post, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('slug', postSlug)
+        .maybeSingle();
+
+      const wrap = document.getElementById('post-wrap');
+
+      if (error || !post) {
+        wrap.innerHTML = '<p style="padding:20px 28px;color:#c00;">Post nije pronađen.</p>';
+      } else {
+        // Update meta
+        document.getElementById('page-title').textContent = (post.meta_title || post.title) + ' - Banja Vrujci';
+        document.getElementById('breadcrumb-current').textContent = post.title;
+        document.getElementById('canonical-link').href = `https://www.vrujci.org/blog/${post.slug}/`;
+        setMeta('#meta-description', post.meta_description || post.excerpt || '');
+        setMeta('#og-title', post.meta_title || post.title);
+        setMeta('#og-description', post.meta_description || post.excerpt || '');
+        setMeta('#twitter-title', post.meta_title || post.title);
+        setMeta('#twitter-description', post.meta_description || post.excerpt || '');
+        if (post.image_url) {
+          setMeta('#og-image', post.image_url);
+          setMeta('#twitter-image', post.image_url);
+        }
+
+        // Schema.org BlogPosting
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "url": `https://www.vrujci.org/blog/${post.slug}/`,
+          "description": post.meta_description || post.excerpt || '',
+          "datePublished": post.published_at,
+          "image": post.image_url || '',
+          "publisher": {
+            "@type": "Organization",
+            "name": "Vrujci.org",
+            "url": "https://www.vrujci.org/"
+          }
+        };
+        document.getElementById('schema-ld').textContent = JSON.stringify(schema);
+
+        // Format content: if plain text (no HTML tags), wrap paragraphs
+        let contentHtml = post.content || '';
+        if (contentHtml && !/<[a-z][\s\S]*>/i.test(contentHtml)) {
+          contentHtml = contentHtml.split(/\n\n+/).map(p => `<p>${p.trim().replace(/\n/g,'<br>')}</p>`).join('');
+        }
+
+        wrap.innerHTML = `
+          ${post.image_url ? `<img class="post-featured-img" src="${esc(post.image_url)}" alt="${esc(post.title)}">` : ''}
+          <div class="post-header">
+            <h1>${esc(post.title)}</h1>
+            <div class="post-meta">Objavljeno: <span>${formatDate(post.published_at)}</span></div>
+          </div>
+          <div class="post-content">${contentHtml}</div>
+        `;
+      }
+    } catch(e) {
+      document.getElementById('post-wrap').innerHTML = '<p style="padding:20px 28px;color:#c00;">Greška pri učitavanju posta.</p>';
+    }
+  }
+</script>
+</body>
+</html>
