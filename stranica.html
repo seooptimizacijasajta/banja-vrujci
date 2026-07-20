@@ -13,6 +13,11 @@
 <meta id="og-title" property="og:title" content="Banja Vrujci">
 <meta id="og-description" property="og:description" content="Banja Vrujci - informacije.">
 <meta id="og-image" property="og:image" content="https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija-velika.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta id="twitter-title" name="twitter:title" content="Banja Vrujci">
+<meta id="twitter-description" name="twitter:description" content="Banja Vrujci - informacije.">
+<meta id="twitter-image" name="twitter:image" content="https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija-velika.jpg">
+<script type="application/ld+json" id="schema-ld">{"@context":"https://schema.org","@type":"WebPage","name":"Banja Vrujci","url":"https://www.vrujci.org/"}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23f0901e'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EV%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -647,16 +652,27 @@
       document.getElementById('page-content').textContent = page.content || '';
       document.title = page.meta_title || (page.title + ' - Banja Vrujci');
       document.getElementById('canonical-link').href = 'https://www.vrujci.org' + location.pathname;
-      setMeta('#meta-description', page.meta_description);
-      setMeta('#og-title', page.meta_title || page.title);
-      setMeta('#og-description', page.meta_description);
+      setMeta('#meta-description', page.meta_description || page.content);
+      setMeta('#og-title', page.meta_title || (page.title + ' - Banja Vrujci'));
+      setMeta('#og-description', page.meta_description || '');
+      setMeta('#twitter-title', page.meta_title || (page.title + ' - Banja Vrujci'));
+      setMeta('#twitter-description', page.meta_description || '');
       if (page.image_url) {
         const img = document.getElementById('page-image');
         img.src = page.image_url;
         img.alt = page.title;
         img.style.display = '';
         setMeta('#og-image', page.image_url);
+        setMeta('#twitter-image', page.image_url);
       }
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": page.meta_title || page.title,
+        "url": "https://www.vrujci.org" + location.pathname,
+        "description": page.meta_description || page.content || ''
+      };
+      document.getElementById('schema-ld').textContent = JSON.stringify(schema);
       const bvUrl = PAGE_BV_MAP[slug];
       if (bvUrl) {
         const bvLink = document.getElementById('bv-info-link');

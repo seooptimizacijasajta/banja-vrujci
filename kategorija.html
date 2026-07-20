@@ -377,15 +377,26 @@
       document.getElementById('cat-description').textContent = cat.description || '';
       document.title = (cat.title) + ' - Banja Vrujci';
       document.getElementById('canonical-link').href = 'https://www.vrujci.org/' + catSlug + '/';
-      setMeta('#meta-description', cat.description);
-      setMeta('#og-title', cat.title + ' - Banja Vrujci');
-      setMeta('#og-description', cat.description);
+      setMeta('#meta-description', cat.meta_description || cat.description);
       if (cat.image_url) {
         setMeta('#og-image', cat.image_url);
+        setMeta('#twitter-image', cat.image_url);
         document.getElementById('cat-image').src = cat.image_url;
         document.getElementById('cat-image').alt = cat.title;
         document.getElementById('cat-image-wrap').style.display = '';
       }
+      setMeta('#twitter-title', cat.meta_title || (cat.title + ' - Banja Vrujci'));
+      setMeta('#twitter-description', cat.meta_description || cat.description || '');
+      setMeta('#og-title', cat.meta_title || (cat.title + ' - Banja Vrujci'));
+      setMeta('#og-description', cat.meta_description || cat.description || '');
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": cat.title,
+        "url": "https://www.vrujci.org/" + catSlug + "/",
+        "description": cat.description || ''
+      };
+      document.getElementById('schema-ld').textContent = JSON.stringify(schema);
 
       if (cat.seo_text) {
         const seoEl = document.getElementById('cat-seo-text');
