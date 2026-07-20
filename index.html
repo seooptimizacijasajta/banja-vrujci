@@ -189,6 +189,19 @@
     .page-layout { grid-template-columns: 1fr; }
     .sidebar { position: static; }
   }
+  /* Weather Widget */
+  .weather-widget{background:#fff7ee;border:1px solid #f0901e;border-radius:6px;padding:14px 18px;margin:18px 0 12px}
+  .weather-title{color:#f0901e;font-size:.95rem;font-weight:700;margin:0 0 10px}
+  .w-current{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .w-icon{font-size:2rem;line-height:1}
+  .w-temp{font-size:1.8rem;font-weight:bold;color:#333}
+  .w-desc{color:#666;font-size:.85rem}
+  .w-days{display:flex;gap:6px;flex-wrap:wrap}
+  .w-day{flex:1;min-width:52px;text-align:center;background:#fff;border:1px solid #f0e0c0;border-radius:4px;padding:6px 4px}
+  .w-dayname{font-size:.7rem;color:#888;font-weight:700;text-transform:uppercase}
+  .w-dayicon{font-size:1.3rem;margin:3px 0}
+  .w-max{color:#d04000;font-weight:700;font-size:.8rem}
+  .w-min{color:#888;font-size:.8rem;margin-left:3px}
 </style>
 </head>
 <body>
@@ -434,6 +447,33 @@
       <p id="about-text-1">Nekada davno na ovom mestu bili su samo izvori vode... još tada je postalo poznato kao mesto na kome se voda nikad ne zaledi... po narodnom predanju u tim vodama su srpski vojnici lečili svoje rane... danas je ovo mesto poznata turistička destinacija kako u Srbiji, tako i šire... danas je ovo mesto poznato kao Banja Vrujci. Nekada narodno lečilište, a danas moderan centar za medicinski i rekreativni turizam, Banja Vrujci iz godine u godinu svojom gostoljubivošću privlači sve veći broj posetilaca i s pravom se može reći da postaje sve popularnije mesto za odmor na ovim prostorima. Najpoznatija je po brojnim izvorima termalnih voda, koje vam mogu pomoći da se izlečite, da se oporavite posle bolesti i da povratite snagu koja vam je potrebna. Lekovito blato, koje je verni pratilac termalnih izvora, bogato je brojnim mineralima i radioaktivnim elementima, koji mogu pozitivno uticati na vašu kožu, kosu i uopšte ceo organizam.</p>
       <p id="about-text-2">Banja Vrujci danas je čitav kompleks turističkih ponuda, jer na jednom mestu ovde možete naći i zabavu za najmlađe, i sportske terene i bazene za malo starije, a predivni parkovi i šume su odlični za šetnju svih onih koji žele da ostanu u formi i hoće da upoznaju svaki delić ove zanimljive destinacije. Raznovrstan smeštaj, odlična domaća hrana pripremljena sa mnogo ljubavi, izleti u okolna mesta koja mogu da ponude mnogo toga, samo su delić atmosfere koja svakodnevno vlada u Banji Vrujci i koju morate da osetite, da biste razumeli sve te zadovoljne posetioce koji uvek odlaze nasmejani sa ovog mesta. Banja Vrujci je jedinstvena kombinacija lečilišta i odmarališta, mesta za rekreativni i sportski turizam, destinacije na kojom možete da ostvarite sve svoje snove. Uputite se u pravcu Mionice, u pravcu Maljena i Toplice, krenite put Ljiga i Divčibara, a između svih tih destinacija posetite obavezno Banju Vrujci, koja se nalazi u središtu jedne oaze mira i prirodnih lepota, na mestu koje da može da govori ispričalo bi viševekovnu istoriju jednog naroda, koji se na ovom mestu i lečio, i odmarao, i radio zajedničkim snagama. Banja Vrujci može biti vaša omiljena lokacija, vaše idealno mesto za opuštanje i odmaranje. Nemojte čekati da vam drugi ispričaju, dođite i uverite se sami da je Banja Vrujci toliko posebno mesto, da ćete želeti da svake naredne godine dođete ponovo, da još jednom proživite sve te divne trenutke i da se prepustite sanjarenju i uživanju.</p>
     </div>
+
+    <div class="weather-widget">
+      <div class="weather-title">☀ Vremenska prognoza – Banja Vrujci</div>
+      <div id="weather-current" class="w-current"></div>
+      <div id="weather-forecast" class="w-days"></div>
+    </div>
+    <script>
+    (function(){
+      var DAYS=['Ned','Pon','Uto','Sre','Čet','Pet','Sub'];
+      var ICO={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',80:'🌦️',81:'🌦️',82:'⛈️',85:'❄️',86:'❄️',95:'⛈️',96:'⛈️',99:'⛈️'};
+      var TXT={0:'Vedro',1:'Pretežno vedro',2:'Delimično oblačno',3:'Oblačno',45:'Magla',48:'Magla',51:'Rosulja',53:'Rosulja',55:'Rosulja',61:'Kiša',63:'Kiša',65:'Obilna kiša',71:'Sneg',73:'Sneg',75:'Obilna sneg',80:'Pljusak',81:'Pljusak',82:'Jak pljusak',95:'Oluja',96:'Oluja',99:'Oluja'};
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=44.12&longitude=20.16&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FBelgrade&forecast_days=5')
+        .then(function(r){return r.json();})
+        .then(function(d){
+          var c=d.current_weather,ic=ICO[c.weathercode]||'🌡️',tx=TXT[c.weathercode]||'';
+          var el=document.getElementById('weather-current');
+          if(el)el.innerHTML='<span class="w-icon">'+ic+'</span><span class="w-temp">'+Math.round(c.temperature)+'°C</span><span class="w-desc">'+tx+'</span>';
+          var fd=d.daily,html='';
+          for(var i=0;i<fd.time.length;i++){
+            var dt=new Date(fd.time[i]+'T12:00:00');
+            html+='<div class="w-day"><div class="w-dayname">'+DAYS[dt.getDay()]+'</div><div class="w-dayicon">'+(ICO[fd.weathercode[i]]||'🌡️')+'</div><div><span class="w-max">'+Math.round(fd.temperature_2m_max[i])+'°</span><span class="w-min">'+Math.round(fd.temperature_2m_min[i])+'°</span></div></div>';
+          }
+          var fw=document.getElementById('weather-forecast');
+          if(fw)fw.innerHTML=html;
+        }).catch(function(){});
+    })();
+    </script>
 
     <div class="copyright">
       <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="https://www.vrujci.org/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija. &nbsp;|&nbsp; <a href="/politika-privatnosti/">Politika privatnosti</a>
