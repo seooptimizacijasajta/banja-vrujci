@@ -223,11 +223,8 @@
 
     <div class="contact-section" id="contact-wrap" style="display:none;"></div>
 
-    <div class="page-seo">
-      <h2>Kako doći do Banje Vrujci i korisne informacije za posetioce</h2>
-      <p>Banja Vrujci se nalazi u Mioničkoj opštini u Zapadnoj Srbiji, na svega 80 km od Beograda. Putovanjem automobilom krenite autoputem A2 prema Čačku do izlaza Ljig, a zatim lokalnim putem kroz Mionicom do Banje Vrujci — ukupno oko sat i po vožnje. Iz Valjeva je banja udaljena samo 35 km, dok se iz Kragujevca i Čačka stiže za sat i po. Autobuski prevoz organizuje se svakodnevno sa Beogradske autobuske stanice do Mionice, odakle lokalni prevoz vodi do banje.</p>
-      <p>Banja Vrujci je aktivna tokom čitave godine i svako godišnje doba nosi svoju posebnost. Letnja sezona (jun–septembar) donosi tople dane idealne za boravak na otvorenom, kupanje u reci i sportske aktivnosti — tada je gužva najveća pa je preporuka da smeštaj rezervišete najmanje nedeljama unapred. Zima i proleće su mirnije, ali ništa manje privlačne — termalni bazeni rade bez prekida, a cene smeštaja su povoljnije. Oko Nove godine i državnih praznika banja je ponovo popunjena do poslednjeg mesta.</p>
-      <p>Za boravak u Banji Vrujci korisno je znati: u banji postoji bankomat i nekoliko prodavnica prehrambenih artikala, ali za veću kupovinu preporučuje se odlazak u Mionicom ili Valjevo. Mobilna mreža svih operatera dobro pokriva celo područje banje. Parkiranje je besplatno uz većinu smeštajnih objekata. Kućni ljubimci su dozvoljeni u određenim objektima — proverite tu informaciju pri rezervaciji.</p>
+    <div class="page-seo" id="page-seo-block">
+      <div id="page-seo-text"></div>
 
       <h3>Smeštaj u Banji Vrujci</h3>
       <div class="cat-links-grid">
@@ -680,6 +677,11 @@
       }
       if (slug === 'kontakt-info') {
         renderContactForm();
+      }
+      // Dynamic page SEO footer text
+      if (page.seo_text) {
+        const seoEl = document.getElementById('page-seo-text');
+        seoEl.innerHTML = page.seo_text.split(/\n\n+/).map(p => `<p>${p.trim()}</p>`).join('');
       }
     } else {
       document.getElementById('page-h1').textContent = 'Stranica nije pronađena';
