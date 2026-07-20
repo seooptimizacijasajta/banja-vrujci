@@ -231,36 +231,8 @@
 
     <div class="contact-section" id="contact-wrap" style="display:none;"></div>
 
-    <div class="page-seo" id="page-seo-block">
+    <div class="page-seo" id="page-seo-block" style="display:none;">
       <div id="page-seo-text"></div>
-
-      <h3>Smeštaj u Banji Vrujci</h3>
-      <div class="cat-links-grid">
-        <div class="cat-link-item">
-          <a href="/apartmani-banja-vrujci/">Apartmani Banja Vrujci</a>
-          <p>Moderni apartmani sa kuhinjom — komforan boravak za sve putnike.</p>
-        </div>
-        <div class="cat-link-item">
-          <a href="/banja-vrujci-vile/">Vile Banja Vrujci</a>
-          <p>Vile sa bazenima i dvorištem — za porodice i veće grupe gostiju.</p>
-        </div>
-        <div class="cat-link-item">
-          <a href="/banja-vrujci-hoteli/">Hoteli Banja Vrujci</a>
-          <p>Hotel Vrujci sa medicinskim programom i wellness sadržajima.</p>
-        </div>
-        <div class="cat-link-item">
-          <a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj</a>
-          <p>Domaćinski smeštaj — topla atmosfera i povoljne cene.</p>
-        </div>
-        <div class="cat-link-item">
-          <a href="/banja-vrujci-vikendice/">Vikendice i Brvnare</a>
-          <p>Odmor u prirodi — brvnare i vikendice okružene šumom.</p>
-        </div>
-        <div class="cat-link-item">
-          <a href="/banja-vrujci-sobe/">Sobe za iznajmljivanje</a>
-          <p>Sobe po povoljnim cenama za kratke posete Banji Vrujci.</p>
-        </div>
-      </div>
     </div>
 
     <div class="weather-widget">
@@ -709,6 +681,7 @@
       if (page.seo_text) {
         const seoEl = document.getElementById('page-seo-text');
         seoEl.innerHTML = page.seo_text.split(/\n\n+/).map(p => `<p>${p.trim()}</p>`).join('');
+        document.getElementById('page-seo-block').style.display = '';
       }
     } else {
       document.getElementById('page-h1').textContent = 'Stranica nije pronađena';
