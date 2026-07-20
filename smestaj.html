@@ -13,6 +13,11 @@
 <meta id="og-title" property="og:title" content="Banja Vrujci">
 <meta id="og-description" property="og:description" content="Smeštaj u Banji Vrujci.">
 <meta id="og-image" property="og:image" content="https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija-velika.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta id="twitter-title" name="twitter:title" content="Banja Vrujci Smeštaj">
+<meta id="twitter-description" name="twitter:description" content="Smeštaj u Banji Vrujci.">
+<meta id="twitter-image" name="twitter:image" content="https://www.banjavrujci.info/wp-content/uploads/2024/06/vila-sofija-velika.jpg">
+<script type="application/ld+json" id="schema-ld">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Banja Vrujci","url":"https://www.vrujci.org/"}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23f0901e'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EV%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -450,7 +455,26 @@
       setMeta('#meta-description', item.meta_description || item.excerpt);
       setMeta('#og-title', item.meta_title || item.title);
       setMeta('#og-description', item.meta_description || item.excerpt);
-      if (item.image_url) setMeta('#og-image', item.image_url);
+      if (item.image_url) {
+        setMeta('#og-image', item.image_url);
+        setMeta('#twitter-image', item.image_url);
+      }
+      setMeta('#twitter-title', item.meta_title || item.title);
+      setMeta('#twitter-description', item.meta_description || item.excerpt || '');
+      // Schema.org LodgingBusiness
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": item.title,
+        "url": `https://www.vrujci.org/${item.slug}/`,
+        "description": item.description || item.excerpt || '',
+        "image": item.image_url || '',
+        "address": { "@type": "PostalAddress", "addressLocality": "Banja Vrujci", "addressRegion": "Mionički okrug", "addressCountry": "RS" }
+      };
+      if (item.phone) schema.telephone = item.phone;
+      if (item.price_text) schema.priceRange = item.price_text;
+      if (item.latitude && item.longitude) schema.geo = { "@type": "GeoCoordinates", "latitude": item.latitude, "longitude": item.longitude };
+      document.getElementById('schema-ld').textContent = JSON.stringify(schema);
 
       document.getElementById('item-description').textContent = item.description || item.excerpt || '';
 
