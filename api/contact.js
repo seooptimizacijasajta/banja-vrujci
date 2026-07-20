@@ -10,7 +10,7 @@
 
 const RESEND_API_URL = 'https://api.resend.com/emails';
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-const TO_EMAIL = 'banjavrujcismestaj@vrujci.org';
+const TO_EMAIL = 'banjavrujci@gmail.com';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function esc(s) {
