@@ -1,6 +1,7 @@
 {
   "trailingSlash": true,
   "redirects": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap", "permanent": false },
     { "source": "/banja-vrujci-privatni-smestaj/kuca-davidovic-banja-vrujci/", "destination": "/", "permanent": true },
     { "source": "/apartmani-banja-vrujci/apartman-comfort-banja-vrujci/", "destination": "/", "permanent": true },
     { "source": "/apartmani-banja-vrujci/apartmani-nikola-banja-vrujci/", "destination": "/", "permanent": true },
@@ -32,6 +33,7 @@
     { "source": "/info-servis/", "destination": "/stranica.html?slug=info-servis" },
     { "source": "/info-servis/:slug/", "destination": "/stranica.html?slug=:slug" },
 
-    { "source": "/api/contact/", "destination": "/api/contact" }
+    { "source": "/api/contact/", "destination": "/api/contact" },
+    { "source": "/api/sitemap/", "destination": "/api/sitemap" }
   ]
 }
