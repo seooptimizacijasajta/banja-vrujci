@@ -141,6 +141,24 @@
   @media (max-width: 600px) {
     .weather-forecast { grid-template-columns: repeat(2, 1fr); }
   }
+
+  /* ── Sidebar layout ── */
+  .page-layout { display: grid; grid-template-columns: 1fr 220px; gap: 0 16px; align-items: start; }
+  .sidebar { background: #2c4951; border-radius: 4px; position: sticky; top: 14px; align-self: start; overflow: hidden; }
+  .sb-section { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .sb-title { color: #f0901e; font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+  .sb-links { list-style: none; margin: 0; padding: 0; }
+  .sb-links li { padding: 2px 0; }
+  .sb-links a { color: #8fd3df; font-size: 12px; }
+  .sb-links a:hover { color: #fff; text-decoration: underline; }
+  .sb-banner { padding: 10px 10px 6px; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .sb-banner a img { width: 100%; border-radius: 3px; display: block; }
+  .sb-phone { display: block; text-align: center; color: #f0901e; font-weight: bold; font-size: 12px; margin-top: 4px; }
+  .sb-phone:hover { color: #fff; }
+  @media (max-width: 900px) {
+    .page-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
 </style>
 </head>
 <body>
@@ -162,6 +180,7 @@
     </nav>
   </header>
 
+  <div class="page-layout">
   <div class="card">
     <div class="breadcrumb"><a href="/">Početna</a> &raquo; <span id="breadcrumb-current">Stranica</span></div>
     <div class="hero">
@@ -185,6 +204,50 @@
       <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
     </div>
   </div>
+
+  <aside class="sidebar">
+    <div class="sb-section">
+      <div class="sb-title">Smeštaj Banja Vrujci</div>
+      <ul class="sb-links">
+        <li><a href="/banja-vrujci-smestaj/">&#9776; Sav smeštaj</a></li>
+        <li><a href="/apartmani-banja-vrujci/">Apartmani</a></li>
+        <li><a href="/banja-vrujci-vile/">Vile</a></li>
+        <li><a href="/banja-vrujci-hoteli/">Hoteli</a></li>
+        <li><a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj</a></li>
+        <li><a href="/banja-vrujci-vikendice/">Vikendice</a></li>
+        <li><a href="/banja-vrujci-sobe/">Sobe</a></li>
+      </ul>
+    </div>
+    <div class="sb-section">
+      <div class="sb-title">Info Servis</div>
+      <ul class="sb-links">
+        <li><a href="/info-servis/vreme/">Vreme</a></li>
+        <li><a href="/info-servis/video/">Video</a></li>
+        <li><a href="/info-servis/kontakt-info/">Kontakt</a></li>
+        <li><a href="/info-servis/linkovi-partnera/">Linkovi</a></li>
+        <li><a href="/banja-vrujci-smestaj-mapa/">Mapa smeštaja</a></li>
+      </ul>
+    </div>
+    <div class="sb-banner">
+      <a href="/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">
+        <img src="/Apartmani_Pakic_Baner.jpg" alt="Apartmani Pakić Banja Vrujci" loading="lazy">
+      </a>
+      <a class="sb-phone" href="tel:+38162428859">062 42 88 59</a>
+    </div>
+    <div class="sb-banner">
+      <a href="/banja-vrujci-vile/vila-sofija/">
+        <img src="/Vila_Sofija_Baner.jpg" alt="Vila Sofija Banja Vrujci" loading="lazy">
+      </a>
+      <a class="sb-phone" href="tel:+381641441441">064 144 1441</a>
+    </div>
+    <div class="sb-banner">
+      <a href="/banja-vrujci-vile/vila-jelena/">
+        <img src="/Vila_Jelena_Baner.jpg" alt="Vila Jelena Banja Vrujci" loading="lazy">
+      </a>
+      <a class="sb-phone" href="tel:+381644242202">064 42 42 202</a>
+    </div>
+  </aside>
+  </div><!-- /.page-layout -->
 </div>
 
 <script type="module">
