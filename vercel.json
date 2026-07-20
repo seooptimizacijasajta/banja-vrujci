@@ -34,6 +34,8 @@
     { "source": "/info-servis/", "destination": "/stranica.html?slug=info-servis" },
     { "source": "/info-servis/:slug/", "destination": "/stranica.html?slug=:slug" },
 
+    { "source": "/politika-privatnosti/", "destination": "/stranica.html?slug=politika-privatnosti" },
+
     { "source": "/api/contact/", "destination": "/api/contact" },
     { "source": "/api/sitemap/", "destination": "/api/sitemap" }
   ]

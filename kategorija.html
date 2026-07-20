@@ -151,44 +151,39 @@
       <p style="padding:20px;color:#888;grid-column:1/-1;">Učitavanje smeštaja…</p>
     </div>
 
-    <div class="page-seo">
-      <h2>Banja Vrujci smeštaj — apartmani, vile, hoteli, sobe i vikendice</h2>
-      <p>Banja Vrujci je jedno od najtraženijih balneoloških i rekreativnih odmarališta u Srbiji, poznato po lekovitim termalnim vodama, čistom planinskom vazduhu i bogatoj ponudi smeštaja. Smešten u dolini reke Ribnice, na granici Valjevskih planina i Šumadije, ovaj banjski centar privlači goste tokom čitave godine — i leti, kada su aktivni svi sportski i rekreativni sadržaji, i zimi, kada je idealan za rehabilitaciju i oporavak u mirnom okruženju.</p>
-      <p>Ponuda smeštaja u Banji Vrujci je izuzetno raznovrsna. Na vrujci.org pronaći ćete apartmane moderne opreme koji su idealni za porodice i parove koji žele komfor privatnog prostora, luksuzne vile sa bazenima i prostranim dvorištima za veće grupe i proslave, pristupačan privatni smeštaj u srcima domaćinstava koja vas dočekuju kao prijatelje, udobne sobe za kratke posete i wellness tretmane, romantične brvnare i vikendice okružene šumom za sve koji traže odmak od gradske gužve, te Hotel Vrujci kao vrhunski smeštaj sa medicinskim programima rehabilitacije.</p>
-      <p>Bez obzira da li dolazite zbog lečenja, odmora, zabave ili jednostavno da uživate u netaknutoj prirodi, Banja Vrujci će opravdati vaša očekivanja. Kontaktirajte direktno vlasnika smeštaja po vašem izboru — sve kontakt informacije i telefonske brojeve pronaći ćete na stranicama pojedinačnih objekata. Banja Vrujci vas čeka!</p>
-      <p>Banja Vrujci se nalazi u Zapadnoj Srbiji, na samo 80 km od Beograda, i savršeno je dostupna vozilom ili autobusom. Termalne vode banje, bogate sumporom i mineralima, već vekovima pomažu u lečenju reumatskih oboljenja, oporavku mišića i ublažavanju hroničnih bolova. Za vašu posetu na raspolaganju su otvoreni i zatvoreni bazeni, sportski tereni, pešačke i biciklističke staze, restorani sa domaćom kuhinjom, te spa i medicinski sadržaji.</p>
-
+    <div class="page-seo" id="cat-seo-block" style="display:none;">
+      <div id="cat-seo-text"></div>
       <h3>Sve kategorije smeštaja u Banji Vrujci</h3>
       <div class="cat-links-grid">
         <div class="cat-link-item">
           <a href="/apartmani-banja-vrujci/">Apartmani Banja Vrujci</a>
-          <p>Moderni apartmani sa kuhinjom, idealni za porodice i parove. Kapacitet 2–6 osoba, klima, parking.</p>
+          <p>Opremljeni apartmani sa kuhinjom i kupatilom — idealni za parove i porodice do 6 osoba.</p>
         </div>
         <div class="cat-link-item">
           <a href="/banja-vrujci-vile/">Vile Banja Vrujci</a>
-          <p>Vile sa privatnim bazenima, dvorištem i terasom. Idealno za grupe i proslave, 4–20 osoba.</p>
+          <p>Prostrane vile sa bazenima, roštiljem i terasom za grupe od 4 do 20 osoba.</p>
         </div>
         <div class="cat-link-item">
           <a href="/banja-vrujci-hoteli/">Hoteli Banja Vrujci</a>
-          <p>Hotel Vrujci sa termalnim bazenom, medicinskim tretmanima i restorаnom. Sve na jednom mestu.</p>
+          <p>Hotel Vrujci: termalni bazen, medicinski program rehabilitacije i restoran.</p>
         </div>
         <div class="cat-link-item">
           <a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj</a>
-          <p>Domaćinski smeštaj u kućama lokalnih vlasnika. Topla atmosfera i povoljne cene.</p>
+          <p>Smeštaj kod domaćina — pristupačne cene, domaća hrana i toplo gostoprimstvo.</p>
         </div>
         <div class="cat-link-item">
           <a href="/banja-vrujci-vikendice/">Vikendice i Brvnare</a>
-          <p>Drvene vikendice i brvnare okružene šumom. Savršeno za odmor u prirodi i tihi odmak.</p>
+          <p>Drvene brvnare i vikendice u prirodi — savršen odmak od gradske svakodnevice.</p>
         </div>
         <div class="cat-link-item">
           <a href="/banja-vrujci-sobe/">Sobe Banja Vrujci</a>
-          <p>Sobe za iznajmljivanje — idealne za kratke posete i budžet putovanja.</p>
+          <p>Sobe za iznajmljivanje — ekonomična opcija za solo putnike i kratke posete.</p>
         </div>
       </div>
     </div>
 
     <div class="copyright">
-      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija.
+      <span id="copyright-text">Copyright &copy; 2026 Vrujci.org</span>, <a href="/banja-vrujci-smestaj/">Smeštaj Banja Vrujci</a>. Designed by <a href="https://www.optimizacijasajta.org/">Google SEO optimizacija</a> Beograd, Srbija. &nbsp;|&nbsp; <a href="/politika-privatnosti/">Politika privatnosti</a>
     </div>
   </div>
 
@@ -335,6 +330,12 @@
         document.getElementById('cat-image').src = cat.image_url;
         document.getElementById('cat-image').alt = cat.title;
         document.getElementById('cat-image-wrap').style.display = '';
+      }
+
+      if (cat.seo_text) {
+        const seoEl = document.getElementById('cat-seo-text');
+        seoEl.innerHTML = cat.seo_text.split(/\n\n+/).map(p => `<p>${p.trim()}</p>`).join('');
+        document.getElementById('cat-seo-block').style.display = '';
       }
 
       const bvUrl = BV_INFO_MAP[catSlug];
