@@ -160,23 +160,21 @@
     .weather-forecast { grid-template-columns: repeat(2, 1fr); }
   }
 
-  /* ── Sidebar layout ── */
-  .page-layout { display: grid; grid-template-columns: 1fr 220px; gap: 0 16px; align-items: start; }
-  .sidebar { background: #2c4951; border-radius: 4px; position: sticky; top: 14px; align-self: start; overflow: hidden; }
-  .sb-section { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .sb-title { color: #f0901e; font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
-  .sb-links { list-style: none; margin: 0; padding: 0; }
-  .sb-links li { padding: 2px 0; }
-  .sb-links a { color: #8fd3df; font-size: 12px; }
-  .sb-links a:hover { color: #fff; text-decoration: underline; }
-  .sb-banner { padding: 10px 10px 6px; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .sb-banner a img { width: 100%; border-radius: 3px; display: block; }
-  .sb-phone { display: block; text-align: center; color: #f0901e; font-weight: bold; font-size: 12px; margin-top: 4px; }
-  .sb-phone:hover { color: #fff; }
-  @media (max-width: 900px) {
-    .page-layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; }
-  }
+  .page-layout { display: grid; grid-template-columns: 1fr; align-items: start; }
+  /* Featured banners strip */
+  .featured-strip { display: flex; flex-wrap: wrap; gap: 14px; padding: 18px 28px 28px; justify-content: center; background: #f9fbfc; border-top: 2px solid #f0901e; }
+  .feat-banner { width: 190px; flex-shrink: 0; text-align: center; }
+  .feat-banner a { display: block; }
+  .feat-banner a img { width: 190px; height: 300px; object-fit: cover; border-radius: 3px; display: block; }
+  .feat-phone { display: block; color: #f0901e; font-weight: bold; font-size: 12px; margin-top: 5px; }
+  .feat-phone:hover { color: #333; }
+  /* Footer rentals */
+  .footer-rentals { background: #2c3e4a; padding: 24px 28px 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .footer-col-title { color: #f0901e; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,.15); }
+  .footer-col a { display: block; color: #8fd3df; font-size: 11.5px; padding: 2px 0; }
+  .footer-col a:hover { color: #fff; text-decoration: underline; }
+  @media (max-width: 700px) { .footer-rentals { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 400px) { .footer-rentals { grid-template-columns: 1fr; } }
   /* Weather Widget */
   .weather-widget{background:#fff7ee;border:1px solid #f0901e;border-radius:6px;padding:14px 18px;margin:18px 0 12px}
   .weather-title{color:#f0901e;font-size:.95rem;font-weight:700;margin:0 0 10px}
@@ -262,6 +260,81 @@
     })();
     </script>
 
+    <div class="featured-strip">
+      <div class="feat-banner">
+        <a href="/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/"><img src="/Apartmani_Pakic_Baner.jpg" alt="Apartmani Pakić Banja Vrujci" loading="lazy"></a>
+        <a class="feat-phone" href="tel:+38162428859">062 42 88 59</a>
+      </div>
+      <div class="feat-banner">
+        <a href="/banja-vrujci-vile/vila-sofija/"><img src="/Vila_Sofija_Baner.jpg" alt="Vila Sofija Banja Vrujci" loading="lazy"></a>
+        <a class="feat-phone" href="tel:+381641441441">064 144 1441</a>
+      </div>
+      <div class="feat-banner">
+        <a href="/banja-vrujci-vile/vila-jelena/"><img src="/Vila_Jelena_Baner.jpg" alt="Vila Jelena Banja Vrujci" loading="lazy"></a>
+        <a class="feat-phone" href="tel:+381644242202">064 42 42 202</a>
+      </div>
+      <div class="feat-banner">
+        <a href="/apartmani-banja-vrujci/apartman-lux-banja-vrujci/"><img src="/Stefan_Panorama_Baner.jpg" alt="Stefan Panorama Apartmani Spa Banja Vrujci" loading="lazy"></a>
+        <a class="feat-phone" href="tel:+381613096448">061 30 96 448</a>
+      </div>
+      <div class="feat-banner">
+        <a href="/banja-vrujci-vile/vila-petra/"><img src="/Vila_Petra_Baner.jpg" alt="Vila Petra Banja Vrujci" loading="lazy"></a>
+        <a class="feat-phone" href="tel:+381643315996">064 33 15 996</a>
+      </div>
+      <div class="feat-banner">
+        <a href="/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/"><img src="/Banja_Vrujci_Apartmani_Bela.jpg" alt="Apartmani Bella Banja Vrujci" loading="lazy"></a>
+        <a class="feat-phone" href="tel:+381631236062">063 12 36 062</a>
+      </div>
+    </div>
+    <div class="footer-rentals">
+      <div class="footer-col">
+        <div class="footer-col-title">Vile Banja Vrujci</div>
+        <a href="/banja-vrujci-vile/vila-sofija/">Vila Sofija</a>
+        <a href="/banja-vrujci-vile/vila-jelena/">Vila Jelena</a>
+        <a href="/banja-vrujci-vile/vila-ema-banja-vrujci/">Vila Ema</a>
+        <a href="/banja-vrujci-vile/vila-iva/">Vila Iva</a>
+        <a href="/banja-vrujci-vile/vila-elipsa/">Vila Elipsa</a>
+        <a href="/banja-vrujci-vile/vila-vila/">Vila Vila</a>
+        <a href="/banja-vrujci-vile/vila-aqua-casa-banja-vrujci/">Vila Aqua Casa</a>
+        <a href="/banja-vrujci-vile/vila-amante-apartmani-banja-vrujci/">Apartmani Vila Amante</a>
+        <a href="/banja-vrujci-vile/vila-petra/">Turistički kompleks Petra</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Apartmani Banja Vrujci</div>
+        <a href="/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">Apartmani Pakić</a>
+        <a href="/apartmani-banja-vrujci/apartman-lux-banja-vrujci/">Stefan Lux Panorama</a>
+        <a href="/apartmani-banja-vrujci/apartmani-alfa-banja-vrujci/">Apartmani Alfa</a>
+        <a href="/apartmani-banja-vrujci/apartmani-ana-banja-vrujci/">Apartmani Ana</a>
+        <a href="/apartmani-banja-vrujci/apartmani-bella-banja-vrujci/">Apartmani Bella</a>
+        <a href="/apartmani-banja-vrujci/apartmani-blanusa-banja-vrujci/">Apartmani Blanuša</a>
+        <a href="/apartmani-banja-vrujci/apartmani-jasminka-banja-vrujci/">Apartmani Jasminka</a>
+        <a href="/apartmani-banja-vrujci/apartmani-komazec-banja-vrujci/">Apartmani Komazec</a>
+        <a href="/apartmani-banja-vrujci/apartmani-pink-banja-vrujci/">Apartmani Pink</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Apartmani (nastavak)</div>
+        <a href="/apartmani-banja-vrujci/apartmani-vesna-banja-vrujci/">Apartmani Vesna</a>
+        <a href="/apartmani-banja-vrujci/apartmani-visnja-banja-vrujci/">Apartmani Višnja</a>
+        <a href="/apartmani-banja-vrujci/maja-apartmani/">Maja Apartmani</a>
+        <a href="/apartmani-banja-vrujci/nikolic-apartmani/">Nikolić Apartmani</a>
+        <a href="/apartmani-banja-vrujci/suncani-breg-apartmani/">Sunčani Breg</a>
+        <a href="/apartmani-banja-vrujci/apartman-mira-banja-vrujci/">Apartman Mira</a>
+        <a href="/apartmani-banja-vrujci/apartman-tamara-banja-vrujci/">Apartman Tamara</a>
+        <a href="/apartmani-banja-vrujci/apartman-tri-delfina-banja-vrujci/">Apartman Tri Delfina</a>
+        <a href="/apartmani-banja-vrujci/apartman-vorteks-banja-vrujci/">Apartman Vorteks</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Hoteli, Sobe, Vikendice</div>
+        <a href="/apartmani-banja-vrujci/vila-ana-banja-vrujci/">Vila Ana Apartmani</a>
+        <a href="/banja-vrujci-hoteli/hotel-vrujci/">Hotel Vrujci</a>
+        <a href="/banja-vrujci-sobe/sobe-goca-banja-vrujci/">Sobe Goca</a>
+        <a href="/banja-vrujci-privatni-smestaj/filipovic/">Privatni smeštaj Filipović</a>
+        <a href="/banja-vrujci-privatni-smestaj/sobe-za-izdavanje-cica-vulovic/">Sobe Cica Vulović</a>
+        <a href="/banja-vrujci-privatni-smestaj/smestaj-nikita-banja-vrujci/">Smeštaj Nikita</a>
+        <a href="/banja-vrujci-vikendice/vajati-ivica-i-marica-banja-vrujci/">Vajati Ivica i Marica</a>
+        <a href="/banja-vrujci-vikendice/vikendica-bane-banja-vrujci/">Vikendica Bane</a>
+      </div>
+    </div>
     <div class="related-sites">
       <a href="https://www.banjavrujci.info" target="_blank" rel="noopener">www.banjavrujci.info</a>
       <a href="https://www.vrujci.org" target="_blank" rel="noopener">www.vrujci.org</a>
@@ -275,77 +348,8 @@
     </div>
   </div>
 
-  <aside class="sidebar">
-    <div class="sb-section">
-      <div class="sb-title">Smeštaj Banja Vrujci</div>
-      <ul class="sb-links">
-        <li><a href="/banja-vrujci-smestaj/">&#9776; Sav smeštaj</a></li>
-        <li><a href="/apartmani-banja-vrujci/">Apartmani</a></li>
-        <li><a href="/banja-vrujci-vile/">Vile</a></li>
-        <li><a href="/banja-vrujci-hoteli/">Hoteli</a></li>
-        <li><a href="/banja-vrujci-privatni-smestaj/">Privatni Smeštaj</a></li>
-        <li><a href="/banja-vrujci-vikendice/">Vikendice</a></li>
-        <li><a href="/banja-vrujci-sobe/">Sobe</a></li>
-      </ul>
-    </div>
-    <div class="sb-section">
-      <div class="sb-title">Info Servis</div>
-      <ul class="sb-links">
-        <li><a href="/info-servis/vreme/">Vreme</a></li>
-        <li><a href="/info-servis/video/">Video</a></li>
-        <li><a href="/info-servis/kontakt-info/">Kontakt</a></li>
-        <li><a href="/info-servis/linkovi-partnera/">Linkovi</a></li>
-        <li><a href="/banja-vrujci-smestaj-mapa/">Mapa smeštaja</a></li>
-      </ul>
-    </div>
-    <div class="sb-banner">
-      <a href="/apartmani-banja-vrujci/apartmani-pakic-banja-vrujci/">
-        <img src="/Apartmani_Pakic_Baner.jpg" alt="Apartmani Pakić Banja Vrujci" loading="lazy">
-      </a>
-      <a class="sb-phone" href="tel:+38162428859">062 42 88 59</a>
-    </div>
-    <div class="sb-banner">
-      <a href="/banja-vrujci-vile/vila-sofija/">
-        <img src="/Vila_Sofija_Baner.jpg" alt="Vila Sofija Banja Vrujci" loading="lazy">
-      </a>
-      <a class="sb-phone" href="tel:+381641441441">064 144 1441</a>
-    </div>
-    <div class="sb-banner">
-      <a href="/banja-vrujci-vile/vila-jelena/">
-        <img src="/Vila_Jelena_Baner.jpg" alt="Vila Jelena Banja Vrujci" loading="lazy">
-      </a>
-      <a class="sb-phone" href="tel:+381644242202">064 42 42 202</a>
-    </div>
-    <div class="sb-banner">
-      <a href="/apartmani-banja-vrujci/apartman-lux-banja-vrujci/">
-        <img src="/Stefan_Panorama_Baner.jpg" alt="Stefan Panorama Apartmani Spa Banja Vrujci" loading="lazy">
-      </a>
-      <a class="sb-phone" href="tel:+381613096448">061 30 96 448</a>
-    </div>
-    <div class="sb-banner">
-      <a href="/banja-vrujci-vile/vila-petra/">
-        <img src="/Vila_Petra_Baner.jpg" alt="Vila i Brvnara Petra Banja Vrujci" loading="lazy">
-      </a>
-      <a class="sb-phone" href="tel:+381643315996">064 33 15 996</a>
-    </div>
-    <div class="sb-banner">
-      <a href="/apartmani-banja-vrujci/">
-        <img src="/Banja_Vrujci_Apartmani_Bela.jpg" alt="Apartmani Bela Banja Vrujci" loading="lazy">
-      </a>
-    </div>
-  </aside>
   </div><!-- /.page-layout -->
 </div>
-<script>
-(function(){
-  var s=document.querySelector('aside.sidebar');
-  if(!s)return;
-  var b=Array.from(s.querySelectorAll('.sb-banner'));
-  for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}
-  var first=s.querySelector('.sb-section');
-  b.forEach(function(el){s.insertBefore(el,first);});
-})();
-</script>
 
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
