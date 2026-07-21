@@ -496,7 +496,7 @@
       if (item.latitude && item.longitude) schema.geo = { "@type": "GeoCoordinates", "latitude": item.latitude, "longitude": item.longitude };
       document.getElementById('schema-ld').textContent = JSON.stringify(schema);
 
-      document.getElementById('item-description').textContent = item.description || item.excerpt || '';
+      document.getElementById('item-description').innerHTML = item.description || item.excerpt || '';
 
       if (item.price_text) { document.getElementById('item-price').textContent = item.price_text; document.getElementById('row-price').style.display = ''; }
       if (item.address) { document.getElementById('item-address').textContent = item.address; document.getElementById('row-address').style.display = ''; }
