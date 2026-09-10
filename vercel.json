@@ -1,7 +1,9 @@
 {
   "trailingSlash": true,
   "redirects": [
-    { "source": "/sitemap.xml", "destination": "/api/sitemap", "permanent": false },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap", "permanent": true },
+    { "source": "/banja-vrujci-vile/vila-iva/", "destination": "/banja-vrujci-vile/", "permanent": true },
+    { "source": "/apartmani-banja-vrujci/vila-ana-banja-vrujci/", "destination": "/apartmani-banja-vrujci/", "permanent": true },
     { "source": "/banja-vrujci-privatni-smestaj/kuca-davidovic-banja-vrujci/", "destination": "/", "permanent": true },
     { "source": "/apartmani-banja-vrujci/apartman-comfort-banja-vrujci/", "destination": "/", "permanent": true },
     { "source": "/apartmani-banja-vrujci/apartmani-nikola-banja-vrujci/", "destination": "/", "permanent": true },

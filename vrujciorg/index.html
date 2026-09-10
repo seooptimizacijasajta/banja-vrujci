@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · vrujci.org</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f1f5f9;color:#1e293b;font-size:14px}
+a{color:#2563eb}
+
+/* LOGIN */
+#loginPage{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1e3a5f,#2563eb)}
+.login-box{background:#fff;border-radius:12px;padding:40px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center}
+.login-box h1{font-size:22px;margin-bottom:6px;color:#1e3a5f}
+.login-box p{color:#64748b;margin-bottom:24px;font-size:13px}
+.login-box input{width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:15px;margin-bottom:12px}
+.login-box button{width:100%;padding:11px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;font-weight:600}
+.login-box button:hover{background:#1d4ed8}
+#loginErr{color:#ef4444;font-size:13px;margin-top:8px;min-height:18px}
+
+/* HEADER */
+header{background:#1e3a5f;color:#fff;display:flex;align-items:center;gap:16px;padding:0 20px;height:52px;position:sticky;top:0;z-index:100}
+header .logo{font-weight:700;font-size:16px;margin-right:8px;white-space:nowrap}
+.tab-btn{background:none;border:none;color:rgba(255,255,255,.7);padding:8px 14px;cursor:pointer;font-size:14px;border-bottom:3px solid transparent;height:52px}
+.tab-btn:hover{color:#fff}
+.tab-btn.active{color:#fff;border-bottom-color:#60a5fa}
+header .spacer{flex:1}
+.btn-logout{background:rgba(255,255,255,.15);border:none;color:#fff;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:13px}
+.btn-logout:hover{background:rgba(255,255,255,.25)}
+
+/* CONTENT */
+.tab-content{padding:20px;max-width:1400px;margin:0 auto}
+
+/* TOOLBAR */
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.toolbar select,.toolbar input[type=text]{padding:7px 10px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;font-size:13px}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:6px;border:none;cursor:pointer;font-size:13px;font-weight:500}
+.btn-primary{background:#2563eb;color:#fff}.btn-primary:hover{background:#1d4ed8}
+.btn-danger{background:#ef4444;color:#fff}.btn-danger:hover{background:#dc2626}
+.btn-sm{padding:4px 9px;font-size:12px;border-radius:5px;border:none;cursor:pointer;background:#e2e8f0;color:#374151}.btn-sm:hover{background:#cbd5e1}
+.btn-icon{background:none;border:none;cursor:pointer;padding:4px;font-size:16px;line-height:1}
+
+/* TABLE */
+.table-wrap{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:auto}
+table{width:100%;border-collapse:collapse}
+th{background:#f8fafc;padding:10px 12px;text-align:left;font-size:12px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f8fafc}
+tr.row-featured td{background:#fffbeb}
+tr.row-homepage td{background:#f0fdf4}
+
+/* TOGGLE */
+.toggle{position:relative;display:inline-block;width:38px;height:20px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle span{position:absolute;inset:0;background:#cbd5e1;border-radius:20px;transition:.2s}
+.toggle span::before{content:'';position:absolute;width:16px;height:16px;border-radius:50%;left:2px;top:2px;background:#fff;transition:.2s}
+.toggle input:checked + span{background:#2563eb}
+.toggle.gold input:checked + span{background:#f59e0b}
+.toggle.green input:checked + span{background:#22c55e}
+.toggle input:checked + span::before{transform:translateX(18px)}
+
+/* BADGES */
+.badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600}
+.badge-featured{background:#fef3c7;color:#92400e}
+.badge-home{background:#dcfce7;color:#166534}
+.badge-draft{background:#fee2e2;color:#991b1b}
+
+/* NUM INPUT */
+input[type=number].inline{width:58px;padding:3px 6px;border:1px solid #e2e8f0;border-radius:4px;font-size:13px}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.overlay[hidden]{display:none}
+.modal{background:#fff;border-radius:12px;width:100%;max-width:800px;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto}
+.modal-header{display:flex;align-items:center;padding:16px 20px;border-bottom:1px solid #e2e8f0;gap:10px}
+.modal-header h2{flex:1;font-size:16px}
+.modal-body{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.modal-body .full{grid-column:1/-1}
+.modal-footer{padding:14px 20px;border-top:1px solid #e2e8f0;display:flex;gap:10px;justify-content:flex-end}
+label.field{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#475569}
+label.field input,label.field select,label.field textarea{padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px;font-family:inherit;color:#1e293b}
+label.field textarea{resize:vertical;min-height:80px}
+label.field input[type=checkbox]{width:18px;height:18px;cursor:pointer}
+.field-row{display:flex;gap:10px;align-items:flex-end}
+
+/* RICH TEXT EDITOR */
+.rte-wrap{grid-column:1/-1}
+.rte-toolbar{display:flex;gap:4px;flex-wrap:wrap;padding:6px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-bottom:none;border-radius:6px 6px 0 0}
+.rte-toolbar button{padding:4px 8px;border:1px solid #e2e8f0;border-radius:4px;background:#fff;cursor:pointer;font-size:12px;font-weight:500}
+.rte-toolbar button:hover{background:#e2e8f0}
+.rte-editor{min-height:200px;padding:12px;border:1px solid #e2e8f0;border-radius:0 0 6px 6px;background:#fff;outline:none;font-size:14px;line-height:1.6}
+.rte-editor h2{font-size:18px;margin:10px 0 6px}
+.rte-editor h3{font-size:15px;margin:8px 0 4px}
+.rte-editor ul,ol{padding-left:20px}
+
+/* GALLERY */
+.gallery-wrap{grid-column:1/-1}
+.gallery-items{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.gallery-item{position:relative;width:100px;height:80px;border-radius:6px;overflow:hidden;border:1px solid #e2e8f0}
+.gallery-item img{width:100%;height:100%;object-fit:cover}
+.gallery-item .del-img{position:absolute;top:2px;right:2px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.upload-zone{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100px;height:80px;border:2px dashed #cbd5e1;border-radius:6px;cursor:pointer;color:#94a3b8;font-size:11px;text-align:center;gap:3px}
+.upload-zone:hover{border-color:#2563eb;color:#2563eb}
+input[type=file].hidden-file{display:none}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;padding:12px 18px;border-radius:8px;color:#fff;font-size:13px;font-weight:500;z-index:999;animation:fadeIn .2s}
+.toast.ok{background:#22c55e}
+.toast.err{background:#ef4444}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* SPINNER */
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid #e2e8f0;border-top-color:#2563eb;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="login-box">
+    <h1>vrujci.org</h1>
+    <p>Admin panel</p>
+    <form onsubmit="doLogin(event)">
+      <input type="password" id="pwd" placeholder="Lozinka" autocomplete="current-password" required>
+      <button type="submit">Prijava</button>
+    </form>
+    <div id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminPage" hidden>
+  <header>
+    <span class="logo">vrujci.org</span>
+    <button class="tab-btn active" id="btnListings" onclick="showTab('listings')">🏠 Smeštaj</button>
+    <button class="tab-btn" id="btnPages" onclick="showTab('pages')">📄 Stranice</button>
+    <button class="tab-btn" id="btnPosts" onclick="showTab('posts')">✍️ Blog</button>
+    <span class="spacer"></span>
+    <button class="btn-logout" onclick="doLogout()">Odjava</button>
+  </header>
+
+  <!-- LISTINGS TAB -->
+  <div class="tab-content" id="tabListings">
+    <div class="toolbar">
+      <select id="filterCat" onchange="renderListings()">
+        <option value="">Sve kategorije</option>
+        <option>Vile</option><option>Apartmani</option><option>Hoteli</option>
+        <option>Privatni smeštaj</option><option>Vikendice</option><option>Sobe</option>
+      </select>
+      <input type="text" id="filterQ" placeholder="Pretraži naziv…" oninput="renderListings()" style="width:200px">
+      <span id="listingsSpinner" class="spinner" hidden></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Naziv</th><th>Kategorija</th>
+          <th title="Objavljen">Obj.</th>
+          <th title="Izdvojen u kategoriji (zlato = aktivno). Broj = redosled izdvojenih.">⭐ Izdvojen</th>
+          <th title="Prikazati na naslovnoj strani">🏠 Naslovna</th>
+          <th title="Redosled u kategoriji">Red.</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="listingsBody"><tr><td colspan="8" style="text-align:center;padding:30px;color:#94a3b8">Učitavanje…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PAGES TAB -->
+  <div class="tab-content" id="tabPages" hidden>
+    <div class="toolbar">
+      <button class="btn btn-primary" onclick="openModal('page', null)">+ Nova stranica</button>
+      <span id="pagesSpinner" class="spinner" hidden></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Naslov</th><th>Slug</th><th>Obj.</th><th>Red.</th><th></th></tr></thead>
+        <tbody id="pagesBody"><tr><td colspan="6" style="text-align:center;padding:30px;color:#94a3b8">Učitavanje…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- POSTS TAB -->
+  <div class="tab-content" id="tabPosts" hidden>
+    <div class="toolbar">
+      <button class="btn btn-primary" onclick="openModal('post', null)">+ Novi post</button>
+      <span id="postsSpinner" class="spinner" hidden></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Naslov</th><th>Slug</th><th>Obj.</th><th>Datum</th><th></th></tr></thead>
+        <tbody id="postsBody"><tr><td colspan="6" style="text-align:center;padding:30px;color:#94a3b8">Učitavanje…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="overlay" id="modal" hidden onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Uredi</h2>
+      <button class="btn-icon" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn" style="background:#f1f5f9" onclick="closeModal()">Odustani</button>
+      <button class="btn btn-danger" id="modalDeleteBtn" onclick="deleteRecord()" style="margin-right:auto">Obriši</button>
+      <button class="btn btn-primary" onclick="saveModal()">💾 Sačuvaj</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" class="hidden-file" id="mainImgFile" accept="image/*,video/*" onchange="uploadMainImg(this)">
+<input type="file" class="hidden-file" id="galleryFile" accept="image/*" onchange="uploadGalleryImg(this)">
+
+<script>
+const SB_URL = 'https://eckotcmqbpoftcseqzsa.supabase.co'
+const SB_KEY = 'sb_publishable_0NrJlQyn97I7v6IKCLVUdw_uzvKVA4U'
+const STORAGE_BASE = `${SB_URL}/storage/v1/object/public/vrujci-media`
+const ADMIN_PASS = 'vrujci2024' // ← Promenite lozinku ovde!
+
+let sb, currentTab = 'listings', modalType = null, modalId = null
+let allListings = [], allPages = [], allPosts = [], galleryUrls = []
+
+// ── AUTH ──────────────────────────────────────────────────────────────────
+function doLogin(e) {
+  e.preventDefault()
+  if (document.getElementById('pwd').value === ADMIN_PASS) {
+    sessionStorage.setItem('vrujci_admin', '1')
+    document.getElementById('loginPage').style.display = 'none'
+    document.getElementById('adminPage').hidden = false
+    sb = supabase.createClient(SB_URL, SB_KEY)
+    loadTab('listings')
+  } else {
+    document.getElementById('loginErr').textContent = 'Pogrešna lozinka!'
+  }
+}
+function doLogout() {
+  sessionStorage.removeItem('vrujci_admin')
+  location.reload()
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────────
+function showTab(tab) {
+  currentTab = tab
+  document.querySelectorAll('.tab-content').forEach(el => el.hidden = true)
+  document.getElementById('tab' + cap(tab)).hidden = false
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
+  document.getElementById('btn' + cap(tab)).classList.add('active')
+  loadTab(tab)
+}
+function loadTab(tab) {
+  if (tab === 'listings') loadListings()
+  else if (tab === 'pages') loadPages()
+  else if (tab === 'posts') loadPosts()
+}
+
+// ── LISTINGS ──────────────────────────────────────────────────────────────
+async function loadListings() {
+  spin('listings', true)
+  const { data, error } = await sb.from('listings').select('*').order('sort_order', { ascending: true })
+  spin('listings', false)
+  if (error) return toast('Greška pri učitavanju', true)
+  allListings = data || []
+  renderListings()
+}
+function renderListings() {
+  const cat = document.getElementById('filterCat').value
+  const q = document.getElementById('filterQ').value.toLowerCase()
+  let items = allListings.filter(l => (!cat || l.category === cat) && (!q || (l.title || '').toLowerCase().includes(q)))
+  document.getElementById('listingsBody').innerHTML = items.length ? items.map(l => `
+    <tr class="${l.featured ? 'row-featured' : l.homepage_featured ? 'row-homepage' : ''}">
+      <td style="color:#94a3b8">${l.id}</td>
+      <td><strong>${esc(l.title)}</strong>
+        ${l.featured ? '<span class="badge badge-featured">⭐ Izdvojen</span>' : ''}
+        ${l.homepage_featured ? '<span class="badge badge-home">🏠 Naslovna</span>' : ''}
+        ${!l.published ? '<span class="badge badge-draft">Draft</span>' : ''}
+      </td>
+      <td style="color:#64748b">${esc(l.category)}</td>
+      <td><label class="toggle"><input type="checkbox" ${l.published ? 'checked' : ''} onchange="patchField('listings',${l.id},'published',this.checked,allListings)"><span></span></label></td>
+      <td style="display:flex;align-items:center;gap:6px">
+        <label class="toggle gold"><input type="checkbox" ${l.featured ? 'checked' : ''} onchange="patchField('listings',${l.id},'featured',this.checked,allListings)"><span></span></label>
+        <input type="number" class="inline" value="${l.featured_order ?? 999}" min="1" max="999" title="Pozicija izdvojenog (1=prvi)" onchange="patchField('listings',${l.id},'featured_order',+this.value,allListings)">
+      </td>
+      <td><label class="toggle green"><input type="checkbox" ${l.homepage_featured ? 'checked' : ''} onchange="patchField('listings',${l.id},'homepage_featured',this.checked,allListings)"><span></span></label>
+        <input type="number" class="inline" value="${l.homepage_order ?? 999}" min="1" max="999" title="Pozicija na naslovnoj" onchange="patchField('listings',${l.id},'homepage_order',+this.value,allListings)">
+      </td>
+      <td><input type="number" class="inline" value="${l.sort_order ?? 0}" onchange="patchField('listings',${l.id},'sort_order',+this.value,allListings)"></td>
+      <td><button class="btn-sm" onclick="openModal('listing',${l.id})">✏️ Uredi</button></td>
+    </tr>`).join('') : '<tr><td colspan="8" style="text-align:center;padding:20px;color:#94a3b8">Nema rezultata</td></tr>'
+}
+
+// ── PAGES ─────────────────────────────────────────────────────────────────
+async function loadPages() {
+  spin('pages', true)
+  const { data, error } = await sb.from('pages').select('*').order('sort_order', { ascending: true })
+  spin('pages', false)
+  if (error) return toast('Greška pri učitavanju', true)
+  allPages = data || []
+  document.getElementById('pagesBody').innerHTML = allPages.length ? allPages.map(p => `
+    <tr>
+      <td style="color:#94a3b8">${p.id}</td>
+      <td><strong>${esc(p.title)}</strong>${!p.published ? ' <span class="badge badge-draft">Draft</span>' : ''}</td>
+      <td style="color:#64748b;font-family:monospace">${esc(p.slug)}</td>
+      <td><label class="toggle"><input type="checkbox" ${p.published ? 'checked' : ''} onchange="patchField('pages',${p.id},'published',this.checked,allPages)"><span></span></label></td>
+      <td><input type="number" class="inline" value="${p.sort_order ?? 0}" onchange="patchField('pages',${p.id},'sort_order',+this.value,allPages)"></td>
+      <td><button class="btn-sm" onclick="openModal('page',${p.id})">✏️ Uredi</button></td>
+    </tr>`).join('') : '<tr><td colspan="6" style="text-align:center;padding:20px;color:#94a3b8">Nema stranica</td></tr>'
+}
+
+// ── POSTS ─────────────────────────────────────────────────────────────────
+async function loadPosts() {
+  spin('posts', true)
+  const { data, error } = await sb.from('posts').select('*').order('published_at', { ascending: false })
+  spin('posts', false)
+  if (error) return toast('Greška pri učitavanju', true)
+  allPosts = data || []
+  document.getElementById('postsBody').innerHTML = allPosts.length ? allPosts.map(p => `
+    <tr>
+      <td style="color:#94a3b8">${p.id}</td>
+      <td><strong>${esc(p.title)}</strong>${!(p.published ?? true) ? ' <span class="badge badge-draft">Draft</span>' : ''}</td>
+      <td style="color:#64748b;font-family:monospace">${esc(p.slug)}</td>
+      <td><label class="toggle"><input type="checkbox" ${(p.published ?? true) ? 'checked' : ''} onchange="patchField('posts',${p.id},'published',this.checked,allPosts)"><span></span></label></td>
+      <td style="color:#64748b">${p.published_at ? p.published_at.slice(0,10) : '-'}</td>
+      <td><button class="btn-sm" onclick="openModal('post',${p.id})">✏️ Uredi</button></td>
+    </tr>`).join('') : '<tr><td colspan="6" style="text-align:center;padding:20px;color:#94a3b8">Nema postova</td></tr>'
+}
+
+// ── PATCH SINGLE FIELD ────────────────────────────────────────────────────
+async function patchField(table, id, field, value, arr) {
+  const { error } = await sb.from(table).update({ [field]: value, updated_at: new Date().toISOString() }).eq('id', id)
+  if (error) { toast('Greška: ' + error.message, true); return }
+  const rec = arr.find(r => r.id === id)
+  if (rec) rec[field] = value
+  toast('Sačuvano ✓')
+  if (table === 'listings') renderListings()
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────
+function openModal(type, id) {
+  modalType = type; modalId = id
+  document.getElementById('modal').hidden = false
+  document.getElementById('modalDeleteBtn').hidden = !id
+  const rec = id ? getRecord(type, id) : {}
+  galleryUrls = Array.isArray(rec.gallery_images) ? [...rec.gallery_images] : []
+  document.getElementById('modalTitle').textContent = id ? `Uredi ${typeLabel(type)}` : `Nova ${typeLabel(type)}`
+
+  if (type === 'listing') renderListingModal(rec)
+  else if (type === 'page') renderPageModal(rec)
+  else renderPostModal(rec)
+}
+function closeModal() { document.getElementById('modal').hidden = true }
+function getRecord(type, id) {
+  if (type === 'listing') return allListings.find(r => r.id === id) || {}
+  if (type === 'page') return allPages.find(r => r.id === id) || {}
+  return allPosts.find(r => r.id === id) || {}
+}
+
+function renderListingModal(r) {
+  document.getElementById('modalBody').innerHTML = `
+    <label class="field"><span>Naziv</span><input id="f_title" value="${esc(r.title||'')}"></label>
+    <label class="field"><span>Slug</span><input id="f_slug" value="${esc(r.slug||'')}" placeholder="npr. apartmani-ana-banja-vrujci"></label>
+    <label class="field"><span>Kategorija</span>
+      <select id="f_category">${['Vile','Apartmani','Hoteli','Privatni smeštaj','Vikendice','Sobe'].map(c=>`<option ${r.category===c?'selected':''}>${c}</option>`).join('')}</select>
+    </label>
+    <label class="field"><span>Telefon</span><input id="f_phone" value="${esc(r.phone||'')}"></label>
+    <label class="field"><span>Adresa</span><input id="f_address" value="${esc(r.address||'')}"></label>
+    <label class="field"><span>Cena (tekst)</span><input id="f_price_text" value="${esc(r.price_text||'')}"></label>
+    <label class="field"><span>Redosled u kategoriji</span><input type="number" id="f_sort_order" value="${r.sort_order??0}"></label>
+    <label class="field"><span>Meta Title</span><input id="f_meta_title" value="${esc(r.meta_title||'')}"></label>
+    <label class="field full"><span>Meta Description</span><input id="f_meta_description" value="${esc(r.meta_description||'')}"></label>
+    <label class="field full"><span>Kratki opis (excerpt)</span><textarea id="f_excerpt" rows="3">${esc(r.excerpt||'')}</textarea></label>
+    <div class="full rte-wrap"><div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:4px">Opis (HTML)</div>${rteHtml('f_content', r.description||'')}</div>
+
+    <div class="full"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-size:12px;font-weight:600;color:#475569">Glavna slika</span>
+      <button class="btn-sm" onclick="document.getElementById('mainImgFile').click()">📁 Upload</button>
+    </div>
+    <input class="field" id="f_image_url" value="${esc(r.image_url||'')}" placeholder="URL slike" style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px;margin-bottom:8px">
+    ${r.image_url ? `<img src="${esc(r.image_url)}" style="height:80px;border-radius:6px;object-fit:cover" onerror="this.style.display='none'">` : ''}
+    </div>
+
+    <label class="field full"><span>Video URL (YouTube embed ili direktni link)</span><input id="f_video_url" value="${esc(r.video_url||'')}" placeholder="https://www.youtube.com/embed/..."></label>
+
+    <div class="gallery-wrap full"><div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:4px">Galerija slika</div>
+      <div class="gallery-items" id="galleryItems"></div>
+    </div>
+
+    <div class="full" style="display:flex;gap:20px;align-items:center;padding:10px;background:#f8fafc;border-radius:8px">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="f_published" ${r.published!==false?'checked':''} style="width:16px;height:16px"> Objavljen
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="f_featured" ${r.featured?'checked':''} style="width:16px;height:16px"> ⭐ Izdvojen u kategoriji
+        <input type="number" id="f_featured_order" value="${r.featured_order??1}" min="1" max="99" style="width:50px;padding:3px 6px;border:1px solid #e2e8f0;border-radius:4px" title="Pozicija (1=prvi)">
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="f_homepage_featured" ${r.homepage_featured?'checked':''} style="width:16px;height:16px"> 🏠 Na naslovnoj
+        <input type="number" id="f_homepage_order" value="${r.homepage_order??1}" min="1" max="99" style="width:50px;padding:3px 6px;border:1px solid #e2e8f0;border-radius:4px" title="Pozicija na naslovnoj">
+      </label>
+    </div>
+  `
+  renderGallery()
+}
+
+function renderPageModal(r) {
+  document.getElementById('modalBody').innerHTML = `
+    <label class="field"><span>Naslov</span><input id="f_title" value="${esc(r.title||'')}"></label>
+    <label class="field"><span>Slug</span><input id="f_slug" value="${esc(r.slug||'')}" placeholder="npr. o-nama"></label>
+    <label class="field"><span>Redosled</span><input type="number" id="f_sort_order" value="${r.sort_order??0}"></label>
+    <label class="field"><span>Meta Title</span><input id="f_meta_title" value="${esc(r.meta_title||'')}"></label>
+    <label class="field full"><span>Meta Description</span><input id="f_meta_description" value="${esc(r.meta_description||'')}"></label>
+    <div class="full rte-wrap"><div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:4px">Sadržaj (HTML)</div>${rteHtml('f_content', r.content||'')}</div>
+    <div class="full"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-size:12px;font-weight:600;color:#475569">Slika</span>
+      <button class="btn-sm" onclick="document.getElementById('mainImgFile').click()">📁 Upload</button>
+    </div>
+    <input id="f_image_url" value="${esc(r.image_url||'')}" placeholder="URL slike" style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px">
+    </div>
+    <label class="field full"><span>Video URL</span><input id="f_video_url" value="${esc(r.video_url||'')}" placeholder="YouTube embed URL"></label>
+    <div class="gallery-wrap full"><div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:4px">Galerija slika</div>
+      <div class="gallery-items" id="galleryItems"></div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;grid-column:1/-1">
+      <input type="checkbox" id="f_published" ${r.published!==false?'checked':''} style="width:16px;height:16px"> Objavljeno
+    </label>
+  `
+  renderGallery()
+}
+
+function renderPostModal(r) {
+  document.getElementById('modalBody').innerHTML = `
+    <label class="field"><span>Naslov</span><input id="f_title" value="${esc(r.title||'')}"></label>
+    <label class="field"><span>Slug</span><input id="f_slug" value="${esc(r.slug||'')}" placeholder="npr. top-10-atrakcija"></label>
+    <label class="field"><span>Datum objave</span><input type="date" id="f_published_at" value="${(r.published_at||new Date().toISOString()).slice(0,10)}"></label>
+    <label class="field"><span>Meta Title</span><input id="f_meta_title" value="${esc(r.meta_title||'')}"></label>
+    <label class="field full"><span>Meta Description</span><input id="f_meta_description" value="${esc(r.meta_description||'')}"></label>
+    <label class="field full"><span>Excerpt (kratak opis)</span><textarea id="f_excerpt" rows="2">${esc(r.excerpt||'')}</textarea></label>
+    <div class="full rte-wrap"><div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:4px">Sadržaj (HTML)</div>${rteHtml('f_content', r.content||'')}</div>
+    <div class="full"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-size:12px;font-weight:600;color:#475569">Naslovna slika</span>
+      <button class="btn-sm" onclick="document.getElementById('mainImgFile').click()">📁 Upload</button>
+    </div>
+    <input id="f_image_url" value="${esc(r.image_url||'')}" placeholder="URL slike" style="width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px">
+    </div>
+    <label class="field full"><span>Video URL</span><input id="f_video_url" value="${esc(r.video_url||'')}" placeholder="YouTube embed URL"></label>
+    <div class="gallery-wrap full"><div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:4px">Galerija slika</div>
+      <div class="gallery-items" id="galleryItems"></div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;grid-column:1/-1">
+      <input type="checkbox" id="f_published" ${(r.published??true)?'checked':''} style="width:16px;height:16px"> Objavljeno
+    </label>
+  `
+  renderGallery()
+}
+
+// ── SAVE MODAL ────────────────────────────────────────────────────────────
+async function saveModal() {
+  const title = document.getElementById('f_title')?.value?.trim()
+  if (!title) { toast('Unesite naziv!', true); return }
+
+  let payload = {}
+  const v = id => document.getElementById(id)?.value ?? null
+  const b = id => document.getElementById(id)?.checked ?? false
+
+  payload.title = title
+  payload.slug = v('f_slug') || slugify(title)
+  payload.meta_title = v('f_meta_title')
+  payload.meta_description = v('f_meta_description')
+  payload.image_url = v('f_image_url')
+  payload.video_url = v('f_video_url')
+  payload.gallery_images = galleryUrls
+  payload.published = b('f_published')
+  payload.updated_at = new Date().toISOString()
+
+  if (modalType === 'listing') {
+    payload.category = v('f_category')
+    payload.phone = v('f_phone')
+    payload.address = v('f_address')
+    payload.price_text = v('f_price_text')
+    payload.sort_order = parseInt(v('f_sort_order')) || 0
+    payload.excerpt = v('f_excerpt')
+    payload.description = document.getElementById('f_content')?.innerHTML || ''
+    payload.featured = b('f_featured')
+    payload.featured_order = parseInt(v('f_featured_order')) || 999
+    payload.homepage_featured = b('f_homepage_featured')
+    payload.homepage_order = parseInt(v('f_homepage_order')) || 999
+  } else if (modalType === 'page') {
+    payload.content = document.getElementById('f_content')?.innerHTML || ''
+    payload.seo_text = payload.content
+    payload.sort_order = parseInt(v('f_sort_order')) || 0
+  } else {
+    payload.content = document.getElementById('f_content')?.innerHTML || ''
+    payload.excerpt = v('f_excerpt')
+    payload.published_at = v('f_published_at') ? new Date(v('f_published_at')).toISOString() : new Date().toISOString()
+  }
+
+  const table = modalType === 'listing' ? 'listings' : modalType === 'page' ? 'pages' : 'posts'
+  let error
+  if (modalId) {
+    ({ error } = await sb.from(table).update(payload).eq('id', modalId))
+  } else {
+    ({ error } = await sb.from(table).insert(payload))
+  }
+  if (error) { toast('Greška: ' + error.message, true); return }
+  toast('Sačuvano! ✓')
+  closeModal()
+  loadTab(currentTab)
+}
+
+// ── DELETE ────────────────────────────────────────────────────────────────
+async function deleteRecord() {
+  if (!modalId) return
+  if (!confirm('Obrisati? Ova akcija je trajna.')) return
+  const table = modalType === 'listing' ? 'listings' : modalType === 'page' ? 'pages' : 'posts'
+  const { error } = await sb.from(table).delete().eq('id', modalId)
+  if (error) { toast('Greška: ' + error.message, true); return }
+  toast('Obrisano!')
+  closeModal()
+  loadTab(currentTab)
+}
+
+// ── IMAGE UPLOAD ──────────────────────────────────────────────────────────
+async function uploadMainImg(input) {
+  const file = input.files[0]; if (!file) return
+  toast('Uploading…')
+  const path = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`
+  const { data, error } = await sb.storage.from('vrujci-media').upload(path, file, { upsert: true })
+  if (error) { toast('Upload greška: ' + error.message, true); return }
+  const url = `${STORAGE_BASE}/${path}`
+  const el = document.getElementById('f_image_url')
+  if (el) el.value = url
+  toast('Slika uploadovana ✓')
+  input.value = ''
+}
+
+async function uploadGalleryImg(input) {
+  const file = input.files[0]; if (!file) return
+  toast('Uploading…')
+  const path = `gallery/${Date.now()}-${file.name.replace(/\s+/g, '-')}`
+  const { data, error } = await sb.storage.from('vrujci-media').upload(path, file, { upsert: true })
+  if (error) { toast('Upload greška: ' + error.message, true); return }
+  galleryUrls.push(`${STORAGE_BASE}/${path}`)
+  renderGallery()
+  toast('Slika dodata ✓')
+  input.value = ''
+}
+
+function renderGallery() {
+  const wrap = document.getElementById('galleryItems')
+  if (!wrap) return
+  wrap.innerHTML = galleryUrls.map((url, i) => `
+    <div class="gallery-item">
+      <img src="${esc(url)}" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'80\'><rect fill=\'%23e2e8f0\' width=\'100\' height=\'80\'/></svg>'">
+      <button class="del-img" onclick="removeGalleryImg(${i})">✕</button>
+    </div>`).join('') +
+    `<div class="upload-zone" onclick="document.getElementById('galleryFile').click()">
+      <span style="font-size:20px">+</span><span>Dodaj sliku</span>
+    </div>`
+}
+function removeGalleryImg(i) { galleryUrls.splice(i, 1); renderGallery() }
+
+// ── RICH TEXT EDITOR ──────────────────────────────────────────────────────
+function rteHtml(id, content) {
+  return `<div class="rte-toolbar">
+    <button type="button" onclick="rteCmd('bold')"><b>B</b></button>
+    <button type="button" onclick="rteCmd('italic')"><i>I</i></button>
+    <button type="button" onclick="rteCmd('formatBlock','h2')">H2</button>
+    <button type="button" onclick="rteCmd('formatBlock','h3')">H3</button>
+    <button type="button" onclick="rteCmd('insertUnorderedList')">• Lista</button>
+    <button type="button" onclick="rteCmd('insertOrderedList')">1. Lista</button>
+    <button type="button" onclick="rteLink()">🔗 Link</button>
+    <button type="button" onclick="rteCmd('removeFormat')">Tx</button>
+  </div>
+  <div class="rte-editor" id="${id}" contenteditable="true">${content}</div>`
+}
+function rteCmd(cmd, val) { document.execCommand(cmd, false, val || null) }
+function rteLink() {
+  const url = prompt('URL linka:')
+  if (url) document.execCommand('createLink', false, url)
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1) }
+function esc(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
+function slugify(s) { return s.toLowerCase().replace(/[čć]/g,'c').replace(/[šš]/g,'s').replace(/[žž]/g,'z').replace(/đ/g,'dj').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') }
+function typeLabel(t) { return t==='listing'?'smeštaj':t==='page'?'stranicu':'post' }
+function spin(tab, on) { const el = document.getElementById(tab+'Spinner'); if(el) el.hidden = !on }
+function toast(msg, err) {
+  const el = document.createElement('div')
+  el.className = 'toast ' + (err ? 'err' : 'ok')
+  el.textContent = msg
+  document.body.appendChild(el)
+  setTimeout(() => el.remove(), 2800)
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+if (sessionStorage.getItem('vrujci_admin') === '1') {
+  document.getElementById('loginPage').style.display = 'none'
+  document.getElementById('adminPage').hidden = false
+  sb = supabase.createClient(SB_URL, SB_KEY)
+  loadTab('listings')
+}
+</script>
+</body>
+</html>

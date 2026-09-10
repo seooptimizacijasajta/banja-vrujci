@@ -40,10 +40,11 @@ function date(ts) { return ts ? ts.slice(0, 10) : undefined; }
 
 module.exports = async (_req, res) => {
   try {
-    const [listings, pages, categories] = await Promise.all([
+    const [listings, pages, categories, posts] = await Promise.all([
       sb('listings?select=slug,category,updated_at&published=eq.true&order=sort_order.asc,id.asc'),
       sb('pages?select=slug,updated_at&published=eq.true&order=sort_order.asc,id.asc'),
       sb('categories?select=slug,updated_at&order=sort_order.asc'),
+      sb('posts?select=slug,published_at&order=published_at.desc'),
     ]);
 
     const urls = [];
@@ -62,20 +63,33 @@ module.exports = async (_req, res) => {
       urls.push(url(`${BASE}/${cat.slug}/`, { priority: '0.8', changefreq: 'weekly', lastmod: date(cat.updated_at) }));
     }
 
-    // ── Individual listing pages
+    // ── Individual listing pages (skip category hub slugs — they ARE the category pages)
+    const catSlugsSet = new Set(Object.values(CAT_SLUGS));
     for (const l of listings) {
       const catSlug = CAT_SLUGS[l.category];
       if (!catSlug) continue;
+      if (catSlugsSet.has(l.slug)) continue; // skip hub listings (slug = category URL)
       urls.push(url(`${BASE}/${catSlug}/${l.slug}/`, { priority: '0.7', changefreq: 'monthly', lastmod: date(l.updated_at) }));
     }
 
     // ── Info-servis pages
+    const SKIP_PAGES = new Set(['banja-vrujci-smestaj', 'banja-vrujci-smestaj-mapa']);
     for (const p of pages) {
-      if (p.slug === 'banja-vrujci-smestaj' || p.slug === 'banja-vrujci-smestaj-mapa') continue; // already added above
-      const loc = INFO_SERVIS_PAGES.has(p.slug)
-        ? `${BASE}/info-servis/${p.slug}/`
-        : `${BASE}/${p.slug}/`;
+      if (SKIP_PAGES.has(p.slug)) continue; // already added above
+      let loc;
+      if (p.slug === 'info-servis') {
+        loc = `${BASE}/info-servis/`; // the index itself
+      } else if (INFO_SERVIS_PAGES.has(p.slug)) {
+        loc = `${BASE}/info-servis/${p.slug}/`;
+      } else {
+        loc = `${BASE}/${p.slug}/`;
+      }
       urls.push(url(loc, { priority: '0.6', changefreq: 'monthly', lastmod: date(p.updated_at) }));
+    }
+
+    // ── Blog posts
+    for (const p of posts) {
+      urls.push(url(`${BASE}/blog/${p.slug}/`, { priority: '0.6', changefreq: 'monthly', lastmod: date(p.published_at) }));
     }
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>

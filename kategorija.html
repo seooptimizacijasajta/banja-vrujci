@@ -79,6 +79,11 @@
   .post .bv-tag a { color: #2c8aa6; }
   .bv-link { display: inline-block; margin-top: 10px; font-size: 12.5px; color: #2c8aa6; border: 1px solid #bfe0ea; border-radius: 3px; padding: 6px 12px; }
   .bv-link:hover { background: #eef8fb; }
+  .post.post-featured { border: 2px solid #f0901e; border-radius: 4px; overflow: hidden; background: #fffdf7; }
+  .post-img-wrap { position: relative; }
+  .feat-badge { position: absolute; top: 8px; left: 8px; background: #f0901e; color: #fff; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: .5px; z-index: 2; pointer-events: none; }
+  .post.post-featured h4 a { font-weight: bold; }
+  .post.post-featured .bv-link { border-color: #f0901e; color: #f0901e; }
 
   .page-seo { padding: 10px 28px 30px; font-size: 13px; line-height: 1.85; color: #5a5a5a; }
   .page-seo h2 { color: #f0901e; font-size: 18px; margin: 0 0 14px; font-weight: bold; }
@@ -332,13 +337,22 @@
       grid.innerHTML = '<p style="padding:20px;color:#888;grid-column:1/-1;">Trenutno nema smeštaja u ovoj kategoriji.</p>';
       return;
     }
+    // Sort: featured first (by featured_order), then rest (by sort_order)
+    rows.sort((a, b) => {
+      const af = a.featured ? (a.featured_order ?? 999) : 99999;
+      const bf = b.featured ? (b.featured_order ?? 999) : 99999;
+      if (af !== bf) return af - bf;
+      return (a.sort_order ?? 0) - (b.sort_order ?? 0);
+    });
     grid.innerHTML = '';
     rows.forEach(row => {
       const card = document.createElement('div');
-      card.className = 'post';
-      const media = row.image_url
-        ? `<a href="${esc(row.href)}"><img src="${esc(row.image_url)}" loading="lazy"></a>`
-        : `<a href="${esc(row.href)}"><div class="ph">${esc(row.category)}</div></a>`;
+      card.className = 'post' + (row.featured ? ' post-featured' : '');
+      const badge = row.featured ? '<span class="feat-badge">⭐ Izdvojeno</span>' : '';
+      const img = row.image_url
+        ? `<img src="${esc(row.image_url)}" loading="lazy">`
+        : `<div class="ph">${esc(row.category)}</div>`;
+      const media = `<a href="${esc(row.href)}"><div class="post-img-wrap">${badge}${img}</div></a>`;
       const excerpt = row.excerpt ? `<p>${esc(row.excerpt)}</p>` : '';
       const bvTag = bvUrl ? `<span class="bv-tag"><a href="${esc(bvUrl)}" target="_blank" rel="noopener">i na banjavrujci.info &#8599;</a></span>` : '';
       card.innerHTML = `${media}<h4><a href="${esc(row.href)}">${esc(row.title)}</a></h4>${excerpt}${bvTag}`;

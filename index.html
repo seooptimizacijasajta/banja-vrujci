@@ -572,6 +572,21 @@
     });
   }
 
+  function renderHomepageFeatured(rows){
+    if (!rows || !rows.length) return; // keep static banners as fallback
+    const wrap = document.querySelector('.ad-banners');
+    if (!wrap) return;
+    wrap.innerHTML = rows.map(r => {
+      const phone = r.phone ? `<a class="ad-mid-phone" href="tel:${esc(r.phone)}">${esc(r.phone)}</a>` : '';
+      return `<div class="ad-banner-wrap">
+        <a class="ad-banner" href="${esc(r.href)}">
+          <img src="${esc(r.image_url || '')}" alt="${esc(r.title)}" loading="lazy">
+        </a>
+        ${phone}
+      </div>`;
+    }).join('');
+  }
+
   function renderMenu(rows){
     if (!rows || !rows.length) return;
     const tops = rows.filter(r => !r.parent_id).sort((a,b)=>a.sort_order-b.sort_order);
@@ -696,6 +711,18 @@
     document.getElementById('posts-grid').innerHTML =
       '<p style="padding:20px;color:#b33;grid-column:1/-1;">Greška pri učitavanju smeštaja iz baze.</p>';
     console.error(err);
+  }
+
+  try {
+    const { data: featData } = await supabase
+      .from('listings')
+      .select('id,title,href,image_url,phone')
+      .eq('homepage_featured', true)
+      .eq('published', true)
+      .order('homepage_order', { ascending: true });
+    renderHomepageFeatured(featData);
+  } catch (err) {
+    console.error('homepage_featured load failed', err);
   }
 
   try {
